@@ -1,0 +1,7 @@
+node_modules/
+uploauds/
+!uploads./.placeholder
+/.env
+eslintrc.js
+dbconnection.txt
+.DS_Store
