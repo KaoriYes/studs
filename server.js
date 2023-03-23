@@ -33,7 +33,7 @@ const collection = database.collection("col_studs");
 const database = client.db("studsdb");
 const collection = database.collection("col_thema");
 
-//col voor users
+//col voor de users
 const database = client.db("studsdb");
 const collection = database.collection("col_users");
 
