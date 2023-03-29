@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>filter</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <main>
+        <!--h1 is de titel-->
+        <h1>Zoek je vak</h1>
+        <!-- Filter toevoegen -->
+        <p>Gebruik de filter hieronder</p>
+        <form action="/filter" method="post">
+            <button type="submit" name="jaar" value="1">Jaar 1</button>
+            <button type="submit" name="jaar" value="2">Jaar 2</button>
+            <button type="submit" name="jaar" value="3">Jaar 3</button>
+        </form>
+
+        <!-- gaat spelers zoeken -->
+
+        <!-- Gevens uit database zichtbaar maken -->
+        <ul>
+            <% for(var i=0; i<vakken.length; i++) { %>
+                <li>
+                    <%= vakken[i] %>
+                </li>
+                <% } %>
+        </ul>
+    </main>
+
+</body>
+
+</html>
