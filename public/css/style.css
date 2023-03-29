@@ -31,19 +31,37 @@
     text-transform: uppercase;
   } */
   li{
-    background-color: blue; 
-    color: white; 
-    width:auto; 
-    text-align: center; 
-    padding: 2em; 
-    border-radius: 20px; 
-    text-transform: uppercase; 
-    display: inline-block; 
+    background-color: #714EB6;
+    opacity: 0.5;
+    color: white;
+    width: auto;
+    text-align: center;
+    padding: 4em;
+    border-radius: 20px;
+    text-transform: uppercase;
+    /* display: inline-block; */
     margin: 1em;
+    max-width: 6em;
+    min-width: 6em;
+    height: 5em;
+    display: flex;
+    /* flex-direction: row; */
+    /* flex-wrap: wrap; */
+    justify-content: center;
+    align-items: center;
   }
-  
+
   ul{
     padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  button{
+    background-color: #7353D1;
+    color: #ffffff;
+    padding: 1em;
+    border-radius: 2em;
   }
 
  
