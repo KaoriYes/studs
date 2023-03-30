@@ -46,6 +46,12 @@ app.get('/', (req, res) => {
     });
   });
   
+  app.post("/nextPage", (req, res) => {
+    const selectedVakken = req.body.selectedVakken;
+    res.render("nextPage.ejs", { selectedVakken });
+  });
+
+
 
 
 app.listen(port, function() {

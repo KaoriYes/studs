@@ -49,6 +49,18 @@
     /* flex-wrap: wrap; */
     justify-content: center;
     align-items: center;
+    transition: 0.5s;
+  }
+
+  li:hover{
+    opacity: 1 !important;
+    background-color: #1F0A46;
+    transition: 0.5s;
+  }
+
+  li.selected {
+    background-color: #1F0A46;
+    opacity: 1 !important;
   }
 
   ul{
@@ -58,7 +70,7 @@
   }
 
 li:first-of-type{
-    opacity: 0.5;
+    opacity: 0.45;
 }
 
 
@@ -72,6 +84,12 @@ li:first-of-type{
 
   button:hover{
     background-color: #390088;
+  }
+
+  .next{
+    position: absolute;
+    top: 7em;
+    right: 10em;
   }
 
   section{
