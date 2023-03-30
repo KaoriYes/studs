@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include ('head.ejs') %>
+
+<body>
+  <main>
+    <section>
+      <section style="background-color: <%=  theme.backgroundColor%>" class="leftmainsection">
+        <img src="/uploads/<%= theme.images%>" alt="Hexside Symbol Logo">
+        <img src="/img/hexside-logo.png" alt="Hexside Title Card">
+        <h1>Welcome, <b>Admin</b></h1>
+        <ul>
+          <li>Coven Theme Builder</li>
+          <li>Settings</li>
+          <li>Servers</li>
+          <li>Log</li>
+          <li>Magic Curriculum</li>
+
+        </ul>
+      </section>
+      <section>
+        <a onclick="location.href='/';">Reset to default</a>
+        <a>+ Add New Theme</a>
+        <% col_thema.forEach(function(theme){ %>
+        <a href="/col_thema/<%= theme._id %>"
+          style=" font-size: 13px; text-decoration:none; text-align: center; display:flex; background-color: <%= theme.backgroundColor %>">
+          <img src="/uploads/<%= theme.images %>" alt="<%= theme.name %> thumbnail" width="40" height="40">
+          <span style="margin: 10px 10px;"><%= theme.name %></span>
+        </a>
+        <% }); %>
+
+      </section>
+
+      <%- include ('form2.ejs') %>
+
+
+      <section>
+        <h2>Template Example</h2>
+        <section style="background-color: <%=  theme.backgroundColor%>" class="rightmainsection">
+          <h3 style="font-family: <%= theme.fontFamily %>; color: <%= theme.textColor %>;" class="welcomefont">Welcome
+            to Hexside Magical School!</h3>
+          <img src="/uploads/<%= theme.images%>" alt="Hexside Symbol Logo">
+          <p id="character-name" style="writing-mode: horizontal-tb; font-family: <%= theme.fontFamily %>; color: <%= theme.textColor %>;" class="textfont">
+            Are you a young witch or other magical being looking to hone your skills and unleash your
+            full potential? Look no further than Hexside, the premier school for magic on The Boiling Isles!
+            <br><br>
+            <%= randomQuote %>
+          </p>                  
+        </section>
+      </section>
+    </section>
+    
+  </main>
+  <footer>
+  </footer>
+</body>
+
+</html>

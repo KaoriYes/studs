@@ -1,26 +1,475 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+SC&family=Alegreya:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Playfair+Display+SC:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap');
 
 
-@font-face {
-    font-family: 'Montserrat', sans-serif;
-    src: url('Montserrat-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+body {
+    margin: 0;
+    overflow-y: hidden;
 }
 
-@font-face {
-    font-family: 'Roboto', sans-serif;
-    src: url('Roboto-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: white;
+    animation-name: magic;
+    animation-duration: .5s;
+    z-index: 9;
+    animation-fill-mode: forwards;
+    pointer-events: none;
 }
 
-@font-face {
-    font-family: 'Open Sans', sans-serif;
-    src: url('Open-sans-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+header { 
+    display: flex;
+    box-shadow: black 2px;
+    position: sticky;
+    z-index: 1;
+
+}
+
+header nav { 
+    background-color: rgb(255, 255, 255);
+    box-shadow: #3900882f 2px 2px 20px;
+}
+
+header nav img { 
+    width: 10%;
+    margin-left: 4em;
+    margin-top: 1.5em;
+    padding-bottom: 1em;
+}
+section {
+    display: flex;
+}
+
+section section:first-of-type {
+    flex-direction: column;
+    background-color: white;
+    height: 764px;
+    width: 20%;
+    padding: 10px;
+    box-shadow: #3900882f 2px 10px 20px;
+}
+
+section section:first-of-type img {
+    width: 70%;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+section section:first-of-type ul {
+    list-style-type: none;
+    color: black;
+    text-align: center;
+    padding: 0;
+}
+
+
+section section:first-of-type h1 {
+    color: #7353D1;
+    text-align: center;
+    padding: 0;
+    margin-bottom: 0;
+    font-family: 'poppins';
+    font-size: 1.5em;
+    font-weight: 600;
+    margin-top: 0;
+}
+
+section section:first-of-type h2 {
+    color: black;
+    text-align: center;
+    padding: 0;
+    margin-bottom: 0;
+    font-family: 'poppins';
+    font-size: 1em;
+    margin: 0;
+    font-weight: 500;
+
+}
+
+section section:first-of-type li {
+    margin-bottom: 1em;
+    text-transform: capitalize;
+    font-family: 'poppins';
+
+}
+
+section section:first-of-type li:first-of-type {
+    font-weight: 500;
+}
+
+
+
+section section:nth-of-type(2) {
+    flex-direction: column;
+    background: #d3bbff;
+    width: 15%;
+    overflow: hidden;
+    height: 785px;
+    border-right: solid #390088 0.4em;
+    border-left: solid #390088 0.4em;
+
+
+}
+
+section section:nth-of-type(2) a:first-of-type {
+    background-color: transparent;
+    border: none;
+    color: #7353D1;
+    transition: 0.5s;
+    border-bottom: white 1px solid;
+    font-weight: 700;
+    padding: 1em;
+    text-align: center;
+    font-family: 'poppins';
+    font-weight: 500;
+
+}
+
+section section:nth-of-type(2) a:nth-of-type(2) {
+    background-color: transparent;
+    border: none;
+    color: #7353D1;
+    transition: 0.5s;
+    border-bottom: white 1px solid;
+    font-weight: 700;
+    padding: 1em;
+    text-align: center;
+    font-family: 'poppins';
+    font-weight: 500;
+}
+
+section section:nth-of-type(2) a {
+    background-color: transparent;
+    border: none;
+    color: white;
+    transition: 0.5s;
+    border-bottom: white 1px solid;
+    font-family: 'Playfair Display SC', serif;
+    font-weight: 700;
+    padding: 1em;
+    text-align: center;
+}
+
+
+
+section section:nth-of-type(2) div {
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    height: 60%;
+    width: 100%;
+}
+
+section section:nth-of-type(2) div button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    transition: 0.5s;
+    border-bottom: white 1px solid;
+    font-family: 'Playfair Display SC', serif;
+    font-weight: 700;
+    padding: 1em;
+}
+
+section section:nth-of-type(2) a:nth-of-type(1):hover {
+    background-color: #120418;
+    color: #d289ff;
+    transition: 0.5s;
+    font-size: 1em;
+}
+
+section section:nth-of-type(2) a:nth-of-type(2):hover {
+    background-color: #120418;
+    color: #d289ff;
+    transition: 0.5s;
+    font-size: 1em;
+}
+
+form {
+    margin-top: 3.5em;
+    width: 24%;
+    margin-left: 3em;
+    margin-right: 0em;
+}
+
+
+
+.done {
+    margin-top: 4em;
+    width: 24%;
+    margin-left: 3em;
+    margin-right: 0em;
+}
+
+.done li {
+    list-style-type: none;
+    margin-top: 1em;
+
+}
+
+.done li:last-of-type {
+    list-style-type: none;
+    margin-top: 1em;
+    margin-bottom: 2em;
+
+}
+
+.done button {
+    padding: 1em 3em 1em 3em;
+    border: none;
+    color: red;
+    font-family: 'Alegreya SC', serif;
+    transition: 0.5s;
+    border: 1px solid #ccc;
+
+
+}
+
+.done button:hover {
+    padding: 1em 3em 1em 3em;
+    border: none;
+    color: white;
+    background-color: red;
+    font-family: 'Alegreya SC', serif;
+    box-shadow: red 0px 10px 50px;
+    transition: 0.5s;
+
+}
+
+form img {
+    width: 80%;
+}
+
+
+label {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Alegreya SC', serif;
+    font-weight: 700;
+
+}
+
+input[type="file"] {
+    display: none;
+}
+
+label:nth-of-type(5) {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 10px 12px;
+    cursor: pointer;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    text-align: center;
+    transition: 0.5s;
+    width: 61%;
+}
+
+label:nth-of-type(5):hover {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 10px 12px;
+    cursor: pointer;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    text-align: center;
+    color: white;
+    transition: 0.5s;
+    background-color: rgb(25, 23, 51);
+}
+
+form input:last-of-type {
+    padding: 1.5em;
+    color: white;
+    background-color: #281A3B;
+    border: none;
+    width: 66.6%;
+    font-family: 'Playfair Display SC', serif;
+    font-weight: 500;
+
+
+}
+
+form button {
+    width: 68%;
+    padding: 1.5em;
+    background-color: white;
+    color: #281A3B;
+    font-family: 'Playfair Display SC', serif;
+    font-weight: 900;
+    font-size: 1em;
+    transition: 0.5s;
+    border: 1px solid #ccc;
+}
+
+form button:hover {
+    width: 68%;
+    padding: 1.5em;
+    background-color: rgb(208, 0, 208);
+    color: white;
+    font-family: 'Playfair Display SC', serif;
+    font-weight: 900;
+    font-size: 1em;
+    transition: 0.5s;
+    box-shadow: rgb(208, 0, 208) 0px 10px 50px;
+    border: none;
+
+}
+
+form input:nth-of-type(2) {
+    width: 300px;
+    height: 300px;
+}
+
+section section:nth-of-type(3) {
+    display: inline-block;
+    margin: 0;
+
+}
+
+section section:nth-of-type(3) section {
+    background-color: #E7E0FD;
+    border-left: 1px solid;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.059);
+    width: 500px;
+    height: 100%;
+    margin: 0;
+}
+
+section section:nth-of-type(3) h2 {
+    text-align: center;
+    font-family: 'Alegreya SC', serif;
+
+}
+
+section section:nth-of-type(3) h3 {
+    text-align: center;
+    font-family: 'Alegreya SC', serif;
+
+}
+
+section section:nth-of-type(3) img {
+    width: 50%;
+    margin: 0 auto 0 auto;
+}
+
+section section:nth-of-type(3) p {
+    padding: 0 1em 0 1em;
+    text-align: center;
+    font-family: 'Alegreya SC', serif;
+    font-size: 13px;
+
+}
+
+img {
+    transition: 1s ease-out;
+}
+
+.leftmainsection,
+.rightmainsection {
+    transition: background-color 1s ease-out;
+}
+
+.leftmainsection {
+    background-color: white;
+}
+
+.rightmainsection {
+    background-color: white;
+    border-right: none;
+}
+
+
+
+.magic-effect {
+    background-color: white;
+    opacity: 0;
+    animation-name: magic;
+    animation-delay: 1s;
+    animation-duration: 2s;
+    display: none;
+    /* Hide the page until the animation completes */
+}
+
+@keyframes magic {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.error-body {
+    background-color: #000000;
+}
+
+.h1-404 {
+    font-size: 6rem;
+    font-weight: bold text-stroke 2px white;
+    color: rgb(255, 255, 255);
+    font-size: 2000%;
+    margin: 0;
+    text-align: center;
+    margin-top: 0.3em;
+    text-shadow: 0 0 50px rgb(109, 28, 180);
+  }
+  
+  .h1-404 span {
+    display: inline-block;
+    animation: float 1s ease-out forwards;
+    animation-iteration-count: infinite;
+    animation-direction: alternate-reverse;
+    margin-left: auto;
+    margin-right: auto;
+
+  }
+  
+  .h1-404 span:nth-child(1) {
+    animation-duration: 0.8s;
+  }
+  
+  .h1-404 span:nth-child(2) {
+    animation-duration: 0.6s;
+  }
+  
+  .h1-404span:nth-child(3) {
+    animation-duration: 0.7s;
+  }
+  
+  @keyframes float {
+    0% {
+      transform: translateY(0) rotate(0);
+    }
+    50% {
+      transform: translateY(-20px) rotate(10deg);
+    }
+    100% {
+      transform: translateY(0) rotate(-10deg);
+    }
+  }
+
+
+.text-404 {
+    color: white;
+    text-align: center;
+    text-shadow: 0px 0 10px rgb(136, 0, 255);
+    font-size: 2em;
+    margin: 0;
+    margin-bottom: 1em
+}
+
+.error-body img { 
+    width: 10%;
+    margin-left: 45%;
+
 }
