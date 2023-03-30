@@ -6,43 +6,72 @@ const saltRounds = 10;
 require('dotenv').config();
 const port = 1337;
 
-
 app.use(express.static('static'));
-app.use(express.static(__dirname + '/public/'));
+var path = require('path');
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/img', express.static(path.join(__dirname, 'public/img')));
 app.set('view engine', 'ejs');
+
+
+//database verbinden
+const { MongoClient, ServerApiVersion } = require('mongodb');
+require('dotenv').config();
+const password = process.env.PASSWORD;
+const uri = "mongodb+srv://adminuser:" + password + "@studsdb.8yrtlny.mongodb.net/test";
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+
+//vakken datsase
+const databaseVakken = client.db("studsdb");
+const collectionVakken = databaseVakken.collection("col_vakken");
+
+const databaseUsers = client.db("studsdb");
+const collectionUsers = databaseUsers.collection("col_users");
+
+
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
     res.render('index.ejs', {title: 'Home'});
 });
 
-app.get('/student_register', (req, res) => {
-    res.render('student_registrer.ejs', {title: 'Student Register'});
+app.get('/preRegister', (req, res) => {
+    res.render('preRegister.ejs', {title: 'Register'});
 });
-app.get('/student_register_sa', (req, res) => {
-    res.render('sa_register', {title: 'Student Assistent Register'});
+app.get('/registerQuestion', (req, res) => {
+    res.render('registerQuestion.ejs', {title: 'Register'});
 });
-app.post('/submit', async (req, res) => {
+
+
+app.get('/studentRegister', (req, res) => {
+    res.render('studentRegistrer.ejs', {title: 'Student Register', subtitle: ''});
+});
+app.get('/saRegister', (req, res) => {
+res.render('saRegister', {title: 'Student Assistent Register', subtitle: ''});
+});
+app.post('/studentRegister', async (req, res) => {
   const name = req.body.name;
+  const surname = req.body.surname;
   const email = req.body.email;
   const password = req.body.password;
   const secondpassword = req.body.confirm_password;
   const leerjaar = req.body.leerjaar;
-  connectDB();
   if (password !== secondpassword) {
     res.locals.subtitle = 'Password does NOT match';
-    res.render('student_register.ejs');
+    res.render('studentRegister.ejs');
   } else {
     // res.render('submitted.ejs'); // Qt: this is for later..
     const hashedpw = await bcrypt.hash(password, saltRounds);
     var userdata = {
       name,
+      surname,
       hashedpw,
       email,
       leerjaar
       // no need for : value if key and value are the same
     };
-    db.collection('Users').insertOne(userdata, function (err, collection) {
+    collectionUsers.insertOne(userdata, function (err, collection) {
       if (err) throw err;
+      res.redirect('/');
       console.log('Record inserted Successfully');
     });
   }
@@ -55,7 +84,6 @@ app.post('/submit-sa', async (req, res) => {
   const secondpassword = req.body.confirm_password;
   const leerjaar = req.body.leerjaar;
   const richting = req.body.richting;
-  connectDB();
   if (password !== secondpassword) {
     res.locals.subtitle = 'Password does NOT match';
     res.render('student_register.ejs');
@@ -70,7 +98,7 @@ app.post('/submit-sa', async (req, res) => {
       richting
       // no need for : value if key and value are the same
     };
-    db.collection('Users').insertOne(userdata, function (err, collection) {
+    collectionUsers.insertOne(userdata, function (err, collection) {
       if (err) throw err;
       console.log('Record inserted Successfully');
     });
@@ -80,5 +108,8 @@ app.post('/submit-sa', async (req, res) => {
 
 
 app.listen(port, function() {
-    console.log('test');
+  collectionVakken.find({}).toArray().then((vakken) => {
+        const vaknamen = vakken.map((vak) => vak.naam);
+        console.log(vaknamen);
+    });
 });

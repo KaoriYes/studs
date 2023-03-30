@@ -1,19 +1,22 @@
 <%- include('header.ejs') %>
-        <section>
-            <h2>Nieuw bij StudS!</h2x>
-            <p>We gaan je helpen registeren om deel te maken van ons systeem! 
-                We willen wel eerst weten…
+<main>
+        <section class="questionStarterTop">
+            <h2>Nieuw bij StudS!</h2>
+            <p>We gaan je helpen registeren om deel te maken van ons systeem! We willen wel eerst weten…
             </p>
         </section>
-        <section>
+        <section class="registerStart">
             <h1>Meld jij je aan als student of student-assistent?</h1>
-            <a href="/student_register">
-                <img src="../public/img/student_img" alt="student">
-                Student
+            <div>
+            <a href="/studentRegister">
+                <img src="img/studentImg.svg" alt="student">
+                <span>Student</span>
             </a>
-            <a href="/student_register">
-                <img src="../public/img/student_assistent_img" alt="student">
-                Student-assistent
+            <a href="/studentRegister">
+                <img src="img/studentAssistentImg.svg" alt="student">
+                <span>Student-assistent</span>
             </a>
+            </div>
         </section>
+    </main>
     <%- include('footer.ejs') %>
