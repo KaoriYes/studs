@@ -32,8 +32,9 @@ app.get('/', (req, res) => {
   });
   
   app.get("/filter", (req, res) => {
-    collectionVakken.find({}).toArray().then((jaar) => {
-      res.render("filter.ejs", { jaar });
+    collectionVakken.find({}).toArray().then((vakken, jaar) => {
+        const vaknamen = vakken.map((vak) => vak.naam);
+        res.render("filter.ejs", { vakken: vaknamen, jaar });
     });
   });
   
