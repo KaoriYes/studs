@@ -37,7 +37,7 @@ app.get('/', (req, res) => {
         res.render("filter.ejs", { vakken: vaknamen, jaar });
     });
   });
-  
+   
   app.post("/filter", (req, res) => {
     const selectedJaar = req.body.jaar;
     collectionVakken.find({ jaar: selectedJaar }).toArray().then((vakken) => {

@@ -1,36 +1,103 @@
 @font-face {
-    font-family: 'Montserrat', sans-serif;
-    src: url('Montserrat-Regular.ttf') format('truetype');
+    font-family: 'Poppins';
+    src: url('Poppins-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Roboto', sans-serif;
-    src: url('Roboto-Regular.ttf') format('truetype');
-    font-weight: normal;
+    font-family: 'Poppins';
+    src: url('Poppins-SemiBold.ttf') format('truetype');
+    font-weight: bold;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Open Sans', sans-serif;
-    src: url('Open-sans-Regular.ttf') format('truetype');
-    font-weight: normal;
+    font-family: 'Poppins';
+    src: url('Poppins-Light.ttf') format('truetype');
+    font-weight: 400;
     font-style: normal;
     font-display: swap;
 }
 
-/* li {
-    display: inline-block;
-    background-color: #ccc;
-    padding: 2em;
-    margin: 1em;
-    border-radius: 1em;
-    text-transform: uppercase;
-  } */
-  li{
+@font-face {
+    font-family: 'Poppins';
+    src: url('Poppins-Thin.ttf') format('truetype');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    --font-main: 'Poppins', sans-serif;
+    --font-size-h1: 2em;
+    --font-size-h2: 1.5em;
+    --font-header-margin: 0.5em 0;
+    --font-weight-header: bold;
+    --font-color-header: #714EB6;
+    --font-size-body: .875em;
+    --font-color-body: #000000;
+    --font-weight-body: normal;
+    --background-color: #FFFFFF;
+    --font-form-p: #707070;
+    --font-form-p-margin: 0.25em 0;
+
+}
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: var(--font-main);
+    font-size: var(--font-size-body);
+    font-weight: var(--font-weight-body);
+    color: var(--font-color-body);
+    background-color: var(--background-color);
+}
+
+h1 {
+    font-size: var(--font-size-h1);
+    font-weight: var(--font-weight-header);
+    color: var(--font-color-header);
+    margin: var(--font-header-margin);
+}
+
+h2 {
+    font-size: var(--font-size-h2);
+    font-weight: var(--font-weight-header);
+    color: var(--font-color-header);
+    margin: var(--font-header-margin);
+}
+
+p {
+    font-size: var(--font-size-body);
+    font-weight: var(--font-weight-body);
+    color: var(--font-color-body);
+}
+
+form.vakken{
+    margin: 0;
+}
+form.vakken ul{
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: flex-start;
+    align-content: flex-start;
+  }
+
+ form.vakken ul li{
     background-color: #714EB6;
     opacity: 0.5;
     color: white;
@@ -41,9 +108,9 @@
     text-transform: uppercase;
     /* display: inline-block; */
     margin: 1em;
-    max-width: 6em;
-    min-width: 6em;
-    height: 5em;
+    max-width: 16em;
+    min-width: 16em;
+    height: 16em;
     display: flex;
     /* flex-direction: row; */
     /* flex-wrap: wrap; */
@@ -51,28 +118,29 @@
     align-items: center;
     transition: 0.5s;
   }
+ 
+  /* body main form.vakken ul li:nth-of-type(n){
+    opacity: calc(0.5 * (n / 20));
+  } */
 
-  li:hover{
+
+
+  form.vakken li:hover{
     opacity: 1 !important;
     background-color: #1F0A46;
     transition: 0.5s;
   }
 
-  li.selected {
+  form.vakken li.selected {
     background-color: #1F0A46;
     opacity: 1 !important;
   }
 
-  ul{
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-  }
+ 
 
-li:first-of-type{
+  form.vakken li:first-of-type{
     opacity: 0.45;
 }
-
 
   button{
     background-color: #7353D1;
@@ -80,19 +148,25 @@ li:first-of-type{
     padding: 1em;
     border-radius: 2em;
     margin-right: 3em;
+    border: none;
   }
 
   button:hover{
     background-color: #390088;
   }
 
+  button:active{
+    background-color: black;
+  }
+
   .next{
     position: absolute;
     top: 7em;
     right: 10em;
+    display: none;
   }
 
-  section{
+  main section{
     margin: 1em;
   }
 
@@ -110,4 +184,5 @@ li:first-of-type{
     display: block;
     color: #714EB6;
   }
+  
  
