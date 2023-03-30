@@ -57,11 +57,39 @@
     flex-wrap: wrap;
   }
 
+li:first-of-type{
+    opacity: 0.5;
+}
+
+
   button{
     background-color: #7353D1;
     color: #ffffff;
     padding: 1em;
     border-radius: 2em;
+    margin-right: 3em;
   }
 
+  button:hover{
+    background-color: #390088;
+  }
+
+  section{
+    margin: 1em;
+  }
+
+  p, form{
+    display: inline-block;
+    margin-right: 3em;
+  }
+
+
+  p:last-of-type{
+    display: block;
+  }
+
+  span{
+    display: block;
+    color: #714EB6;
+  }
  

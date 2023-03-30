@@ -14,15 +14,17 @@ app.use(methodOverride('_method'));
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//database
+//database verbinden
 const { MongoClient, ServerApiVersion } = require('mongodb');
 require('dotenv').config();
 const password = process.env.PASSWORD;
 const uri = "mongodb+srv://adminuser:" + password + "@studsdb.8yrtlny.mongodb.net/test";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
-const database = client.db("studsdb");
-const collection = database.collection("col_vakken");
+//vakken datsase
+const databaseVakken = client.db("studsdb");
+const collectionVakken = databaseVakken.collection("col_vakken");
+
 
 //homepage
 app.get('/', (req, res) => {
@@ -30,19 +32,20 @@ app.get('/', (req, res) => {
   });
   
   app.get("/filter", (req, res) => {
-    collection.find({}).toArray().then((jaar) => {
+    collectionVakken.find({}).toArray().then((jaar) => {
       res.render("filter.ejs", { jaar });
     });
   });
   
   app.post("/filter", (req, res) => {
     const selectedJaar = req.body.jaar;
-    collection.find({ jaar: selectedJaar }).toArray().then((vakken) => {
+    collectionVakken.find({ jaar: selectedJaar }).toArray().then((vakken) => {
       const vaknamen = vakken.map((vak) => vak.naam); // Extract name field
       res.render("filter.ejs", { vakken: vaknamen });
     });
   });
   
+
 
 app.listen(port, function() {
     console.log('test');
