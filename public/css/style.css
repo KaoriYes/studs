@@ -1,23 +1,16 @@
 @font-face {
-    font-family: 'Montserrat', sans-serif;
-    src: url('Montserrat-Regular.ttf') format('truetype');
+    font-family: 'Poppins', sans-serif;
+    src: url('Poppins-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Roboto', sans-serif;
-    src: url('Roboto-Regular.ttf') format('truetype');
-    font-weight: normal;
+    font-family: 'Poppins', sans-serif;
+    src: url('Poppins-SemiBold.ttf') format('truetype');
+    font-weight: bold;
     font-style: normal;
     font-display: swap;
 }
 
-@font-face {
-    font-family: 'Open Sans', sans-serif;
-    src: url('Open-sans-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}

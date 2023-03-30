@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/student_register', (req, res) => {
-    res.render('student_register', {title: 'Student Register'});
+    res.render('student_registrer.ejs', {title: 'Student Register'});
 });
 app.get('/student_register_sa', (req, res) => {
     res.render('sa_register', {title: 'Student Assistent Register'});
