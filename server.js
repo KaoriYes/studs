@@ -11,11 +11,13 @@ const port = 1337;
 app.use(express.static('static'));
 var path = require('path');
 app.use(express.static(path.join(__dirname, 'public')));
+
 app.use('/img', express.static(path.join(__dirname, 'public/img')));
 app.set('view engine', 'ejs');
 
 //database verbinden
 const { MongoClient, ServerApiVersion } = require('mongodb');
+const { addAbortSignal } = require('stream');
 require('dotenv').config();
 const uri = process.env.MONGODB_URI;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
@@ -26,6 +28,9 @@ const collectionVakken = databaseVakken.collection("col_vakken");
 //users database
 const databaseUsers = client.db("studsdb");
 const collectionUsers = databaseUsers.collection("col_users");
+
+const databaseSession = client.db("studsdb");
+const collectionSession = databaseUsers.collection("col_sessions");
 
 //session store
  const store = new MongoDBSession({ 
@@ -60,22 +65,20 @@ const checkLoggedin = (req, res, next) => {
   }
 };
 
-
-
-
-
-
-
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/', checkLogin, (req, res) => {
+app.get('/', checkLogin, async (req, res) => {
     res.render('index.ejs', {title: 'Home'});
-    console.log(session);
-    console.log(req.session.user);
-    console.log(store);
 });
 
-app.get('/preRegister', (req, res) => {
+app.get('/account', checkLogin, async (req, res) => {
+  const user = await collectionUsers.findOne({ id: req.session.email }); 
+  res.render('account.ejs', {
+    title: 'Account',
+    user
+});
+});
+app.get('/preRegister', checkLoggedin, (req, res) => {
     res.render('preRegister.ejs', {title: 'Register'});
 });
 app.get('/registerQuestion', (req, res) => {
@@ -99,11 +102,15 @@ app.post('/studentRegister', async (req, res) => {
   const password = req.body.password;
   const secondpassword = req.body.confirm_password;
   const leerjaar = req.body.leerjaar;
+
   if (password !== secondpassword) {
-    res.locals.subtitle = 'Password does NOT match';
-    res.render('studentRegister.ejs');
-  } else {
-res.redirect('/');// Qt: this is for later..
+    res.render('studentRegister.ejs', {title: 'Student Register', subtitle: 'Password does NOT match!'}); 
+  } 
+  else if ( !name || !surname || !email || !password || !secondpassword || !leerjaar){
+    res.render('studentRegistrer.ejs', {title: 'Student Register', subtitle: 'Please fill in all fields!'});
+  }  
+  else {
+    res.redirect('/');// Qt: this is for later..
     const hashedpw = await bcrypt.hash(password, saltRounds);
     var userdata = {
       name,
@@ -132,7 +139,7 @@ app.post('/submit-sa', async (req, res) => {
   const richting = req.body.richting;
   if (password !== secondpassword) {
     res.locals.subtitle = 'Password does NOT match';
-    res.render('student_register.ejs');
+    res.render('studentRegister.ejs');
   } else {
     res.redirect('/');
     const hashedpw = await bcrypt.hash(password, saltRounds);
@@ -173,7 +180,7 @@ app.post("/login", async (req, res) => {
                 }; 
                 req.session.save(); 
                 res.redirect("/"); 
-                console.log(session);
+                // console.log(session);
             } else { 
             // if password incorrect 
                 res.render("login", {
@@ -210,4 +217,6 @@ app.get("/logout", (req, res) => {
 
 app.listen(port, function() {
     console.log(`Server is running on port: ${port}`);
+     
+
 });

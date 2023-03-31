@@ -1,4 +1,5 @@
 <%- include('header.ejs') %>
+<main>
 <section class="studentLogin">
 <h1>
     Student bij StudS!
@@ -13,12 +14,12 @@
     <section class="questionStart">
         <h2>Wat is je naam?</h2>
         <input type="text" id="name" name="name">
-        <button class="forwardStart"><img src="../public/img/forward_arrow" alt="proceed"></button>
+        <!-- <button class="forwardStart"><img src="../public/img/forward_arrow" alt="proceed"></button> -->
     </section>
     <section class="questionSecond">
         <h2>Wat is je achternaam?</h2>
         <input type="text" id="surname" name="surname">
-        <button class="forwardSecond"><img src="../public/img/forward_arrow" alt="proceed"></button>
+        <!-- <button class="forwardSecond"><img src="../public/img/forward_arrow" alt="proceed"></button> -->
     </section>
     <section class="questionThird">
         <h2>Kies nu in welk leerjaar je zit:</h2>
@@ -34,20 +35,22 @@
             <input type="radio" name="leerjaar" id="leerJaar3" value="3">
             <span>3</span>
         </label>
-        <button class="forwardThird"><img src="../public/img/forward_arrow" alt="proceed"></button>
+        <!-- <button class="forwardThird"><img src="../public/img/forward_arrow" alt="proceed"></button> -->
     </section>
     <section class="questionFourth">
         <h2>Wat is je e-mailadres?</h2>
         <input type="email" id="email" name="email">
-        <button class="forwardFourth"><img src="../public/img/forward_arrow" alt="proceed"></button>
+        <!-- <button class="forwardFourth"><img src="../public/img/forward_arrow" alt="proceed"></button> -->
     </section>
     <section class="questionFifth">
         <h2>Wat is je wachtwoord</h2>
+        <div>
         <input type="password" id="password" name="password">
         <input type="password" id="confirm_password" name="confirm_password" placeholder="Herhaal Wachtwoord">
-        <button class="forwardFifth"><img src="../public/img/forward_arrow" alt="proceed"></button>
+        </div>
+        <!-- <button class="forwardFifth"><img src="../public/img/forward_arrow" alt="proceed"></button> -->
     </section>
-    <div class="progression">
+    <!-- <div class="progression">
         <ul>
             <li>Stap een</li>
             <li>Stap twee</li>
@@ -55,10 +58,11 @@
             <li>Stap vier</li>
             <li>Stap vijf</li>
         </ul>
-    </div>
+    </div> -->
 <input type="submit" value="Register">
 </form>
 
 </section>
+</main>
 <script src="/scripts/register.js"></script>
 <%- include ('footer.ejs') %>

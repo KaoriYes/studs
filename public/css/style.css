@@ -122,12 +122,22 @@ body main section.preRegister section button{
     font-size: 1.25;
     font-weight: 200;
 }
-body main section.preRegister section button:nth-of-type(1){
+body main section.preRegister section a:nth-of-type(1){
+    width: 100%;
+    height: 3em;
+    padding: 0.5em;
+    font-size: 1.25;
+    font-weight: 200;
     background-color: #FFFFFF;
     border: 1px solid #707070;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: #707070;
 
 }
-body main section.preRegister section button:nth-of-type(2){
+body main section.preRegister section button:nth-of-type(1){
     background-color: #4A58C4;
     border: none;
     color: #FFFFFF;
@@ -158,7 +168,7 @@ body main section.preRegister section span::after{
     top: 6px;
     right: -6.25em;
 }
-body main section.preRegister section a{
+body main section.preRegister section a:last-of-type{
     font-size: .875rem;
     color: var(--font-form-p);
     font-weight: 400;
@@ -240,6 +250,190 @@ body main section.registerStart a span{
 body main section.registerStart a img{
     width: 75%;
 }
+
+
+body main section.studentLogin{
+    width: 100dvw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1em;
+}
+body main section.studentLogin p{
+    max-width: 50%;
+    font-size: 1.25rem;
+    color: var(--font-form-p);
+    font-weight: 200;
+    margin: var(--font-form-p-margin);
+    text-align: center;
+}
+
+body main section.studentLogin form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1em;
+}
+body main section.studentLogin form section{
+    position: relative;
+    margin-top: 2em;
+}
+body main section.studentLogin form section h2{
+    font-size: var(--font-size-h2);
+    color: var(--font-color-header);
+    font-weight: bold;
+    margin: var(--font-form-p-margin);
+    text-align: center;
+}
+body main section.studentLogin form section input[type = "text"]{
+    width: 40em;
+    height: 3em;
+    padding: 0.25em;
+    font-size: 1.25;
+    font-weight: 200;
+    margin-top: 1em;
+    border: .125em solid var(--font-color-header);
+    border-radius: 2.5em;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 200;
+    color: var(--font-color-body);
+}
+
+body main section.studentLogin form section input[type="text"]:focus{
+    border: .25em solid var(--font-color-header);
+    outline: none;
+}
+body main section.studentLogin form section button{
+    position: absolute;
+    background-color: #714EB6;
+    border: none;
+    color: #FFFFFF;
+    padding: .5em;
+    font-size: 1.25;
+    border-radius: 2.5em;
+    opacity: .75;
+}
+body main section.studentLogin form section button:hover {
+    opacity: 1;
+}
+body main section.studentLogin form section:nth-of-type(1) button,
+body main section.studentLogin form section:nth-of-type(2) button,
+body main section.studentLogin form section:nth-of-type(4) button{
+    top: 4.3em;
+    right: 1em;
+}
+body main section.studentLogin form section:nth-of-type(5) button{
+    top: 9.2em;
+    right: 1em;
+}
+
+body main section.studentLogin form section:nth-of-type(3) label{
+    position: relative;
+}
+body main section.studentLogin form section:nth-of-type(3) label:nth-of-type(1){
+    margin-left: 4em;
+}
+body main section.studentLogin form section:nth-of-type(3) label input[type="radio"]{
+    border: .125em solid var(--font-color-header);
+    border-radius: 50%;
+    width: 4em;
+    height: 4em;
+    appearance: none;
+    
+}
+body main section.studentLogin form section:nth-of-type(3) label input[type="radio"]:checked {
+    border: .25em solid var(--font-color-header);
+    background-color: var(--font-color-header);
+}
+body main section.studentLogin form section:nth-of-type(3) label span{
+    position: absolute;
+    top: -.9em;
+    left: .55em;
+    font-size: 2rem;
+    color: var(--font-color-header);
+    z-index: -1;
+}
+
+
+body main section.studentLogin form section input[type="email"] {
+    width: 40em;
+    height: 3em;
+    padding: 0.25em;
+    font-size: 1.25;
+    font-weight: 200;
+    margin-top: 1em;
+    border: .125em solid var(--font-color-header);
+    border-radius: 2.5em;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 200;
+    color: var(--font-color-body);
+}
+
+body main section.studentLogin form section input[type="email"]:focus {
+    border: .25em solid var(--font-color-header);
+    outline: none;
+}
+
+
+body main section.studentLogin form section:nth-of-type(5) div{
+    display: flex;
+    flex-direction: column;
+
+}
+
+
+body main section.studentLogin form section input[type="password"] {
+    width: 40em;
+    height: 3em;
+    padding: 0.25em;
+    font-size: 1.25;
+    font-weight: 200;
+    margin-top: 1em;
+    border: .125em solid var(--font-color-header);
+    border-radius: 2.5em;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 200;
+    color: var(--font-color-body);
+}
+
+body main section.studentLogin form section input[type="password"]:focus {
+    border: .25em solid var(--font-color-header);
+    outline: none;
+}
+
+
+body main section.studentLogin form section:nth-of-type(3) label input[type="radio"]:checked + span{
+    color: #FFFFFF;
+    z-index: 1;
+}
+body main section.studentLogin form section:nth-of-type(3) button{
+    top: 7em;
+    left: calc(50% - 3em);
+}
+
+body main section.studentLogin form input[type="submit"] {
+background-color: #714EB6;
+border: none;
+color: #FFFFFF;
+padding: .5em;
+font-size: 1.5em;
+border-radius: 2.5em;
+opacity: .75;
+margin-top: 1em;
+margin-bottom: 1em;
+transition: 150ms ease-in-out;
+}
+body main section.studentLogin form input[type="submit"]:hover {
+opacity: 1;
+transform: scale(1.1);
+}
+
 
 @media (scripting: none) {
     .script-none {
