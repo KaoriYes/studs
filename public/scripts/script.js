@@ -1,25 +1,29 @@
-// Get all checkboxes with name "selectedVakken"
-const checkboxes = document.querySelectorAll('input[name="selectedVakken"]');
-const button = document.querySelector('.next');
+  const body = document.querySelector('body');
 
-// Loop over each checkbox and add event listener
-checkboxes.forEach(checkbox => {
-  checkbox.addEventListener('change', () => {
-    // Get the parent li element
-    const li = checkbox.parentNode.parentNode;
+  body.classList.add('hasJavascript');
+  // Get all checkboxes with name "selectedVakken"
+  const checkboxes = document.querySelectorAll('input[name="selectedVakken"]');
+  const button = document.querySelector('.next');
 
-    // Toggle the "selected" class on the li element
-    li.classList.toggle('selected');
+  // Loop over each checkbox and add event listener
+  checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', () => {
+      // Get the parent li element
+      const li = checkbox.parentNode.parentNode;
 
-    // Count the number of selected checkboxes
-    const selectedCount = document.querySelectorAll('input[name="selectedVakken"]:checked').length;
+      // Toggle the "selected" class on the li element
+      li.classList.toggle('selected');
 
-    // Toggle the visibility of the button based on the count
-    if (selectedCount < 2) {
-      button.style.display = 'none';
-    } else {
-      button.style.display = 'block';
-    }
+      // Count the number of selected checkboxes
+      const selectedCount = document.querySelectorAll('input[name="selectedVakken"]:checked').length;
+
+      // Toggle the visibility of the button based on the count
+      if (selectedCount < 2) {
+        button.style.display = 'none';
+      } else {
+        button.style.display = 'block';
+      }
+    });
   });
-});
 
+  

@@ -63,6 +63,26 @@ body {
     background-color: var(--background-color);
 }
 
+header { 
+  display: flex;
+  box-shadow: black 2px;
+  position: sticky;
+  z-index: 999;
+
+}
+
+header nav { 
+  background-color: rgb(255, 255, 255);
+  box-shadow: #3900882f 2px 2px 20px;
+}
+
+header nav img { 
+  width: 10%;
+  margin-left: 4em;
+  margin-top: 1.5em;
+  padding-bottom: 1em;
+}
+
 h1 {
     font-size: var(--font-size-h1);
     font-weight: var(--font-weight-header);
@@ -86,6 +106,7 @@ p {
 form.vakken{
     margin: 0;
 }
+
 form.vakken ul{
     padding: 0;
     margin-left: auto;
@@ -97,27 +118,37 @@ form.vakken ul{
     align-content: flex-start;
   }
 
- form.vakken ul li{
-    background-color: #714EB6;
+  .vakken li {
+    /* set default opacity */
     opacity: 0.5;
+    
+    /* set opacity based on position in list */
+    --min-opacity: 0.5;
+    --max-opacity: 1;
+    --var-opacity: calc(var(--max-opacity) - var(--min-opacity));
+    --opacity-increment: calc(var(--var-opacity) / (var(--n) - 1));
+    opacity: calc(var(--min-opacity) + var(--opacity-increment) * var(--i));
+    
+    /* other styles */
+    background-color: #714EB6;
     color: white;
     width: auto;
     text-align: center;
     padding: 4em;
     border-radius: 20px;
     text-transform: uppercase;
-    /* display: inline-block; */
     margin: 1em;
     max-width: 16em;
     min-width: 16em;
     height: 16em;
     display: flex;
-    /* flex-direction: row; */
-    /* flex-wrap: wrap; */
     justify-content: center;
     align-items: center;
     transition: 0.5s;
+    aspect-ratio: 1;
   }
+  
+  
  
   /* body main form.vakken ul li:nth-of-type(n){
     opacity: calc(0.5 * (n / 20));
@@ -159,12 +190,7 @@ form.vakken ul{
     background-color: black;
   }
 
-  .next{
-    position: absolute;
-    top: 7em;
-    right: 10em;
-    display: none;
-  }
+  
 
   main section{
     margin: 1em;
@@ -185,4 +211,16 @@ form.vakken ul{
     color: #714EB6;
   }
   
- 
+  .next{
+    position: absolute;
+    top: 7em;
+    right: 10em;
+    display: block;
+  }
+
+  body.hasJavascript .next{
+    position: absolute;
+    top: 7em;
+    right: 10em;
+    display: none;
+  }
