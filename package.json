@@ -1,0 +1,24 @@
+{
+  "name": "studs",
+  "version": "1.0.0",
+  "description": "Matching application for student and tutors",
+  "main": "server.js",
+  "scripts": {
+    "test": "",
+    "start": "node server.js",
+    "run": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KaoriYes/studs.git"
+  },
+  "author": "KaoriYes, AliAhmed205, svenzoutman, HibbaYT",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KaoriYes/studs/issues"
+  },
+  "homepage": "https://github.com/KaoriYes/studs#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3"
+  }
+}

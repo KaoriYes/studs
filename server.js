@@ -1,44 +1,52 @@
-const express = require('express');
+require("dotenv").config();
+
+const express = require("express");
 const app = express();
-const bodyParser = require('body-parser');
-const bcrypt = require('bcrypt');
+const bodyParser = require("body-parser");
+const bcrypt = require("bcrypt");
 const saltRounds = 10;
+const port = process.env.PORT;
 
-const port = 1337;
+app.use(express.static("static"));
+app.set("view engine", "ejs");
 
-
-app.use(express.static('static'));
-app.set('view engine', 'ejs');
-
-app.get('/', (req, res) => {
-    res.send('test');
+app.get("/", (req, res) => {
+  res.send("test");
 });
 
 //database
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion } = require("mongodb");
 
 //password in env
-require('dotenv').config();
 const password = process.env.PASSWORD;
 
 //url om te verbinden
-const uri = "mongodb+srv://adminuser:" + password + "@studsdb.8yrtlny.mongodb.net/?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+const uri =
+  "mongodb+srv://adminuser:" +
+  password +
+  "@studsdb.8yrtlny.mongodb.net/?retryWrites=true&w=majority";
+const client = new MongoClient(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverApi: ServerApiVersion.v1,
+});
 
-//col voor de studenten
-const database = client.db("studsdb");
-const collection = database.collection("col_studs");
+//col voor de studs
+const databaseStuds = client.db("studsdb");
+const collectionStuds = databaseStuds.collection("col_studs");
 
-//col voor thema
-const database = client.db("studsdb");
-const collection = database.collection("col_thema");
+// route voor matchpage
+const studsSchema = {
+  studsnaam: "string",
+  studsleerjaar: "string",
+  vakken: "array",
+};
 
-//col voor de users
-const database = client.db("studsdb");
-const collection = database.collection("col_users");
+app.get("/matchpage", async (req, res) => {
+  const studs = await collectionStuds.find().toArray();
+  res.render("MatchPage.ejs", { studs: studs });
+});
 
-
-
-app.listen(port, function() {
-    console.log('test');
+app.listen(port, function () {
+  console.log(port);
 });
