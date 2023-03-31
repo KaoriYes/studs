@@ -48,9 +48,29 @@ app.get('/', (req, res) => {
   
   app.post("/nextPage", (req, res) => {
     const selectedVakken = req.body.selectedVakken;
-    res.render("nextPage.ejs", { selectedVakken });
-  });
+    let errorMessage = "";
+  
+    // Check if at least two checkboxes are selected
+    if (!selectedVakken || selectedVakken.length < 2) {
+      collectionVakken.find({}).toArray().then((vakken, jaar) => {
+        const vaknamen = vakken.map((vak) => vak.naam);
+      errorMessage = "Selecteer minstens 2 vakken.";
+      res.render("filter.ejs", { vakken: vaknamen, errorMessage: errorMessage });
+      console.log(errorMessage)
+      });
+    }
+    // Render the next page or the same page with an error message
+     else if (errorMessage) {
+      const errorMessage = "Selecteer minstens 2 vakken.";
+      res.render("filter.ejs", { vakken: vaknamen, erroMessage: errorMessage });
+      console.log(errorMessage)
 
+    } else {
+      res.render("nextPage.ejs", { selectedVakken });
+    }
+  });
+  
+  
 
 
 

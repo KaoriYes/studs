@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>filter</title>
     <link rel="stylesheet" href="/css/style.css">
-
 </head>
 
 <body>
@@ -16,36 +15,39 @@
             <section>
                 <!-- Filter toevoegen -->
                 <p>Ufuk Argun,<span>Leerjaar 2</span></p>
-
                 <form action="/filter" method="post">
                     <button type="submit" name="jaar" value="1">Leerjaar 1</button>
                     <button type="submit" name="jaar" value="2">Leerjaar 2</button>
                     <button type="submit" name="jaar" value="3">Leerjaar 3</button>
                 </form>
-
                 <p>Kies de vakken waar je graag hulp bij wilt:</p>
             </section>
 
+            <% if (locals.errorMessage) { %>
+                <p class="error">
+                    <%= locals.errorMessage %>
+                </p>
+                <% } %>
 
-            <!-- gaat spelers zoeken -->
+                    <form action="/nextPage" method="post" class="vakken">
+                        <ul class="vakken">
+                            <% for (var i=0; i < vakken.length; i++) { %>
+                                <li style="--n: <%= vakken.length %>; --i: <%= i %>;">
+                                    <label>
+                                        <input type="checkbox" name="selectedVakken" value="<%= vakken[i] %>" hidden>
+                                        <%= vakken[i] %>
+                                    </label>
+                                </li>
+                                <% } %>
+                        </ul>
+                        <button type="submit" class="next">--></button>
+                    </form>
 
-            <!-- Gevens uit database zichtbaar maken -->
-            <form action="/nextPage" method="post" class="vakken">
-                <ul class="vakken">
-                    <% for (var i=0; i < vakken.length; i++) { %>
-                        <li style="--n: <%= vakken.length %>; --i: <%= i %>;">
-                            <label>
-                                <input type="checkbox" name="selectedVakken" value="<%= vakken[i] %>"
-                                    style="display:none">
-                                <%= vakken[i] %>
-                            </label>
-                        </li>
-                        <% } %>
-                </ul>
-                <button type="submit" class="next">--></button>
-            </form>
+
+
+
+                    <script src="../scripts/script.js"></script>
         </main>
-        <script src="../scripts/script.js"></script>
 </body>
 
 </html>

@@ -211,6 +211,11 @@ form.vakken ul{
     color: #714EB6;
   }
   
+  .error{
+    margin-left: 0.5em;
+font-size: 2em;
+  }
+
   .next{
     position: absolute;
     top: 7em;
