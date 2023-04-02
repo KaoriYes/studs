@@ -20,7 +20,6 @@ app.use('/public/', express.static('./public'));
 app.use(express.static(__dirname + '/public'));
 app.use(methodOverride('_method'));
 
-
 // In-memory store for themes
 let col_thema = [];
 let randomQuote;
@@ -65,11 +64,33 @@ async function insertTheme(theme) {
 
 
 
-
-
-
-
-
+app.post('/submit-form', upload.single('image'), async (req, res) => {
+  console.log('Your coven theme has been uploaded, huzzah!')
+  console.log(req.file)
+  const { body, file } = req;
+  const theme = {
+    _id: body.id,
+    name: body.name, 
+    backgroundColor: body.color,
+    fontFamily: body.font,
+    textColor: body['font-color'],
+    images:  file.filename,
+    thumbnailUrl: `/public/uploads/${file.filename}`
+  };
+  
+  try {
+    await insertTheme(theme);
+    try {
+      const renderData = await collection.find({}).toArray();
+      res.render('theme-builder2', { col_thema: renderData , theme, randomQuote });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Failed to retrieve themes');
+    }
+  } catch (err) {
+    res.status(500).send({ error: 'Failed to save theme' });
+  }
+});
 
 app.get('/', async (req, res) => {
   if (!collection) {
@@ -108,8 +129,6 @@ app.get('/col_thema/:themeID', async (req, res) => {
 
 
 
-
-
 app.delete('/col_thema/:themeID', async (req, res) => {
   try {
     if (!collection) {
@@ -134,9 +153,6 @@ app.get('/col_thema/:id', async (req, res) => {
   res.render('theme-builder2', { theme, col_thema });
 });
 
-app.get('*', function(req, res){
-  res.render('404.ejs');
-});
 
 
 app.get('/form', (req, res) => {
@@ -150,33 +166,8 @@ app.post('/submit', (req, res) => {
 });
 
 
-app.post('/submit-form', upload.single('image'), async (req, res) => {
-  console.log('Your coven theme has been uploaded, huzzah!')
-  console.log(req.file)
-  const { body, file } = req;
-  const themeName = req.query.theme;
-  const theme = {
-    _id: body.id,
-    name: body.name, 
-    backgroundColor: body.color,
-    fontFamily: body.font,
-    textColor: body['font-color'],
-    images:  file.filename,
-    thumbnailUrl: `/public/uploads/${file.filename}`
-  };
-  
-  try {
-    await insertTheme(theme);
-      const renderData = await collection.find({}).toArray();
-      res.render('theme-builder2', { col_thema: renderData , theme, themeName, randomQuote });
-  } catch (err) {
-    res.status(500).send({ error: 'Failed to save theme' });
-  }
-});
-
-
 // Start the server
-const PORT = process.env.PORT || 1337;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
   console.error();

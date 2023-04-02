@@ -2,15 +2,15 @@
 <html lang="en">
 
 <%- include ('head.ejs') %>
-
+<%- include('header.ejs') %>
 <body>
-  <%- include ('header.ejs') %>
-  <main class="themeBuilder1">
+  <main>
     <section>
       <section class="leftmainsection">
-        <img src="/img/hexside-main-logo.png" alt="Hexside Symbol Logo">
+        <img src="../public/img/profilepic-02.svg" alt="Profielfoto">
         <h1>Ufuk Argun</h1>
-        <h2>Student | Leerjaar 2</h2>
+        <p>Student | Leejaar 2</p>
+  <a href="#">Terug naar home</a>
       </section>
       <section>
         <a onclick="location.href='/';">Reset to Default</a>
@@ -18,9 +18,7 @@
         <% col_thema.forEach(function(theme){ %>
         <a href="/col_thema/<%= theme._id %>"
           style=" font-size: 13px; text-decoration:none; text-align: center; display:flex; background-color: <%= theme.backgroundColor %>">
-          <img src="../uploads/<%= theme.images %>" loading="lazy" alt="<%= theme.name %> thumbnail" width="40"
-            height="40">
-          <span style="margin: 10px 10px;"><%= theme.name %></span>
+          <span style="margin: 10px auto 10px auto; text-align: center; color: <%= theme.textColor %>;"><%= theme.name %></span>
         </a>
         <% }); %>
       </section>
@@ -28,8 +26,48 @@
       <%- include ('form.ejs') %>
 
       <section>
+        <h2>Template Example</h2>
         <section class="rightmainsection">
-      
+          <ul>
+            <li>Vak 1</li>
+            <li>Project 1</li>
+            <li>Team-project 2</li>
+          </ul>
+          <div class="fb-post-streep"></div>
+          <div class="fb-post-header">
+            <img src="../public/img/profielfoto.png" alt="Profielfoto">
+            <div class="fb-post-header-info">
+              <h3>StudS</h3>
+              <p>Leerjaar 1</p>
+              <p>1 min. geleden</p>
+            </div>
+            <div class="fb-post-content">
+              <p>Welkom bij StudS!
+                Wij verbinden studenten en student-assistenten op een platform waar ze elkaar kunnen vinden en helpen. Tijdens
+                je registratie geef je als student aan welke vakken je volgt, en als student-assistent welke vakken je wilt
+                ondersteunen.
+        
+                Uiteindelijk voor een tijdlijn gegenereerd waar beide partijen elkaar kunnen bereiken doormiddel van posts, chat
+                berichten en andere vormen van contacten! </p>
+            <a href="#">
+              <img src="../public/img/thumbsup.svg" alt="Thumbs up">
+              Vind ik leuk
+            </a>
+          </div>
+          <div class="fb-post-footer">
+            <a href="#">
+              <img src="../public/img/thumbsup.svg" alt="Thumbs up">
+              Vind ik leuk
+            </a>
+            <a href="#">
+              <img src="../public/img/bericht.svg" alt="opmerking">
+              Opmerkingen
+            </a>
+            <a href="#">
+              <img src="../public/img/repost.svg" alt="delen">
+              Delen
+            </a>
+          </div>
         </section>
       </section>
     </section>
