@@ -22,6 +22,26 @@
   font-display: swap;
 }
 
+body {
+  margin: 0;
+  overflow-y: hidden;
+}
+
+/* body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  animation-name: magic;
+  animation-duration: 0.5s;
+  z-index: 9;
+  animation-fill-mode: forwards;
+  pointer-events: none;
+} */
+
 header {
   display: flex;
   box-shadow: black 2px;

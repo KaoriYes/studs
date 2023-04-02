@@ -9,7 +9,7 @@ const port = process.env.PORT;
 
 app.use(express.static("public"));
 app.use("*/css", express.static("public/css"));
-app.use("*/upload", express.static("public/img"));
+app.use("*/img", express.static("public/img"));
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
