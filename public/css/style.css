@@ -21,3 +21,190 @@
     font-style: normal;
     font-display: swap;
 }
+
+
+
+body section.chat_window {
+  position: absolute;
+  width: calc(100% - 20px);
+  max-width: 800px;
+  height: 500px;
+  border-radius: 10px;
+  background-color: #fff;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  background-color: #f8f8f8;
+  overflow: hidden;
+}
+
+body section.chat_window .top_chat_window {
+  background-color: #fff;
+  width: 100%;
+  padding: 20px 0 15px;
+  box-shadow: 0 1px 30px rgba(0, 0, 0, 0.1);
+}
+
+body section.chat_window .top_chat_window .title {
+  text-align: center;
+  color: #bcbdc0;
+  font-size: 20px;
+}
+
+body section.chat_window .messages {
+  position: relative;
+  list-style: none;
+  padding: 20px 10px 0 10px;
+  margin: 0;
+  height: 347px;
+  overflow: scroll;
+}
+
+body section.chat_window .messages .message {
+  clear: both;
+  overflow: hidden;
+  margin-bottom: 20px;
+  transition: all 0.5s linear;
+  opacity: 0;
+}
+
+body section.chat_window .messages .message.right .text_wrapper {
+  background-color: #c7eafc;
+  margin-right: 20px;
+  float: right;
+}
+
+body section.chat_window .messages .message.right .text_wrapper::after,
+body section.chat_window .messages .message.right .text_wrapper::before {
+  left: 100%;
+  border-left-color: #c7eafc;
+}
+
+body section.chat_window .messages .message.right .text {
+  color: #45829b;
+}
+
+body section.chat_window .messages .message.appeared {
+  opacity: 1;
+}
+
+body section.chat_window .messages .message .avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+body section.chat_window .messages .message .text_wrapper {
+  display: inline-block;
+  padding: 20px;
+  border-radius: 6px;
+  width: calc(100% - 85px);
+  min-width: 100px;
+  position: relative;
+}
+
+body section.chat_window .messages .message .text_wrapper::after,
+body section.chat_window .messages .message .text_wrapper:before {
+  top: 18px;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+body section.chat_window .messages .message .text_wrapper::after {
+  border-width: 13px;
+  margin-top: 0px;
+}
+
+body section.chat_window .messages .message .text_wrapper::before {
+  border-width: 15px;
+  margin-top: -2px;
+}
+
+body section.chat_window .messages .message .text_wrapper .text {
+  font-size: 18px;
+  font-weight: 300;
+}
+
+body section.chat_window .bottom_chat_window {
+  position: relative;
+  width: 100%;
+  background-color: #9272F0;
+  padding: 10px 10px;
+  position: absolute;
+  bottom: 0;
+}
+
+body section.chat_window .bottom_chat_window .message_input_wrapper {
+  display: inline-block;
+  height: 50px;
+  border-radius: 25px;
+  border: 1px solid #bcbdc0;
+  background-color: white;
+  width: calc(100% - 160px);
+  position: relative;
+  padding: 0 20px;
+}
+
+div.message_input_wrapper:hover,
+body section.chat_window .bottom_chat_window .message_input_wrapper .message_input:hover {
+  background-color: #e5e5e5;
+}
+
+body section.chat_window .bottom_chat_window .message_input_wrapper .message_input {
+  border: none;
+  height: 100%;
+  box-sizing: border-box;
+  width: calc(100% - 40px);
+  position: absolute;
+  outline-width: 0;
+  color: gray;
+}
+
+body section.chat_window .bottom_chat_window .send_message {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  background-color: white;
+  border: 2px solid white;
+  color: #9272F0;
+  cursor: pointer;
+  transition: all 0.2s linear;
+  text-align: center;
+  float: right;
+}
+
+body section.chat_window .bottom_chat_window .send_message:hover {
+  color: white;
+  border: white solid 2px;
+  background-color: #9272F0;
+}
+
+body section.chat_window .bottom_chat_window .send_message .text {
+  font-size: 18px;
+  font-weight: 300;
+  display: inline-block;
+  line-height: 48px;
+}
+
+body section.chat_window .message_template {
+  display: none;
+}
+
+body section.chat_window .messages > li {
+  font-size: 1em;
+  color: white;
+  background: #9272F0;
+  padding: .5em;
+  border-radius: .5em;
+  width: fit-content;
+}
+
+body section.chat_window .messages > span {
+  font-size: 10px;
+  font-style: italic;
+}

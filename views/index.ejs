@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+        <%- include('includes/head'); -%>
+    <body>
+        <header>
+            <%- include('includes/header'); -%>
+        </header>
+
+        <section class="chat_window">
+            <div class="top_chat_window">
+                <div class="title">Chat</div>
+            </div>
+            <ul id ="messages" class="messages">
+            </ul>
+             
+            <div class="bottom_chat_window clearfix">
+                <i id="typing"></i>
+            <form id="form">
+                <div class="message_input_wrapper">
+                    <input id="message" class="message_input" placeholder="Type your message here..." required/>
+                </div>
+                <button class="send_message">
+                   Send
+                </button>
+              </form>
+            </div>
+        </section>
+        
+        <footer>
+            <%- include('includes/footer'); -%>
+        </footer>
+    </body>
+</html>
