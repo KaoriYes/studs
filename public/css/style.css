@@ -312,3 +312,7 @@ body main section.recStuds li>img {
   max-width: 10em;
   margin-right: 2em;
 }
+
+.hidden {
+  display: none;
+}
