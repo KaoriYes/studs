@@ -76,26 +76,26 @@
     </section>
     <section class="recStuds">
       <a>Bekijk geliked assistenten</a>
-      <h2>Hier zijn aantal beschikbare assistenten</h3>
-        <p>Op basis van jouw vakken:<p>
-            <a class="addVakken">+</a>
-            <!-- gezochte vakken -->
-            <ul>
-              <% studs.forEach(function(stud) { %>
-              <li>
-                <img src="/public/img/placeholderuser.png">
-                <article>
-                  <h3><%= stud.studsnaam %></h3>
-                  <h4><%= stud.vakken %></h4>
-                  <p>Leerjaar <%= stud.studsleerjaar %></p>
-                  <section class="studsBtn">
-                    <a>Like</a>
-                    <a>Inplannen</a>
-                  </section>
-                </article>
-              </li>
-              <% }); %>
-            </ul>
+      <h2>Hier zijn aantal beschikbare assistenten</h2>
+      <p>Op basis van jouw vakken:</p>
+      <a class="addVakken">+</a>
+      <!-- gezochte vakken -->
+      <ul>
+        <% studs.forEach(function(stud) { %>
+        <li>
+          <img src="/public/img/placeholderuser.png">
+          <article>
+            <h3><%= stud.studsnaam %></h3>
+            <h4><%= stud.vakken %></h4>
+            <p>Leerjaar <%= stud.studsleerjaar %></p>
+            <section class="studsBtn">
+              <a>Like</a>
+              <a>Inplannen</a>
+            </section>
+          </article>
+        </li>
+        <% }); %>
+      </ul>
     </section>
   </main>
 </body>
