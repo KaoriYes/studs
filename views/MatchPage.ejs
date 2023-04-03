@@ -1,123 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="/css/style.css" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap");
+    </style>
+    <title>Match Page</title>
+  </head>
 
-  <style>
-    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap");
-  </style>
-  <title>Match Page</title>
-</head>
-
-<body>
-  <%- include('./header') %>
-  <main>
-    <%- include('./sidebar') %>
-    <section class="agenda">
-      <h2>Opkomende sessies</h2>
-      <ul>
-        <li>
-          <article>
-            <img src="/public/img/placeholderuser.png">
-            <h3>Quiten Kok</h3>
-            <p>Project Tech</p>
-          </article>
-          <article>
-            <p>Datum:</p>
-            <h3>5 April</h3>
-            <p>18:00 - 20:00</p>
-          </article>
-          <a>Bekijk</a>
-        </li>
-        <li>
-          <article>
-            <img src="/public/img/placeholderuser.png">
-            <h3>Ufuk Argun</h3>
-            <p>Informatie architectuur</p>
-          </article>
-          <article>
-            <p>Datum:</p>
-            <h3>8 April</h3>
-            <p>15:00 - 16:00</p>
-          </article>
-          <a>Bekijk</a>
-        </li>
-        <li>
-          <article>
-            <img src="/public/img/placeholderuser.png">
-            <h3>Bart Spons</h3>
-            <p>Inleiding Programmeren</p>
-          </article>
-          <article>
-            <p>Datum:</p>
-            <h3>9 April</h3>
-            <p>12:00 - 13:00</p>
-          </article>
-          <a>Bekijk</a>
-        </li>
-        <li>
-          <article>
-            <img src="/public/img/placeholderuser.png">
-            <h3>Sven Zoutman</h3>
-            <p>Ubicomp</p>
-          </article>
-          <article>
-            <p>Datum:</p>
-            <h3>11 April</h3>
-            <p>14:00 - 16:00</p>
-          </article>
-          <a>Bekijk</a>
-        </li>
-      </ul>
-    </section>
-    <section class="recStuds">
-      <a href="#" id="showLikedStuds">Bekijk geliked assistenten</a>
-      <h2>Hier zijn aantal beschikbare assistenten</h2>
-      <p>Op basis van jouw vakken:</p>
-      <a href="#" class="addVakken">+</a>
-      <!-- gezochte vakken -->
-      <ul id="likedStuds">
-        <% studs.forEach(function(stud) { %>
-        <li>
-          <img src="/public/img/placeholderuser.png">
-          <article>
-            <h3><%= stud.studsnaam %></h3>
-            <h4><%= stud.vakken %></h4>
-            <p>Leerjaar <%= stud.studsleerjaar %></p>
-            <section class="studsBtn">
-              <a href="#">Like</a>
-              <a>Inplannen</a>
-            </section>
-          </article>
-        </li>
-        <% }); %>
-      </ul>
-    </section>
-  </main>
-
-  <script>
-    var likeButtons = document.querySelectorAll('.studsBtn a:first-of-type');
-    likeButtons.forEach(function (button) {
-      button.addEventListener('click', function (event) {
-        event.preventDefault();
-        var id = button.closest('li').getAttribute('data-id');
-        fetch('/like-stud/' + id)
-          .then(function (response) {
-            if (response.ok) {
-              // Update the UI to reflect that the stud has been liked
-              // ...
-            } else {
-              console.log('Error liking stud');
-            }
-          });
-      });
-    });
-  </script>
-  <script src="/js/likedStuds.js"></script>
-</body>
-
+  <body>
+    <%- include('./header') %>
+    <main>
+      <%- include('./sidebar') %>
+      <section class="agenda">
+        <h2>Opkomende sessies</h2>
+        <ul>
+          <li>
+            <article>
+              <img src="/public/img/placeholderuser.png" />
+              <h3>Quiten Kok</h3>
+              <p>Project Tech</p>
+            </article>
+            <article>
+              <p>Datum:</p>
+              <h3>5 April</h3>
+              <p>18:00 - 20:00</p>
+            </article>
+            <a>Bekijk</a>
+          </li>
+          <li>
+            <article>
+              <img src="/public/img/placeholderuser.png" />
+              <h3>Ufuk Argun</h3>
+              <p>Informatie architectuur</p>
+            </article>
+            <article>
+              <p>Datum:</p>
+              <h3>8 April</h3>
+              <p>15:00 - 16:00</p>
+            </article>
+            <a>Bekijk</a>
+          </li>
+          <li>
+            <article>
+              <img src="/public/img/placeholderuser.png" />
+              <h3>Bart Spons</h3>
+              <p>Inleiding Programmeren</p>
+            </article>
+            <article>
+              <p>Datum:</p>
+              <h3>9 April</h3>
+              <p>12:00 - 13:00</p>
+            </article>
+            <a>Bekijk</a>
+          </li>
+          <li>
+            <article>
+              <img src="/public/img/placeholderuser.png" />
+              <h3>Sven Zoutman</h3>
+              <p>Ubicomp</p>
+            </article>
+            <article>
+              <p>Datum:</p>
+              <h3>11 April</h3>
+              <p>14:00 - 16:00</p>
+            </article>
+            <a>Bekijk</a>
+          </li>
+        </ul>
+      </section>
+      <section class="recStuds">
+        <h2>Hier zijn aantal beschikbare assistenten</h2>
+        <p>Op basis van jouw vakken:</p>
+        <ul>
+          <% if (studs && studs.length) { %> <% studs.forEach(function(stud) {
+          %>
+          <li>
+            <img src="/public/img/placeholderuser.png" />
+            <article>
+              <h3><%= stud.studsnaam %></h3>
+              <h4><%= stud.vakken %></h4>
+              <p>Leerjaar <%= stud.studsleerjaar %></p>
+              <form action="/studs/:id" method="POST">
+                <input type="hidden" name="liked" value="true" />
+                <button type="submit">Like</button>
+              </form>
+            </article>
+          </li>
+          <% }); %> <% } %>
+        </ul>
+      </section>
+    </main>
+  </body>
 </html>

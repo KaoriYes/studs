@@ -23,7 +23,7 @@
 }
 
 :root {
-  --purple-button: #7353D1;
+  --purple-button: #7353d1;
   --purple-shade: #f2eeff;
   --white: #fff;
   --black: black;
@@ -66,14 +66,13 @@ header nav img {
 
 body main section.sidebar {
   height: 100vh;
-  width: 20em;
+  width: 20%;
   display: inline-flex;
   justify-content: center;
   box-shadow: #3900882f 2px 2px 20px;
   font-family: Helvetica, sans-serif;
   margin-bottom: 40em;
 }
-
 
 .profileButton {
   color: var(--purple-button);
@@ -118,7 +117,6 @@ section.sidebar ul li:last-child {
 }
 
 section.sidebar ul li a {
-
   padding: 1em 2em 1em 2em;
   border-radius: 2em;
   text-align: center;
@@ -128,7 +126,7 @@ body main section.agenda {
   display: inline-flex;
   position: relative;
   flex-direction: column;
-  width: 57em;
+  width: 40%;
   height: 90vh;
   background-color: var(--purple-shade);
   align-items: start;
@@ -139,7 +137,6 @@ body main section.agenda {
   align-items: center;
   overflow-y: scroll;
   padding-bottom: 40em;
-
 }
 
 body main section.agenda h2 {
@@ -166,7 +163,7 @@ body main section.agenda ul li {
   margin-top: 2em;
 }
 
-body main section.agenda ul li article>h3 {
+body main section.agenda ul li article > h3 {
   margin-top: 0.5em;
   margin-bottom: 0;
 }
@@ -177,7 +174,7 @@ body main section.agenda ul li article:nth-child(even) {
 
 body main section.agenda ul li a {
   position: absolute;
-  color: #7353D1;
+  color: #7353d1;
   background-color: var(--white);
   border: 0.2em solid var(--purple-button);
   padding: 1em 2em 1em 2em;
@@ -186,7 +183,7 @@ body main section.agenda ul li a {
   right: 2em;
 }
 
-body main section.agenda ul li article>p {
+body main section.agenda ul li article > p {
   text-align: center;
   margin-top: 0.5em;
   margin-bottom: 0;
@@ -199,7 +196,7 @@ body main section.agenda ul li img {
 body main section.recStuds {
   display: inline-flex;
   flex-direction: column;
-  width: 40em;
+  width: 40%;
   height: 90vh;
   background-color: var(--purple-button);
   align-items: start;
@@ -257,20 +254,20 @@ body main section.recStuds li {
   padding: 1em 1em 1em 1em;
 }
 
-body main section.recStuds li article>h3 {
+body main section.recStuds li article > h3 {
   color: var(--black);
   margin-bottom: 0.4em;
   margin-top: 0;
 }
 
-body main section.recStuds li article>p {
+body main section.recStuds li article > p {
   text-align: left;
   color: var(--black);
   margin-bottom: 0.4em;
   margin-top: 0.3em;
 }
 
-body main section.recStuds li article>h4 {
+body main section.recStuds li article > h4 {
   color: var(--purple-button);
   margin-bottom: 0.4em;
   margin-top: 0;
@@ -285,21 +282,21 @@ body main section.recStuds li article section.studsBtn {
   justify-content: flex-end;
 }
 
-body main section.recStuds li article section.studsBtn>a:nth-child(odd) {
+body main section.recStuds li article section.studsBtn > a:nth-child(odd) {
   background-color: var(--purple-button);
   color: var(--white);
   vertical-align: middle;
   line-height: 22px;
 }
 
-body main section.recStuds li article section.studsBtn>a:nth-child(even) {
+body main section.recStuds li article section.studsBtn > a:nth-child(even) {
   background-color: var(--white);
   color: var(--purple-button);
   border: 0.2em solid var(--purple-button);
   margin-left: 1em;
 }
 
-body main section.recStuds li article section.studsBtn>a {
+body main section.recStuds li article section.studsBtn > a {
   text-align: center;
   display: inline-block;
   color: var(--black);
@@ -308,7 +305,7 @@ body main section.recStuds li article section.studsBtn>a {
   font-weight: 600;
 }
 
-body main section.recStuds li>img {
+body main section.recStuds li > img {
   max-width: 10em;
   margin-right: 2em;
 }
