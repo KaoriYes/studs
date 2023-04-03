@@ -15,7 +15,7 @@
         <main class="filter">
             <section>
                 <!-- Filter toevoegen -->
-                <p>Ufuk Argun,<span>Leerjaar 2</span></p>
+                <p><%= user.name %> <%= user.surname %>,<span>Leerjaar <%= user.leerjaar %></span></p>
                 <form action="/filter" method="post">
                     <!-- Button veranderd van kleur bij een klik en de vakken veranderen mee-->
                     <button class="<%= (jaar == 1) ? 'active' : '' %>" type="submit" name="jaar" value="1">Leerjaar

@@ -7,6 +7,7 @@ const bcrypt = require('bcryptjs');
 const saltRounds = 12;
 require('dotenv').config();
 const port = 1337;
+const methodOverride = require('method-override');
 
 app.use(express.static('public'));
 var path = require('path');
@@ -74,7 +75,8 @@ app.get('/', checkLogin, async (req, res) => {
 });
 
 app.get('/account', checkLogin, async (req, res) => {
-  const user = await collectionUsers.findOne({ id: req.session.email }); 
+const user1 = req.session.user.email;
+const user =  await collectionUsers.findOne({ email: user1})
   res.render('account.ejs', {
     title: 'Account',
     user
@@ -113,7 +115,7 @@ app.post('/studentRegister', async (req, res) => {
     res.render('studentRegistrer.ejs', {title: 'Student Register', subtitle: 'Please fill in all fields!'});
   }  
   else {
-    res.redirect('/');// Qt: this is for later..
+    res.redirect('/filter');
     const hashedpw = await bcrypt.hash(password, saltRounds);
     var userdata = {
       name,
@@ -124,7 +126,7 @@ app.post('/studentRegister', async (req, res) => {
       // no need for : value if key and value are the same
     };
     collectionUsers.insertOne(userdata, function (err, collection) {
-            
+    // Qt: this is for later..
       console.log('Record inserted Successfully');
       if (err) {throw err;}
       else{
@@ -221,18 +223,22 @@ app.get("/logout", (req, res) => {
 
 
   
-  app.get("/filter", (req, res) => {
+  app.get("/filter", async (req, res) => {
+      const user1 = req.session.user.email;
+const user =  await collectionUsers.findOne({ email: user1})
     collectionVakken.find({}).toArray().then((vakken, jaar) => {
         const vaknamen = vakken.map((vak) => vak.naam);
-        res.render("filter.ejs", { vakken: vaknamen, jaar });
+        res.render("filter.ejs", { vakken: vaknamen, jaar, user });
     });
   });
    
-  app.post("/filter", (req, res) => {
+  app.post("/filter", async (req, res) => {
+    const user1 = req.session.user.email;
+const user =  await collectionUsers.findOne({ email: user1})
     const selectedJaar = req.body.jaar;
     collectionVakken.find({ jaar: selectedJaar }).toArray().then((vakken) => {
       const vaknamen = vakken.map((vak) => vak.naam); // Extract name field
-      res.render("filter.ejs", { vakken: vaknamen, jaar: selectedJaar });
+      res.render("filter.ejs", { vakken: vaknamen, jaar: selectedJaar, user });
     });
   });
   
@@ -265,3 +271,4 @@ app.listen(port, function() {
      
 
 });
+
