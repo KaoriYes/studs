@@ -6,11 +6,13 @@ const bodyParser = require("body-parser");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const port = process.env.PORT;
+const ObjectId = require("mongodb").ObjectId; // Add this line
 
 app.use(express.static("public"));
 app.use("*/css", express.static("public/css"));
 app.use("*/img", express.static("public/img"));
 app.set("view engine", "ejs");
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
   res.send("test");
@@ -36,13 +38,6 @@ const client = new MongoClient(uri, {
 //col voor de studs
 const databaseStuds = client.db("studsdb");
 const collectionStuds = databaseStuds.collection("col_studs");
-
-// route voor matchpage
-const studsSchema = {
-  studsnaam: "string",
-  studsleerjaar: "string",
-  vakken: "array",
-};
 
 app.get("/matchpage", async (req, res) => {
   const studs = await collectionStuds.find().toArray();
