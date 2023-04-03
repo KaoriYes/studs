@@ -74,26 +74,47 @@
         </ul>
       </section>
       <section class="recStuds">
+        <a href="#" id="showLikedStuds">Bekijk geliked assistenten</a>
         <h2>Hier zijn aantal beschikbare assistenten</h2>
         <p>Op basis van jouw vakken:</p>
-        <ul>
-          <% if (studs && studs.length) { %> <% studs.forEach(function(stud) {
-          %>
+        <a href="#" class="addVakken">+</a>
+        <!-- gezochte vakken -->
+        <ul id="likedStuds">
+          <% studs.forEach(function(stud) { %>
           <li>
             <img src="/public/img/placeholderuser.png" />
             <article>
               <h3><%= stud.studsnaam %></h3>
               <h4><%= stud.vakken %></h4>
               <p>Leerjaar <%= stud.studsleerjaar %></p>
-              <form action="/studs/:id" method="POST">
-                <input type="hidden" name="liked" value="true" />
-                <button type="submit">Like</button>
-              </form>
+              <section class="studsBtn">
+                <a href="#">Like</a>
+                <a>Inplannen</a>
+              </section>
             </article>
           </li>
-          <% }); %> <% } %>
+          <% }); %>
         </ul>
       </section>
     </main>
+
+    <script>
+      var likeButtons = document.querySelectorAll(".studsBtn a:first-of-type");
+      likeButtons.forEach(function (button) {
+        button.addEventListener("click", function (event) {
+          event.preventDefault();
+          var id = button.closest("li").getAttribute("data-id");
+          fetch("/like-stud/" + id).then(function (response) {
+            if (response.ok) {
+              // Update the UI to reflect that the stud has been liked
+              // ...
+            } else {
+              console.log("Error liking stud");
+            }
+          });
+        });
+      });
+    </script>
+    <script src="/js/likedStuds.js"></script>
   </body>
 </html>

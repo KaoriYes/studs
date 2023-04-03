@@ -47,16 +47,11 @@ app.get("/matchpage", async (req, res) => {
 });
 
 // route om stud te liken
-app.post("/studs/:id", function (req, res) {
-  var studId = req.params.id;
-  collectionStuds.findOneAndUpdate(
-    { _id: new ObjectId(studId) }, // modified this line
-    { $set: { liked: req.body.liked === "true" } },
-    (err, result) => {
-      if (err) return res.send(err);
-      res.send(result);
-    }
-  );
+app.get("/like-stud/:id", function (req, res) {
+  var id = req.params.id;
+  // Update the "liked" value of the stud with the given ID in the MongoDB database
+  // ...
+  res.send("OK");
 });
 
 app.listen(port, () => {
