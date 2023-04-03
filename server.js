@@ -13,8 +13,12 @@ var path = require('path');
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/img', express.static(path.join(__dirname, 'public/img')));
+
 app.set('view engine', 'ejs');
-app.set('view engine', 'ejs');
+app.use('/public/', express.static('./public'));
+app.use(methodOverride('_method'));
+var path = require('path');
+app.use(express.static(path.join(__dirname, 'public')));
 
 //database verbinden
 const { MongoClient, ServerApiVersion } = require('mongodb');
@@ -29,9 +33,6 @@ const collectionVakken = databaseVakken.collection("col_vakken");
 //users database
 const databaseUsers = client.db("studsdb");
 const collectionUsers = databaseUsers.collection("col_users");
-
-const databaseSession = client.db("studsdb");
-const collectionSession = databaseUsers.collection("col_sessions");
 
 //session store
  const store = new MongoDBSession({ 
@@ -85,29 +86,6 @@ app.get('/preRegister', checkLoggedin, (req, res) => {
 app.get('/registerQuestion', (req, res) => {
     res.render('registerQuestion.ejs', {title: 'Register'});
 });
-
-//database
-const { MongoClient, ServerApiVersion } = require('mongodb');
-
-//password in env
-require('dotenv').config();
-const password = process.env.PASSWORD;
-
-//url om te verbinden
-const uri = "mongodb+srv://adminuser:" + password + "@studsdb.8yrtlny.mongodb.net/?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-
-//col voor de studenten
-const database = client.db("studsdb");
-const collection = database.collection("col_studs");
-
-//col voor thema
-const database = client.db("studsdb");
-const collection = database.collection("col_thema");
-
-//col voor de users
-const database = client.db("studsdb");
-const collection = database.collection("col_users");
 
 
 
@@ -240,6 +218,48 @@ app.get("/logout", (req, res) => {
      });
 });
 
+
+
+  
+  app.get("/filter", (req, res) => {
+    collectionVakken.find({}).toArray().then((vakken, jaar) => {
+        const vaknamen = vakken.map((vak) => vak.naam);
+        res.render("filter.ejs", { vakken: vaknamen, jaar });
+    });
+  });
+   
+  app.post("/filter", (req, res) => {
+    const selectedJaar = req.body.jaar;
+    collectionVakken.find({ jaar: selectedJaar }).toArray().then((vakken) => {
+      const vaknamen = vakken.map((vak) => vak.naam); // Extract name field
+      res.render("filter.ejs", { vakken: vaknamen, jaar: selectedJaar });
+    });
+  });
+  
+  app.post("/nextPage", (req, res) => {
+    const selectedVakken = req.body.selectedVakken;
+    let errorMessage = "";
+  
+    // Check if at least two checkboxes are selected
+    if (!selectedVakken || selectedVakken.length < 2) {
+      collectionVakken.find({}).toArray().then((vakken, jaar) => {
+        const vaknamen = vakken.map((vak) => vak.naam);
+      errorMessage = "Selecteer minstens 2 vakken.";
+      res.render("filter.ejs", { vakken: vaknamen, errorMessage: errorMessage });
+      console.log(errorMessage)
+      });
+    }
+    // Render the next page or the same page with an error message
+     else if (errorMessage) {
+      const errorMessage = "Selecteer minstens 2 vakken.";
+      res.render("filter.ejs", { vakken: vaknamen, erroMessage: errorMessage });
+      console.log(errorMessage)
+
+    } else {
+      res.render("nextPage.ejs", { selectedVakken });
+    }
+  });
+  
 app.listen(port, function() {
     console.log(`Server is running on port: ${port}`);
      

@@ -31,19 +31,20 @@
 }
 
 :root {
-    --font-main: 'Poppins', sans-serif;
-    --font-size-h1: 2em;
-    --font-size-h2: 1.5em;
-    --font-header-margin: 0.5em 0;
-    --font-weight-header: bold;
-    --font-color-header: #714EB6;
-    --font-size-body: .875em;
-    --font-color-body: #000000;
-    --font-weight-body: 400;
-    --background-color: #FFFFFF;
-    --font-form-p: #707070;
-    --font-form-p-margin: 0.25em 0;
-
+     --font-main: 'Poppins',
+     sans-serif;
+     --font-size-h1: 2em;
+     --font-size-h2: 1.5em;
+     --font-header-margin: 0.5em 0;
+     --font-weight-header: bold;
+     --font-color-header: #714EB6;
+     --font-size-body: .875em;
+     --font-color-body: #000000;
+     --font-weight-body: 400;
+     --background-color: #FFFFFF;
+     --font-form-p: #707070;
+     --font-form-p-margin: 0.25em 0;
+     --filter-li-bg: #714EB6;
 }
 
 *,
@@ -61,6 +62,26 @@ body {
     font-weight: var(--font-weight-body);
     color: var(--font-color-body);
     background-color: var(--background-color);
+}
+
+header { 
+  display: flex;
+  box-shadow: black 2px;
+  position: sticky;
+  z-index: 999;
+
+}
+
+header nav { 
+  background-color: rgb(255, 255, 255);
+  box-shadow: #3900882f 2px 2px 20px;
+}
+
+header nav img { 
+  width: 10%;
+  margin-left: 4em;
+  margin-top: 1.5em;
+  padding-bottom: 1em;
 }
 
 h1 {
@@ -498,3 +519,133 @@ transform: scale(1.1);
 .displaynone{
     display: none !important;
 }
+/* css van Bart */
+
+form.vakken{
+    margin: 0;
+}
+
+form.vakken ul{
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: flex-start;
+    align-content: flex-start;
+  }
+
+  .vakken li {
+    /* set default opacity */
+    opacity: 0.5;
+    
+    /* set opacity based on position in list */
+    --min-opacity: 0.5;
+    --max-opacity: 1;
+    --var-opacity: calc(var(--max-opacity) - var(--min-opacity));
+    --opacity-increment: calc(var(--var-opacity) / (var(--n) - 1));
+    opacity: calc(var(--min-opacity) + var(--opacity-increment) * var(--i));
+    
+    /* other styles */
+    background-color: var(--filter-li-bg);
+    color: white;
+    width: auto;
+    text-align: center;
+    padding: 4em;
+    border-radius: 20px;
+    text-transform: uppercase;
+    margin: 1em;
+    max-width: 16em;
+    min-width: 16em;
+    height: 16em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+    aspect-ratio: 1;
+  }
+
+  .vakken li:hover{
+    opacity: 1;
+    background-color: #1F0A46;
+    transition: 0.5s;
+  }
+
+  form.vakken ul li.selected {
+    background-color: #1F0A46;
+    opacity: 1;
+  }
+
+  .vakken li:first-of-type{
+    opacity: 0.45;
+}
+
+
+
+  body main.filter button{
+    background-color: #7353D1;
+    color: #ffffff;
+    padding: 1em;
+    border-radius: 2em;
+    margin-right: 3em;
+    border: none;
+    opacity: 0.5;
+    transition: opacity 0.5s;
+  }
+
+  body main.filter  button:hover{
+    background-color: #390088;
+    opacity: 1;
+  }
+
+  body main.filter  button.active{
+    background-color: #390088;
+    opacity: 1;
+  }
+
+  body main.filter button.selected{
+    opacity: 1;
+  }
+
+  
+  
+  body main.filter section{
+    margin: 1em;
+  }
+
+   body main.filter section p, form{
+    display: inline-block;
+    margin-right: 3em;
+  }
+
+
+  body main.filter p:last-of-type{
+    display: block;
+  }
+
+  body main.filter span{
+    display: block;
+    color: #714EB6;
+  }
+  
+  body main.filter .error{
+    margin-left: 0.5em;
+    font-size: 2em;
+  }
+
+   body main.filter form.vakken .next{
+    position: absolute;
+    top: 9em;
+    right: 12em;
+    display: block;
+    opacity: 1;
+  }
+  
+  body.hasJavascript main.filter .next{
+    position: absolute;
+    top: 9em;
+    right: 12em;
+    display: none;
+    opacity: 1;
+  }
