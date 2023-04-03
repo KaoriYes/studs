@@ -17,10 +17,7 @@ app.get("/", (req, res) => {
 });
 
 //database
-const {
-  MongoClient,
-  ServerApiVersion
-} = require("mongodb");
+const { MongoClient, ServerApiVersion } = require("mongodb");
 
 //password in env
 const password = process.env.PASSWORD;
@@ -50,16 +47,16 @@ const studsSchema = {
 app.get("/matchpage", async (req, res) => {
   const studs = await collectionStuds.find().toArray();
   res.render("MatchPage.ejs", {
-    studs: studs
+    studs: studs,
   });
 });
 
 // route om stud te liken
-app.get('/like-stud/:id', function (req, res) {
+app.get("/like-stud/:id", function (req, res) {
   var id = req.params.id;
   // Update the "liked" value of the stud with the given ID in the MongoDB database
   // ...
-  res.send('OK');
+  res.send("OK");
 });
 
 app.listen(port, function () {
