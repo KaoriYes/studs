@@ -97,24 +97,5 @@
         </ul>
       </section>
     </main>
-
-    <script>
-      var likeButtons = document.querySelectorAll(".studsBtn a:first-of-type");
-      likeButtons.forEach(function (button) {
-        button.addEventListener("click", function (event) {
-          event.preventDefault();
-          var id = button.closest("li").getAttribute("data-id");
-          fetch("/like-stud/" + id).then(function (response) {
-            if (response.ok) {
-              // Update the UI to reflect that the stud has been liked
-              // ...
-            } else {
-              console.log("Error liking stud");
-            }
-          });
-        });
-      });
-    </script>
-    <script src="/js/likedStuds.js"></script>
   </body>
 </html>
