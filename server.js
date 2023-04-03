@@ -1,7 +1,9 @@
 const express = require('express');
 const app = express();
+const mongoose = require("mongoose");
+mongoose.Promise = require("bluebird");
 const bodyParser = require("body-parser");
-const chatRouter = require("./route/chatroute");
+const chatRouter = require("./routes/chatroute");
 
 //require the http module
 const http = require("http").Server(app);
@@ -14,12 +16,12 @@ app.use(bodyParser.json());
 const port = 1337;
 
 
-app.use(express.static('static'));
+// app.use(express.static('static'));
+//set the express.static middleware
+app.use(express.static(__dirname + "/public"));
 app.set('view engine', 'ejs');
 
-app.get('/', (req, res) => {
-    res.send('test');
-});
+
 
 //database
 const { MongoClient, ServerApiVersion } = require('mongodb');
@@ -32,6 +34,13 @@ const password = process.env.PASSWORD;
 const uri = "mongodb+srv://adminuser:" + password + "@studsdb.8yrtlny.mongodb.net/?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
+const connect = mongoose.connect(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+
+
 //routes
 app.use("/chats", chatRouter);
 
@@ -40,7 +49,6 @@ socket = io(http);
 
 //database connection
 const Chat = require("./models/Chat");
-const connect = require("./dbconnect");
 
 //setup event listener
 socket.on("connection", socket => {
@@ -81,9 +89,9 @@ socket.on("connection", socket => {
 
 
 
-app.listen(port, function() {
-    console.log('test');
-});
+// app.listen(port, function() {
+//     console.log('test');
+// });
 
 http.listen(port, () => {
     console.log("Running on Port: " + port);

@@ -1,13 +1,13 @@
 const express = require("express");
-const connectdb = require("./../dbconnect");
+const connectdb = require("./../server");
 const Chats = require("./../models/Chat");
 const router = express.Router();
 
-router.route("/chat").get((req, res) => {
+router.route("/").get((req, res) => {
   res.render("index");
 });
 
-router.route("/chat").get((req, res) => {
+router.route("/").get((req, res) => {
    
     res.setHeader("Content-Type", "application/json");
     res.statusCode = 200;
