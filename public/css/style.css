@@ -58,6 +58,11 @@
 
 }
 
+.body-overflow-hidden {
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+
 
 body {
     font-family: var(--font-main);
@@ -65,8 +70,6 @@ body {
     font-weight: var(--font-weight-body);
     color: var(--font-color-body);
     background-color: var(--background-color);
-    overflow-x: hidden;
-    overflow-y: hidden;
 
 }
 
@@ -90,7 +93,7 @@ p {
     color: var(--font-color-body);
 }
 
-body::after {
+.body-overflow-hidden::after {
     content: "";
     position: fixed;
     top: 0;
@@ -105,7 +108,7 @@ body::after {
     pointer-events: none;
 }
 
-header { 
+header {
     display: flex;
     box-shadow: black 2px;
     position: sticky;
@@ -113,24 +116,23 @@ header {
 
 }
 
-header nav { 
+header nav {
     background-color: rgb(255, 255, 255);
     box-shadow: #3900882f 2px 2px 20px;
 }
 
-header nav img { 
+header nav img {
     width: 10%;
     margin-left: 4em;
     margin-top: 1.5em;
     padding-bottom: 1em;
 }
 
-
-section {
+.themeBuilder section {
     display: flex;
 }
 
-section section:first-of-type {
+.themeBuilder section section:first-of-type {
     flex-direction: column;
     background-color: white;
     height: auto;
@@ -140,7 +142,7 @@ section section:first-of-type {
 
 }
 
-section section:first-of-type img {
+.themeBuilder section section:first-of-type img {
     width: 70%;
     padding: 0;
     margin-left: auto;
@@ -151,7 +153,7 @@ section section:first-of-type img {
 }
 
 
-section section:first-of-type h1 {
+.themeBuilder section section:first-of-type h1 {
     color: var(--font-color-body);
     font-weight: 600;
     text-align: center;
@@ -160,11 +162,11 @@ section section:first-of-type h1 {
 }
 
 
-section section:first-of-type p {
+.themeBuilder section section:first-of-type p {
     text-align: center;
 }
 
-section section:first-of-type a {
+.themeBuilder section section:first-of-type a {
     margin-top: auto;
     max-width: 80%;
     padding: 0.5em 2em 0.5em 2em;
@@ -178,14 +180,14 @@ section section:first-of-type a {
     transition: 0.5s;
 }
 
-section section:first-of-type a:hover {
+.themeBuilder section section:first-of-type a:hover {
     background-color: #43267d;
     transition: 0.5s;
 }
 
 
 
-section section:nth-of-type(2) {
+.themeBuilder section section:nth-of-type(2) {
     flex-direction: column;
     background: #E7E0FD;
     width: 15%;
@@ -195,7 +197,7 @@ section section:nth-of-type(2) {
 
 }
 
-section section:nth-of-type(2) a {
+.themeBuilder section section:nth-of-type(2) a {
     background-color: transparent;
     border: none;
     color: black;
@@ -208,7 +210,7 @@ section section:nth-of-type(2) a {
 
 }
 
-section section:nth-of-type(2) div {
+.themeBuilder section section:nth-of-type(2) div {
     overflow: scroll;
     display: flex;
     flex-direction: column;
@@ -216,7 +218,7 @@ section section:nth-of-type(2) div {
     width: 100%;
 }
 
-section section:nth-of-type(2) div button {
+.themeBuilder section section:nth-of-type(2) div button {
     background-color: transparent;
     border: none;
     color: white;
@@ -227,14 +229,14 @@ section section:nth-of-type(2) div button {
     padding: 1em;
 }
 
-section section:nth-of-type(2) a:nth-of-type(1):hover {
+.themeBuilder section section:nth-of-type(2) a:nth-of-type(1):hover {
     background-color: #120418;
     color: #d289ff;
     transition: 0.5s;
     font-size: 1em;
 }
 
-section section:nth-of-type(2) a:nth-of-type(2):hover {
+.themeBuilder section section:nth-of-type(2) a:nth-of-type(2):hover {
     background-color: #120418;
     color: #d289ff;
     transition: 0.5s;
@@ -242,7 +244,7 @@ section section:nth-of-type(2) a:nth-of-type(2):hover {
 }
 
 
-form {
+.themeBuilder form {
     margin-top: 1em;
     width: 24%;
     margin-left: 3em;
@@ -251,27 +253,27 @@ form {
 
 
 
-.done {
+.themeBuilder .done {
     margin-top: 4 em;
     width: 24%;
     margin-left: 3em;
     margin-right: 0em;
 }
 
-.done li {
+.themeBuilder .done li {
     list-style-type: none;
     margin-top: 1em;
 
 }
 
-.done li:last-of-type {
+.themeBuilder .done li:last-of-type {
     list-style-type: none;
     margin-top: 1em;
     margin-bottom: 2em;
 
 }
 
-.done button {
+.themeBuilder .done button {
     padding: 1em 3em 1em 3em;
     border: none;
     color: red;
@@ -282,7 +284,7 @@ form {
 
 }
 
-.done button:hover {
+.themeBuilder .done button:hover {
     padding: 1em 3em 1em 3em;
     border: none;
     color: white;
@@ -293,12 +295,12 @@ form {
 
 }
 
-form img {
+.themeBuilder form img {
     width: 80%;
 }
 
 
-form label {
+.themeBuilder form label {
     display: flex;
     flex-direction: column;
     font-weight: 700;
@@ -310,7 +312,7 @@ input[type="file"] {
     display: none;
 }
 
-form label:nth-of-type(5) {
+.themeBuilder form label:nth-of-type(5) {
     border: 1px solid #ccc;
     display: inline-block;
     padding: 10px 12px;
@@ -322,15 +324,15 @@ form label:nth-of-type(5) {
     width: 61%;
 }
 
-form label:nth-of-type(2) {
+.themeBuilder form label:nth-of-type(2) {
     margin-top: 1em;
 }
 
-form label:nth-of-type(3) {
-    margin: 1em 0em 0.5em 0em; 
+.themeBuilder form label:nth-of-type(3) {
+    margin: 1em 0em 0.5em 0em;
 }
 
-form label:nth-of-type(5):hover {
+.themeBuilder form label:nth-of-type(5):hover {
     border: 1px solid #ccc;
     display: inline-block;
     padding: 10px 12px;
@@ -343,7 +345,7 @@ form label:nth-of-type(5):hover {
     background-color: rgb(25, 23, 51);
 }
 
-form input:last-of-type {
+.themeBuilder form input:last-of-type {
     padding: 1.5em;
     color: white;
     background-color: #281A3B;
@@ -355,20 +357,20 @@ form input:last-of-type {
 
 }
 
-form select {
+.themeBuilder form select {
     width: 20em;
     padding: 0.5em;
     border-radius: 2em;
-    border: var(--font-color-header) 0.2em solid; 
+    border: var(--font-color-header) 0.2em solid;
     margin: 0 0 1em 0;
 }
 
-form button {
+.themeBuilder form button {
     width: 15.7em;
     padding: 1.5em;
-    background-color:var(--font-color-header);
+    background-color: var(--font-color-header);
     color: var(--background-color);
-    font-family:  var(--font-size-h2);
+    font-family: var(--font-size-h2);
     font-weight: 500;
     font-size: 1em;
     transition: 0.5s;
@@ -379,12 +381,12 @@ form button {
     transition: 0.5s;
 }
 
-form button:hover {
+.themeBuilder form button:hover {
     background-color: #34156F;
     transition: 0.5s;
 }
 
-form input:first-of-type {
+.themeBuilder form input:first-of-type {
     width: 22.5em;
     border-radius: 2em;
     height: 2em;
@@ -393,13 +395,13 @@ form input:first-of-type {
     padding-left: 0.4em;
 }
 
-form input:nth-of-type(2) {
+.themeBuilder form input:nth-of-type(2) {
     width: 20em;
     height: 20em;
     margin-top: 0.5em;
 }
 
-form input:nth-of-type(3) {
+.themeBuilder form input:nth-of-type(3) {
     width: 20em;
     height: 3em;
     margin-top: 0.5em;
@@ -414,23 +416,23 @@ input[type="color"] {
     margin-bottom: 0;
 }
 
-form input[type="color"]::-webkit-color-swatch-wrapper {
+.themeBuilder form input[type="color"]::-webkit-color-swatch-wrapper {
     padding: 0;
 }
 
-form input[type="color"]::-webkit-color-swatch {
+.themeBuilder form input[type="color"]::-webkit-color-swatch {
     border: var(--font-color-header) 0.3em solid;
     border-radius: 1.5em;
 }
 
 
 
-section section:nth-of-type(3) {
+.themeBuilder section section:nth-of-type(3) {
     display: inline-block;
 
 }
 
-section section:nth-of-type(3) section {
+.themeBuilder section section:nth-of-type(3) section {
     border: solid 0.3em var(--font-color-header);
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.059);
     width: 500px;
@@ -439,12 +441,12 @@ section section:nth-of-type(3) section {
     background-color: #F2EBFF;
 }
 
-section section:nth-of-type(3) ul {
+.themeBuilder section section:nth-of-type(3) ul {
     display: flex;
     font-size: 0.7em;
 }
 
-section section:nth-of-type(3) ul li {
+.themeBuilder section section:nth-of-type(3) ul li {
     list-style-type: none;
     color: white;
     padding: 0.5em 1em 0.5em 1em;
@@ -452,20 +454,20 @@ section section:nth-of-type(3) ul li {
     margin-top: 1em;
 }
 
-section section:nth-of-type(3) ul li:first-of-type {
+.themeBuilder section section:nth-of-type(3) ul li:first-of-type {
     margin-left: 1em;
     background-color: #6F45D0;
 }
 
 
-section section:nth-of-type(3) ul li:nth-of-type(2) {
+.themeBuilder section section:nth-of-type(3) ul li:nth-of-type(2) {
     margin-left: 2em;
     margin-right: 2em;
     background-color: #4C298D;
 
 }
 
-.fb-post-streep {
+.themeBuilder .fb-post-streep {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -474,7 +476,7 @@ section section:nth-of-type(3) ul li:nth-of-type(2) {
 
 }
 
-section section:nth-of-type(3) .fb-post-header {
+.themeBuilder section section:nth-of-type(3) .fb-post-header {
     display: flex;
     align-items: center;
     margin-bottom: 0.625em;
@@ -483,7 +485,7 @@ section section:nth-of-type(3) .fb-post-header {
     /* zorgt ervoor dat de elementen onder elkaar gaan als ze niet meer passen */
 }
 
-section section:nth-of-type(3) .fb-post-header img {
+.themeBuilder section section:nth-of-type(3) .fb-post-header img {
     margin-right: 0.625em;
     width: 10%;
     border: 0.2em solid purple;
@@ -493,7 +495,7 @@ section section:nth-of-type(3) .fb-post-header img {
     margin-top: 1.5em;
 }
 
-section section:nth-of-type(3) .fb-post-header-info {
+.themeBuilder section section:nth-of-type(3) .fb-post-header-info {
     display: flex;
     flex-direction: column;
     /* zorgt ervoor dat de elementen onder elkaar staan */
@@ -501,21 +503,21 @@ section section:nth-of-type(3) .fb-post-header-info {
     /* definieert de breedte van het element */
 }
 
-section section:nth-of-type(3) .fb-post-header h3 {
+.themeBuilder section section:nth-of-type(3) .fb-post-header h3 {
     font-size: 0.8125em;
     margin-bottom: -0.0375em;
     font-weight: 600;
     margin-top: 2em;
 }
 
-section section:nth-of-type(3) .fb-post-header p {
+.themeBuilder section section:nth-of-type(3) .fb-post-header p {
     color: black;
     font-size: 0.625em;
     margin: 0;
     text-align: left;
 }
 
-section section:nth-of-type(3) .fb-post-header p:nth-of-type(2) {
+.themeBuilder section section:nth-of-type(3) .fb-post-header p:nth-of-type(2) {
     color: #b38aff;
     font-size: 0.5em;
     margin: 0;
@@ -523,11 +525,11 @@ section section:nth-of-type(3) .fb-post-header p:nth-of-type(2) {
     text-align: left;
 }
 
-section section:nth-of-type(3) ul li:last-of-type {
+.themeBuilder section section:nth-of-type(3) ul li:last-of-type {
     background-color: #34156F;
 }
 
-section section:nth-of-type(3) .fb-post-content {
+.themeBuilder section section:nth-of-type(3) .fb-post-content {
     display: flex;
     flex-direction: column;
     align-self: flex-start;
@@ -535,18 +537,18 @@ section section:nth-of-type(3) .fb-post-content {
     margin: 0;
 }
 
-section section:nth-of-type(3) .fb-post-content p {
+.themeBuilder section section:nth-of-type(3) .fb-post-content p {
     margin-bottom: 0.625em;
     font-size: 0.9em;
 }
 
-section section:nth-of-type(3) .fb-post-content img {
+.themeBuilder section section:nth-of-type(3) .fb-post-content img {
     max-width: 100%;
     margin-bottom: 0.625em;
     border: none;
 }
 
-section section:nth-of-type(3) .fb-post-content a {
+.themeBuilder section section:nth-of-type(3) .fb-post-content a {
     color: #000000;
     font-size: 0.8em;
     text-decoration: none;
@@ -561,14 +563,14 @@ section section:nth-of-type(3) .fb-post-content a {
     margin-top: 1em;
 }
 
-section section:nth-of-type(3) .fb-post-content a img {
+.themeBuilder section section:nth-of-type(3) .fb-post-content a img {
     width: 1em;
     height: 1em;
     margin-right: 0.3125em;
     margin-top: 0.3125em;
 }
 
-section section:nth-of-type(3) .fb-post-footer {
+.themeBuilder section section:nth-of-type(3) .fb-post-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -579,7 +581,7 @@ section section:nth-of-type(3) .fb-post-footer {
     max-height: fit-content;
 }
 
-section section:nth-of-type(3) .fb-post-footer a {
+.themeBuilder section section:nth-of-type(3) .fb-post-footer a {
     display: flex;
     /* hier is de verandering */
     color: black;
@@ -595,37 +597,37 @@ section section:nth-of-type(3) .fb-post-footer a {
     margin-top: 0.5em;
 }
 
-section section:nth-of-type(3) .fb-post-footer img {
+.themeBuilder section section:nth-of-type(3) .fb-post-footer img {
     width: 2em;
     border: none;
     margin: 0 1em 0 0;
 
 }
 
-section section:nth-of-type(3) .fb-post-footer a:hover {
+.themeBuilder section section:nth-of-type(3) .fb-post-footer a:hover {
     color: #D3BCFF;
 }
 
 
-img {
+.themeBuilder img {
     transition: 1s ease-out;
 }
 
-.leftmainsection,
-.rightmainsection {
+.themeBuilder .leftmainsection,
+.themeBuilder .rightmainsection {
     transition: background-color 1s ease-out;
 }
 
-.leftmainsection {
+.themeBuilder .leftmainsection {
     background-color: white;
 }
 
-.rightmainsection {
+.themeBuilder .rightmainsection {
     background-color: white;
 }
 
 
-.magic-effect {
+.themeBuilder .magic-effect {
     background-color: white;
     opacity: 0;
     animation-name: magic;
@@ -645,43 +647,6 @@ img {
     }
 }
 
-.error-body {
-    background-color: #000000;
-}
-
-.h1-404 {
-    font-size: 6rem;
-    font-weight: bold text-stroke 2px white;
-    color: rgb(255, 255, 255);
-    font-size: 2000%;
-    margin: 0;
-    text-align: center;
-    margin-top: 0.5em;
-    text-shadow: 0 0 50px rgb(109, 28, 180);
-}
-
-.h1-404 span {
-    display: inline-block;
-    animation: float 1s ease-out forwards;
-    animation-iteration-count: infinite;
-    animation-direction: alternate-reverse;
-    margin-left: auto;
-    margin-right: auto;
-
-}
-
-.h1-404 span:nth-child(1) {
-    animation-duration: 0.8s;
-}
-
-.h1-404 span:nth-child(2) {
-    animation-duration: 0.6s;
-}
-
-.h1-404span:nth-child(3) {
-    animation-duration: 0.7s;
-}
-
 @keyframes float {
     0% {
         transform: translateY(0) rotate(0);
@@ -694,19 +659,4 @@ img {
     100% {
         transform: translateY(0) rotate(-10deg);
     }
-}
-
-
-.text-404 {
-    color: white;
-    text-align: center;
-}
-
-.text-404 {
-    text-shadow: 0 0 10px 4px rgb(109, 28, 180);
-}
-
-.error-body img {
-    width: 5%;
-    margin-left: 44em;
 }

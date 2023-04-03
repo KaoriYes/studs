@@ -92,7 +92,7 @@ app.post('/submit-form', upload.single('image'), async (req, res) => {
   }
 });
 
-app.get('/', async (req, res) => {
+app.get('/thema-aanpassen', async (req, res) => {
   if (!collection) {
     return res.status(500).send('Unable to connect to database');
   }
@@ -141,9 +141,10 @@ app.delete('/col_thema/:themeID', async (req, res) => {
       return res.status(404).send('Theme not found');
     }
 
-    res.redirect('/');
+    res.redirect('/thema-aanpassen');
   } catch (err) {
     console.error(err);
+    
     res.status(500).send('Failed to delete theme');
   }
 });
