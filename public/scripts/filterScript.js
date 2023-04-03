@@ -17,17 +17,16 @@
       const selectedCount = document.querySelectorAll('input[name="selectedVakken"]:checked').length;
 
       // Toggle the visibility of the button based on the count
-        if (selectedCount < 2) {
-          button.style.display = 'none';
-          console.log("none");
-        } else  {
-          button.style.display = 'block';
-          console.log("block");
-        }
-      }
-  )});
-  button.style.display = 'none';
-
+      //   if (selectedCount < 1) {
+      //     button.style.display = 'none';
+      //     console.log("none");
+      //   } else  {
+      //     button.style.display = 'block';
+      //     console.log("block");
+      //   }
+      // }
+    })});
+  // button.style.display = 'none';
 
 
 

@@ -118,24 +118,34 @@ app.post('/studentRegister', async (req, res) => {
     res.render('studentRegistrer.ejs', {title: 'Student Register', subtitle: 'Please fill in all fields!'});
   }  
   else {
-    res.redirect('/filter');
     const hashedpw = await bcrypt.hash(password, saltRounds);
     var userdata = {
       name,
       surname,
       hashedpw,
       email,
-      leerjaar
+      leerjaar,
+      selectedVakken: ""
       // no need for : value if key and value are the same
     };
+    
     collectionUsers.insertOne(userdata, function (err, collection) {
-    // Qt: this is for later..
-      console.log('Record inserted Successfully');
       if (err) {throw err;}
       else{
+        
+      }});
+      const requestedUser = await collectionUsers.findOne({ email });
+      console.log(requestedUser);
+       req.session.authenticated = true;
+                req.session.user = {
+                email, 
+                id: requestedUser._id,
+                name: requestedUser.name, 
+                }; 
+      req.session.save(); 
 
-  }});
-  }
+      res.redirect('/filter');
+    }
 });
 
 app.post('/submit-sa', async (req, res) => {
@@ -168,6 +178,7 @@ app.post('/submit-sa', async (req, res) => {
 app.get("/login", checkLoggedin, (req, res) => {
   res.render("preRegister.ejs", { title: "Login" });
 });
+
 app.post("/login", async (req, res) => { 
   res.locals.title = "Login";
     // get form data and requested email from db 
@@ -187,33 +198,17 @@ app.post("/login", async (req, res) => {
                 name: requestedUser.name, 
                 }; 
                 req.session.save(); 
-                res.redirect("/"); 
+                res.redirect("/filter"); 
                 // console.log(session);
             } else { 
             // if password incorrect 
-                res.render("login", {
+                res.render("preRegister", {
                      email: req.body.email, 
-                     error: "Incorrect email or password", 
+                     error: "Incorrect email or password",  
                     }); 
                     console.log("Incorrect  password");
                 } 
             };});
-        //     else { 
-        //         // if email unauthorised 
-        //         res.render("login", { 
-        //             email: req.body.email,
-        //              error: "Incorrect email", 
-        //             });
-        //             console.log("Incorrect email");
-        //          } 
-        //         } else { 
-        //         // if user does not exist 
-        //         res.render("login", {
-        //             email: req.body.email,
-        //              error: "Incorrect email or password", 
-        //         }); 
-        //         console.log("no user");
-        //  } 
 
 app.get("/logout", (req, res) => {
      req.session.destroy(err => {
@@ -235,7 +230,7 @@ col_thema.forEach(theme => {
 });
 
 
-let collection;
+const collection = client.db("studsdb").collection("col_thema");
 
 
 // Insert a new theme into the database
@@ -253,7 +248,7 @@ async function insertTheme(theme) {
 
 
 
-app.post('/submit-form', upload.single('image'), async (req, res) => {
+app.post('/nieuwThema', upload.single('image'), async (req, res) => {
   console.log(req.file)
   const { body, file } = req;
   const theme = {
@@ -263,14 +258,17 @@ app.post('/submit-form', upload.single('image'), async (req, res) => {
     fontFamily: body.font,
     textColor: body['font-color'],
     images:  file.filename,
-    thumbnailUrl: `/public/uploads/${file.filename}`
+    thumbnailUrl: `/public/uploads/${file.filename}`,
+    user: req.session.user.email
   };
   
   try {
     await insertTheme(theme);
     try {
-      const renderData = await collection.find({}).toArray();
-      res.render('theme-builder2', { col_thema: renderData , theme, randomQuote });
+       const user1 = req.session.user.email;
+const user =  await collectionUsers.findOne({ email: user1})
+      const renderData = await collection.find({user: req.session.user.email}).toArray();
+      res.render('theme-builder2', { col_thema: renderData , theme, randomQuote, user });
     } catch (err) {
       console.error(err);
       res.status(500).send('Failed to retrieve themes');
@@ -280,14 +278,16 @@ app.post('/submit-form', upload.single('image'), async (req, res) => {
   }
 });
 
-app.get('/thema-aanpassen', async (req, res) => {
+app.get('/themaAanpassen', async (req, res) => {
   if (!collection) {
     return res.status(500).send('Unable to connect to database');
   }
   
   try {
-    const renderData = await collection.find({}).toArray();
-    res.render('theme-builder', { col_thema: renderData });
+     const user1 = req.session.user.email;
+const user =  await collectionUsers.findOne({ email: user1})
+    const renderData = await collection.find({user: req.session.user.email}).toArray();
+    res.render('theme-builder', { col_thema: renderData, user });
   } catch (err) {
     console.error(err);
     res.status(500).send('Failed to retrieve themes');
@@ -329,7 +329,7 @@ app.delete('/col_thema/:themeID', async (req, res) => {
       return res.status(404).send('Theme not found');
     }
 
-    res.redirect('/thema-aanpassen');
+    res.redirect('/themaAanpassen');
   } catch (err) {
     console.error(err);
     
@@ -338,7 +338,9 @@ app.delete('/col_thema/:themeID', async (req, res) => {
 });
 
 app.get('/col_thema/:id', async (req, res) => {
-  const theme = await collection.findOne({ _id: ObjectId(req.params.id) });
+   const user1 = req.session.user.email;
+const user =  await collectionUsers.findOne({ email: user1})
+  const theme = await collection.findOne({ _id: ObjectId(req.params.id), user });
   res.render('theme-builder2', { theme, col_thema });
   });
   
@@ -354,15 +356,6 @@ app.post('/submit', (req, res) => {
 
 
 // Start the server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
-  console.error();
-});
-
-
-
-
   
   app.get("/filter", async (req, res) => {
       const user1 = req.session.user.email;
@@ -383,34 +376,37 @@ const user =  await collectionUsers.findOne({ email: user1})
     });
   });
   
-  app.post("/nextPage", (req, res) => {
+  app.post("/nextPage", async (req, res) => {
     const selectedVakken = req.body.selectedVakken;
-    let errorMessage = "";
   
+    collectionUsers.updateOne({email: req.session.user.email}, {$set : {  selectedVakken}});
+    
     // Check if at least two checkboxes are selected
-    if (!selectedVakken || selectedVakken.length < 2) {
-      collectionVakken.find({}).toArray().then((vakken, jaar) => {
-        const vaknamen = vakken.map((vak) => vak.naam);
-      errorMessage = "Selecteer minstens 2 vakken.";
-      res.render("filter.ejs", { vakken: vaknamen, errorMessage: errorMessage });
-      console.log(errorMessage)
-      });
-    }
-    // Render the next page or the same page with an error message
-     else if (errorMessage) {
-      const errorMessage = "Selecteer minstens 2 vakken.";
-      res.render("filter.ejs", { vakken: vaknamen, erroMessage: errorMessage });
-      console.log(errorMessage)
+//     if (!selectedVakken || selectedVakken.length < ) {
+//       const user1 = req.session.user.email;
+// const user =  await collectionUsers.findOne({ email: user1})
+//       collectionVakken.find({}).toArray().then((vakken, jaar) => {
+//         const vaknamen = vakken.map((vak) => vak.naam);
+//       errorMessage = "Selecteer minstens 2 vakken.";
+//       res.render("filter.ejs", { vakken: vaknamen, errorMessage: errorMessage, user });
+//       console.log(errorMessage)
+//       });
+//     }
+//     // Render the next page or the same page with an error message
+//      else if (errorMessage) {
+//       const user1 = req.session.user.email;
+// const user =  await collectionUsers.findOne({ email: user1})
+//       const errorMessage = "Selecteer minstens 2 vakken.";
+//       res.render("filter.ejs", { vakken: vaknamen, erroMessage: errorMessage, user });
+//       console.log(errorMessage)
 
-    } else {
+//     } else {
       res.render("nextPage.ejs", { selectedVakken });
-    }
+//     }
   });
   
 app.listen(port, function() {
     console.log(`Server is running on port: ${port}`);
-     
-
 });
 
 

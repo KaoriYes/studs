@@ -8,13 +8,17 @@
     <section>
       <section class="leftmainsection">
         <img src="/uploads/<%= theme.images%>" alt="Profielfoto">
-        <h1>Ufuk Argun</h1>
-        <p>Student | Leejaar 2</p>
+        <h1>
+          <%= user.name %>
+            <%= user.surname %>
+        </h1>
+        <p>Student | Leejaar <%= user.leerjaar %>
+        </p>
   <a href="#">Terug naar home</a>
       </section>
       <section>
-        <a onclick="location.href='/thema-aanpassen';">Reset to default</a>
-        <a onclick="location.href='/thema-aanpassen';">+ Add New Theme</a>
+        <a onclick="location.href='/themaAanpassen';">Reset to default</a>
+        <a onclick="location.href='/themaAanpassen';">+ Add New Theme</a>
         <% col_thema.forEach(function(theme){ %>
         <a href="/col_thema/<%= theme._id %>"
           style=" font-size: 13px; text-decoration:none; text-align: center; display:flex; background-color: <%= theme.backgroundColor %>">
