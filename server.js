@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 1600;
+const port = 1337;
 const ejs = require('ejs');
 const methodOverride = require('method-override');
 
