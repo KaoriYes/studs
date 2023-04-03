@@ -1,0 +1,27 @@
+<%- include('header.ejs') %>
+<main>
+<section class="preRegister">
+    <h1>Leren met StudS!</h1>
+    <img src="img/studsLogo.svg" alt="StudS logo">
+    <p>Onze app is ontworpen om jou te helpen bij het vinden van de juiste assistent voor jouw studiebehoeften.</p>
+<section class="preChoice">
+    <button class="loginButton">Login met Account</button>
+    <span>of</span>
+    <button>Aanmelden met Studielink</button>
+    <a href="/registerQuestion">Nog geen account? Registreer</a>
+</section>
+<div class="loginForm displaynone">
+    <form action="/login" method="POST"  >
+        <input type="email" id="email" name="email" placeholder="Email">
+        <input type="password" id="password" name="password" placeholder="Wachtwoord">
+        <input type="submit" value="login">
+    </form>
+    <button class="registerButton">Terug</button>
+</div>
+</section>
+<div class="preRegisterSide">
+    <img src="img/workspaceImg.png" alt="Workspace">
+</div>
+</main>
+<script src="scripts/preRegister.js"></script>
+<%- include('footer.ejs') %>
