@@ -8,11 +8,12 @@ const saltRounds = 12;
 require('dotenv').config();
 const port = 1337;
 
-app.use(express.static('static'));
+app.use(express.static('public'));
 var path = require('path');
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/img', express.static(path.join(__dirname, 'public/img')));
+app.set('view engine', 'ejs');
 app.set('view engine', 'ejs');
 
 //database verbinden
@@ -158,7 +159,7 @@ app.post('/submit-sa', async (req, res) => {
   }
 });
 app.get("/login", checkLoggedin, (req, res) => {
-  res.render("login", { title: "Login" });
+  res.render("preRegister.ejs", { title: "Login" });
 });
 app.post("/login", async (req, res) => { 
   res.locals.title = "Login";
