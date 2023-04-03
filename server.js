@@ -6,8 +6,9 @@ const methodOverride = require('method-override');
 
 app.set('view engine', 'ejs');
 app.use('/public/', express.static('./public'));
-app.use(express.static(__dirname + '/public'));
 app.use(methodOverride('_method'));
+var path = require('path');
+app.use(express.static(path.join(__dirname, 'public')));
 
 //Dit is voor de form
 
@@ -42,7 +43,7 @@ app.get('/', (req, res) => {
     const selectedJaar = req.body.jaar;
     collectionVakken.find({ jaar: selectedJaar }).toArray().then((vakken) => {
       const vaknamen = vakken.map((vak) => vak.naam); // Extract name field
-      res.render("filter.ejs", { vakken: vaknamen });
+      res.render("filter.ejs", { vakken: vaknamen, jaar: selectedJaar });
     });
   });
   
@@ -70,10 +71,6 @@ app.get('/', (req, res) => {
     }
   });
   
-  
-
-
-
 app.listen(port, function() {
     console.log('test');
 });
