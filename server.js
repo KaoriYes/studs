@@ -35,9 +35,22 @@ const uri = "mongodb+srv://adminuser:" + password + "@studsdb.8yrtlny.mongodb.ne
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 const connect = mongoose.connect(uri, {
+  dbName: 'studsdb',
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+
+connect.then(
+  (db) => {
+    console.log("Connected Successfully to Mongodb Server");
+
+  },
+  (err) => {
+    console.log(err);
+  }
+);
+
+module.exports = connect;
 
 
 
@@ -80,7 +93,7 @@ socket.on("connection", socket => {
       //save chat to the database
       connect.then(db => {
         console.log("saved to database");
-        let chatMessage = new Chat({ message: msg, sender: user });
+        let chatMessage = new Chat({ message: msg, sender: "Anonymous" });
   
         chatMessage.save();
       });

@@ -150,7 +150,7 @@ body section.chat_window .bottom_chat_window .message_input_wrapper {
   padding: 0 20px;
 }
 
-div.message_input_wrapper:hover,
+body section.chat_window .bottom_chat_window .message_input_wrapper:hover,
 body section.chat_window .bottom_chat_window .message_input_wrapper .message_input:hover {
   background-color: #e5e5e5;
 }
@@ -166,22 +166,31 @@ body section.chat_window .bottom_chat_window .message_input_wrapper .message_inp
 }
 
 body section.chat_window .bottom_chat_window .send_message {
-  width: 50px;
-  height: 50px;
+  width: 70px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  float: right;
+}
+
+body section.chat_window .bottom_chat_window .send_message button {
   border-radius: 100%;
   background-color: white;
   border: 2px solid white;
   color: #9272F0;
   cursor: pointer;
   transition: all 0.2s linear;
-  text-align: center;
-  float: right;
 }
 
-body section.chat_window .bottom_chat_window .send_message:hover {
+body section.chat_window .bottom_chat_window .send_message button img {
+  width: 30px;
+  height: 30px;
+}
+
+body section.chat_window .bottom_chat_window .send_message button:hover {
   color: white;
   border: white solid 2px;
-  background-color: #9272F0;
+  background-color: lightblue;
 }
 
 body section.chat_window .bottom_chat_window .send_message .text {
