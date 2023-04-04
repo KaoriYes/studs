@@ -90,13 +90,19 @@
             <p>Leerjaar <%= stud.studsleerjaar %></p>
             <form action="/like" method="POST">
               <input type="hidden" name="studId" value="<%= stud._id %>">
+              <% if (stud.liked) { %>
+              <button id="unlikeBtn" type="submit">Unlike</button>
+              <% } else { %>
               <button type="submit">Like</button>
+              <% } %>
+              <a>Inplannen</a>
             </form>
           </article>
         </li>
         <% }); %>
       </ul>
     </section>
+
   </main>
 </body>
 

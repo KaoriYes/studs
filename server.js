@@ -77,6 +77,18 @@ app.post("/like", async (req, res) => {
   res.redirect("/matchpage");
 });
 
+app.post("/unlike", async (req, res) => {
+  const studId = req.body.studId;
+  await collectionStuds.updateOne({
+    _id: new ObjectId(studId)
+  }, {
+    $set: {
+      liked: false
+    }
+  });
+  res.redirect("/likedStuds");
+});
+
 
 app.listen(port, function () {
   console.log(port);

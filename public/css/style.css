@@ -28,6 +28,7 @@
   --white: #fff;
   --black: black;
   --white-tint: #e2e2e2;
+  --unlike: #9182c0;
 }
 
 body {
@@ -163,7 +164,7 @@ body main section.agenda ul li {
   margin-top: 2em;
 }
 
-body main section.agenda ul li article > h3 {
+body main section.agenda ul li article>h3 {
   margin-top: 0.5em;
   margin-bottom: 0;
 }
@@ -183,7 +184,7 @@ body main section.agenda ul li a {
   right: 2em;
 }
 
-body main section.agenda ul li article > p {
+body main section.agenda ul li article>p {
   text-align: center;
   margin-top: 0.5em;
   margin-bottom: 0;
@@ -254,58 +255,52 @@ body main section.recStuds li {
   padding: 1em 1em 1em 1em;
 }
 
-body main section.recStuds li article > h3 {
+body main section.recStuds li article>h3 {
   color: var(--black);
   margin-bottom: 0.4em;
   margin-top: 0;
 }
 
-body main section.recStuds li article > p {
+body main section.recStuds li article>p {
   text-align: left;
   color: var(--black);
   margin-bottom: 0.4em;
   margin-top: 0.3em;
 }
 
-body main section.recStuds li article > h4 {
+body main section.recStuds li article>h4 {
   color: var(--purple-button);
   margin-bottom: 0.4em;
   margin-top: 0;
   display: inline;
 }
 
-body main section.recStuds li article section.studsBtn {
-  display: flex;
-  position: absolute;
-  right: 1em;
-  bottom: 1em;
-  justify-content: flex-end;
-}
+body main section.recStuds li article form button {
+  text-align: center;
+  display: inline-block;
+  padding: 1em 2em 1em 2em;
+  border-radius: 2em;
+  font-weight: 600;
+  border: 0.2em solid var(--purple-button);
 
-body main section.recStuds li article section.studsBtn > a:nth-child(odd) {
   background-color: var(--purple-button);
   color: var(--white);
   vertical-align: middle;
   line-height: 22px;
 }
 
-body main section.recStuds li article section.studsBtn > a:nth-child(even) {
+body main section.recStuds li article a {
   background-color: var(--white);
   color: var(--purple-button);
   border: 0.2em solid var(--purple-button);
   margin-left: 1em;
 }
 
-body main section.recStuds li article section.studsBtn > a {
-  text-align: center;
-  display: inline-block;
-  color: var(--black);
-  padding: 1em 2em 1em 2em;
-  border-radius: 2em;
-  font-weight: 600;
-}
-
-body main section.recStuds li > img {
+body main section.recStuds li>img {
   max-width: 10em;
   margin-right: 2em;
+}
+
+#unlikeBtn {
+  background-color: var(--unlike);
 }
