@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const port = process.env.PORT;
-const ObjectId = require("mongodb").ObjectId; // Add this line
+const ObjectId = require("mongodb").ObjectId;
 
 app.use(express.static("public"));
 app.use("*/css", express.static("public/css"));
@@ -44,14 +44,6 @@ app.get("/matchpage", async (req, res) => {
   res.render("MatchPage.ejs", {
     studs: studs,
   });
-});
-
-// route om stud te liken
-app.get("/like-stud/:id", function (req, res) {
-  var id = req.params.id;
-  // Update the "liked" value of the stud with the given ID in the MongoDB database
-  // ...
-  res.send("OK");
 });
 
 app.listen(port, function () {
