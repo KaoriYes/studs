@@ -55,6 +55,16 @@ app.get("/matchpage", async (req, res) => {
   });
 });
 
+//route naar liked studs
+app.get("/likedstuds", async (req, res) => {
+  const studs = await collectionStuds.find({
+    liked: true
+  }).toArray();
+  res.render("likedStuds.ejs", {
+    studs: studs,
+  });
+});
+
 app.post("/like", async (req, res) => {
   const studId = req.body.studId;
   await collectionStuds.updateOne({
