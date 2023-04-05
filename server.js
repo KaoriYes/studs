@@ -107,9 +107,15 @@ app.get("/matchpage", checkLogin, async (req, res) => {
   const user1 = req.session.user.email;
   const user = await collectionUsers.findOne({ email: user1 });
   const selectedVakken = user.selectedVakken;
+  const selectedStuds1 = collectionStuds
+    .find({ vakken: selectedVakken })
+    .toArray();
+  const selectedStuds = collectionStuds.find({ vakken: selectedVakken });
+  console.log(selectedStuds1);
   console.log(selectedVakken);
+  console.log(await collectionStuds.find({ studsnaam: "Simon Silva" }));
   res.render("MatchPage.ejs", {
-    studs: selectedVakken,
+    selectedStuds,
     user,
     selectedVakken,
   });
