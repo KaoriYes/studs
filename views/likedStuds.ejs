@@ -75,11 +75,11 @@
             </ul>
         </section>
         <section class="recStuds">
-            <a href="/matchpage">Bekijk alle assistenten</a>
-            <p>Filter op vakken</p>
-            <a href="#" class="addVakken">+</a>
-            <h2>Hier zijn jouw geliked assistenten</h2>
-            <!-- gezochte vakken -->
+            <a href="/matchpage">Bekijk alle Studs</a>
+            <h2>Hier zijn jouw geliked Studs</h2>
+            <% if (studs.length === 0) { %>
+            <p>Je hebt geen Studs geliked</p>
+            <% } else { %>
             <ul id="likedStuds">
                 <% studs.forEach(function(stud) { %>
                 <li>
@@ -96,7 +96,9 @@
                 </li>
                 <% }); %>
             </ul>
+            <% } %>
         </section>
+
     </main>
 </body>
 

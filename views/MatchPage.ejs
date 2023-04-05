@@ -76,19 +76,19 @@
     </section>
     <section class="recStuds">
       <a href="/likedStuds" id="showLikedStuds">Bekijk geliked assistenten</a>
-      <h2>Hier zijn aantal beschikbare assistenten</h2>
+      <h2>Hier zijn aantal beschikbare Studs</h2>
       <p>Op basis van jouw vakken:</p>
       <a href="#" class="addVakken">+</a>
       <!-- gezochte vakken -->
       <ul>
         <% studs.forEach(function(stud) { %>
         <li>
-          <img src="/public/img/placeholderuser.png" />
+          <img src='/public/img/<%= stud.studsnaam %>.jpg' />
           <article>
             <h3><%= stud.studsnaam %></h3>
             <h4><%= stud.vakken %></h4>
             <p>Leerjaar <%= stud.studsleerjaar %></p>
-            <form action="/like" method="POST">
+            <form <% if (stud.liked) { %> action="/unlike" <% } else { %> action="/like" <% } %> method="POST">
               <input type="hidden" name="studId" value="<%= stud._id %>">
               <% if (stud.liked) { %>
               <button id="unlikeBtn" type="submit">Unlike</button>
@@ -102,6 +102,7 @@
         <% }); %>
       </ul>
     </section>
+
 
   </main>
 </body>
