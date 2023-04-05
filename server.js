@@ -582,6 +582,8 @@ app.post("/nextPage", async (req, res) => {
 
 //route naar liked studs
 app.get("/likedstuds", async (req, res) => {
+  const user1 = req.session.user.email;
+  const user = await collectionUsers.findOne({ email: user1 });
   const studs = await collectionStuds
     .find({
       liked: true,
@@ -589,6 +591,7 @@ app.get("/likedstuds", async (req, res) => {
     .toArray();
   res.render("likedStuds.ejs", {
     studs: studs,
+    user,
   });
 });
 
