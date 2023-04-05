@@ -15,7 +15,7 @@
   <body class="body-overflow-hidden">
     <%- include('./header') %>
     <main>
-      <%- include('./sidebar') %>
+      <%- include('./sidebar2') %>
       <section class="agenda">
         <h2>Opkomende sessies</h2>
         <ul>
@@ -30,46 +30,46 @@
               <h3 style="color: <%= theme.textColor %>">5 April</h3>
               <p style="color: <%= theme.textColor %>">18:00 - 20:00</p>
             </article>
-            <a>Bekijk</a>
+            <a style="color: <%= theme.textColor %>; background-color: <%=  theme.backgroundColor%>;">Bekijk</a>
+          </li>
+          <li style="background-color: <%=  theme.backgroundColor%>;" >
+            <article>
+              <img src="/public/img/placeholderuser.png"/>
+              <h3 style="color: <%= theme.textColor %>">Ufuk Argun</h3>
+              <p style="color: <%= theme.textColor %>">Informatie architectuur</p>
+            </article>
+            <article>
+              <p style="color: <%= theme.textColor %>">Datum:</p>
+              <h3 style="color: <%= theme.textColor %>">8 April</h3>
+              <p style="color: <%= theme.textColor %>"></p>>15:00 - 16:00</p>
+            </article>
+            <a style="color: <%= theme.textColor %>; background-color: <%=  theme.backgroundColor%>;">Bekijk</a>
           </li>
           <li style="background-color: <%=  theme.backgroundColor%>;" >
             <article>
               <img src="/public/img/placeholderuser.png" />
-              <h3>Ufuk Argun</h3>
-              <p>Informatie architectuur</p>
+              <h3 style="color: <%= theme.textColor %>">Bart Spons</h3>
+              <p style="color: <%= theme.textColor %>">Inleiding Programmeren</p>
             </article>
             <article>
-              <p>Datum:</p>
-              <h3>8 April</h3>
-              <p>15:00 - 16:00</p>
+              <p style="color: <%= theme.textColor %>">Datum:</p>
+              <h3 style="color: <%= theme.textColor %>">9 April</h3>
+              <p style="color: <%= theme.textColor %>">12:00 - 13:00</p>
+              <a style="color: <%= theme.textColor %>; background-color: <%=  theme.backgroundColor%>;">Bekijk</a>
             </article>
-            <a>Bekijk</a>
-          </li>
-          <li style="background-color: <%=  theme.backgroundColor%>;" >
-            <article>
-              <img src="/public/img/placeholderuser.png" />
-              <h3>Bart Spons</h3>
-              <p>Inleiding Programmeren</p>
-            </article>
-            <article>
-              <p>Datum:</p>
-              <h3>9 April</h3>
-              <p>12:00 - 13:00</p>
-            </article>
-            <a>Bekijk</a>
+            </li>
             <li style="background-color: <%=  theme.backgroundColor%>;" >
-                <li>
             <article>
               <img src="/public/img/placeholderuser.png" />
-              <h3>Sven Zoutman</h3>
-              <p>Ubicomp</p>
+              <h3 style="color: <%= theme.textColor %>">Sven Zoutman</h3>
+              <p style="color: <%= theme.textColor %>">Ubicomp</p>
             </article>
             <article>
-              <p>Datum:</p>
-              <h3>11 April</h3>
-              <p>14:00 - 16:00</p>
+              <p style="color: <%= theme.textColor %>">Datum:</p>
+              <h3 style="color: <%= theme.textColor %>">11 April</h3>
+              <p style="color: <%= theme.textColor %>">14:00 - 16:00</p>
             </article>
-            <a>Bekijk</a>
+            <a style="color: <%= theme.textColor %>; background-color: <%= theme.backgroundColor %>">Bekijk</a>
           </li>
         </ul>
       </section>
