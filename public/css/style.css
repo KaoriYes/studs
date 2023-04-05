@@ -22,36 +22,60 @@
     font-display: swap;
 }
 
+:root {
+  --font-main: 'Poppins',
+  sans-serif;
+  --font-size-h1: 2em;
+  --font-size-h2: 1.5em;
+  --font-header-margin: 0.5em 0;
+  --font-weight-header: bold;
+  --font-color-header: #714EB6;
+  --font-size-body: .875em;
+  --font-color-body: #000000;
+  --font-weight-body: 400;
+  --background-color: #FFFFFF;
+  --font-form-p: #707070;
+  --font-form-p-margin: 0.25em 0;
+  --filter-li-bg: #714EB6;
+  --purple-button: #7353d1;
+  --purple-shade: #f2eeff;
+  --white: #fff;
+  --black: black;
+  --white-tint: #e2e2e2;
+  --unlike: #9182c0;
+  --color-bottom-chat: #714EB6;
+  --color-chat-message: #714EB6;
+}
 
 
-body section.chat_window {
+body main.chat section.chat_window {
   position: absolute;
   width: calc(100% - 20px);
   max-width: 800px;
   height: 500px;
   border-radius: 10px;
-  background-color: #fff;
+  background-color: var(--background-color);
   left: 50%;
   top: 50%;
   transform: translateX(-50%) translateY(-50%);
-  background-color: #f8f8f8;
   overflow: hidden;
 }
 
-body section.chat_window .top_chat_window {
-  background-color: #fff;
+body main.chat section.chat_window .top_chat_window {
+  background-color: var(--background-color);
   width: 100%;
   padding: 20px 0 15px;
   box-shadow: 0 1px 30px rgba(0, 0, 0, 0.1);
 }
 
-body section.chat_window .top_chat_window .title {
+body main.chat section.chat_window .top_chat_window .title {
   text-align: center;
-  color: #bcbdc0;
-  font-size: 20px;
+  color: var(--font-color-header);
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-header);
 }
 
-body section.chat_window .messages {
+body main.chat section.chat_window .messages {
   position: relative;
   list-style: none;
   padding: 20px 10px 0 10px;
@@ -60,7 +84,7 @@ body section.chat_window .messages {
   overflow: scroll;
 }
 
-body section.chat_window .messages .message {
+body main.chat section.chat_window .messages .message {
   clear: both;
   overflow: hidden;
   margin-bottom: 20px;
@@ -68,34 +92,11 @@ body section.chat_window .messages .message {
   opacity: 0;
 }
 
-body section.chat_window .messages .message.right .text_wrapper {
-  background-color: #c7eafc;
-  margin-right: 20px;
-  float: right;
-}
-
-body section.chat_window .messages .message.right .text_wrapper::after,
-body section.chat_window .messages .message.right .text_wrapper::before {
-  left: 100%;
-  border-left-color: #c7eafc;
-}
-
-body section.chat_window .messages .message.right .text {
-  color: #45829b;
-}
-
-body section.chat_window .messages .message.appeared {
+body main.chat section.chat_window .messages .message.appeared {
   opacity: 1;
 }
 
-body section.chat_window .messages .message .avatar {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  display: inline-block;
-}
-
-body section.chat_window .messages .message .text_wrapper {
+body main.chat section.chat_window .messages .message .text_wrapper {
   display: inline-block;
   padding: 20px;
   border-radius: 6px;
@@ -104,23 +105,12 @@ body section.chat_window .messages .message .text_wrapper {
   position: relative;
 }
 
-body section.chat_window .messages .message .text_wrapper::after,
-body section.chat_window .messages .message .text_wrapper:before {
-  top: 18px;
-  border: solid transparent;
-  content: " ";
-  height: 0;
-  width: 0;
-  position: absolute;
-  pointer-events: none;
-}
-
-body section.chat_window .messages .message .text_wrapper::after {
+body main.chat section.chat_window .messages .message .text_wrapper::after {
   border-width: 13px;
   margin-top: 0px;
 }
 
-body section.chat_window .messages .message .text_wrapper::before {
+body main.chat section.chat_window .messages .message .text_wrapper::before {
   border-width: 15px;
   margin-top: -2px;
 }
@@ -130,42 +120,42 @@ body section.chat_window .messages .message .text_wrapper .text {
   font-weight: 300;
 }
 
-body section.chat_window .bottom_chat_window {
+body main.chat section.chat_window .bottom_chat_window {
   position: relative;
   width: 100%;
-  background-color: #9272F0;
+  background-color: var(--color-bottom-chat);
   padding: 10px 10px;
   position: absolute;
   bottom: 0;
 }
 
-body section.chat_window .bottom_chat_window .message_input_wrapper {
+body main.chat section.chat_window .bottom_chat_window .message_input_wrapper {
   display: inline-block;
   height: 50px;
   border-radius: 25px;
-  border: 1px solid #bcbdc0;
-  background-color: white;
+  border: 1px solid var(--white-tint);
+  background-color: var(--background-color);
   width: calc(100% - 160px);
   position: relative;
   padding: 0 20px;
 }
 
-body section.chat_window .bottom_chat_window .message_input_wrapper:hover,
-body section.chat_window .bottom_chat_window .message_input_wrapper .message_input:hover {
-  background-color: #e5e5e5;
+body main.chat section.chat_window .bottom_chat_window .message_input_wrapper:hover,
+body main.chat section.chat_window .bottom_chat_window .message_input_wrapper .message_input:hover {
+  background-color: var(--white-tint);
 }
 
-body section.chat_window .bottom_chat_window .message_input_wrapper .message_input {
+body main.chat section.chat_window .bottom_chat_window .message_input_wrapper .message_input {
   border: none;
   height: 100%;
   box-sizing: border-box;
   width: calc(100% - 40px);
   position: absolute;
   outline-width: 0;
-  color: gray;
+  color: var(--white-tint);
 }
 
-body section.chat_window .bottom_chat_window .send_message {
+body main.chat section.chat_window .bottom_chat_window .send_message {
   width: 70px;
   height: 70px;
   display: flex;
@@ -173,47 +163,47 @@ body section.chat_window .bottom_chat_window .send_message {
   float: right;
 }
 
-body section.chat_window .bottom_chat_window .send_message button {
+body main.chat section.chat_window .bottom_chat_window .send_message button {
   border-radius: 100%;
-  background-color: white;
-  border: 2px solid white;
-  color: #9272F0;
+  background-color: var(--background-color);
+  border: 2px solid var(var(--background-color));
+  color: var(--font-color-header);
   cursor: pointer;
   transition: all 0.2s linear;
 }
 
-body section.chat_window .bottom_chat_window .send_message button img {
-  width: 30px;
-  height: 30px;
+body main.chat section.chat_window .bottom_chat_window .send_message button img {
+  width: 50px;
+  height: 50px;
 }
 
-body section.chat_window .bottom_chat_window .send_message button:hover {
-  color: white;
-  border: white solid 2px;
-  background-color: lightblue;
+body main.chat section.chat_window .bottom_chat_window .send_message button:hover {
+  color: var(--white-tint);
+  border: var(--white) solid 2px;
+  background-color: var(--white-tint);
 }
 
-body section.chat_window .bottom_chat_window .send_message .text {
+body main.chat section.chat_window .bottom_chat_window .send_message .text {
   font-size: 18px;
   font-weight: 300;
   display: inline-block;
   line-height: 48px;
 }
 
-body section.chat_window .message_template {
+body main.chat section.chat_window .message_template {
   display: none;
 }
 
-body section.chat_window .messages > li {
+body main.chat section.chat_window .messages > li {
   font-size: 1em;
-  color: white;
-  background: #9272F0;
+  color: var(--white);
+  background: var(--color-chat-message);
   padding: .5em;
   border-radius: .5em;
   width: fit-content;
 }
 
-body section.chat_window .messages > span {
+body main.chat section.chat_window .messages > span {
   font-size: 10px;
-  font-style: italic;
+  font-style: bold;
 }

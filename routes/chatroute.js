@@ -1,23 +1,13 @@
 const express = require("express");
-const connectdb = require("./../server");
-const Chats = require("./../models/Chat");
+const connectdb = require("../server");
+const Chats = require("../models/chatSchema");
 const router = express.Router();
 
-router.route("/").get((req, res) => {
-  let data = Chats.find({ message: "Anonymous" });
-  res.render("index");
-});
-
-// router.route("/").get((req, res) => {
-   
-//     res.setHeader("Content-Type", "application/json");
-//     res.statusCode = 200;
-  
-//     connectdb.then(db => {
-//       Chats.find({}).then(chat => {
-//         res.json(chat);
-//       });
-//     });
-//   });
+  router.route("/").get((req, res) => {
+    Chats.find().then((results) => {
+      console.log(results)
+      res.render("chat", {Chats: results });
+    });
+  });
 
 module.exports = router;
