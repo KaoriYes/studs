@@ -129,7 +129,7 @@ app.post('/studentRegister', async (req, res) => {
       // no need for : value if key and value are the same
     };
     
-    collectionUsers.insertOne(userdata, function (err, collection) {
+    collectionUsers.insertOne(userdata, function (err) {
       if (err) {throw err;}
       else{
         
