@@ -55,9 +55,9 @@ socket = io(http);
 const Chat = require("./models/chatSchema");
 
 //setup event listener
-socket.on("connection", function() {
+socket.on("connection", socket => {
     console.log("user connected");
-  })
+  
   
     socket.on("disconnect", function() {
       console.log("user disconnected");
@@ -79,6 +79,7 @@ socket.on("connection", function() {
     socket.on("chat message", function(msg) {
       console.log("message: " + msg);
   
+  
       //broadcast message to everyone in port except yourself.
       socket.broadcast.emit("received", { message: msg });
   
@@ -92,7 +93,7 @@ socket.on("connection", function() {
     });
 
 
-
+});
 http.listen(port, () => {
     console.log("Running on Port: " + port);
   });

@@ -1,5 +1,4 @@
 const express = require("express");
-const connectdb = require("../server");
 const Chats = require("../models/chatSchema");
 const router = express.Router();
 

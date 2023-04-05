@@ -45,6 +45,7 @@
   --unlike: #9182c0;
   --color-bottom-chat: #714EB6;
   --color-chat-message: #714EB6;
+  --font-color-chat: #714EB6;
 }
 
 
@@ -59,6 +60,8 @@ body main.chat section.chat_window {
   top: 50%;
   transform: translateX(-50%) translateY(-50%);
   overflow: hidden;
+  border: 20px solid var(--color-bottom-chat);
+  border-bottom: none;
 }
 
 body main.chat section.chat_window .top_chat_window {
@@ -152,15 +155,13 @@ body main.chat section.chat_window .bottom_chat_window .message_input_wrapper .m
   width: calc(100% - 40px);
   position: absolute;
   outline-width: 0;
-  color: var(--white-tint);
+  color: var(--font-color-chat);
 }
 
 body main.chat section.chat_window .bottom_chat_window .send_message {
   width: 70px;
-  height: 70px;
-  display: flex;
-  align-items: center;
   float: right;
+  margin-right: 1.5em;
 }
 
 body main.chat section.chat_window .bottom_chat_window .send_message button {
