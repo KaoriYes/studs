@@ -8,6 +8,18 @@ const bodyParser = require("body-parser");
 const bcrypt = require("bcryptjs");
 const saltRounds = 12;
 require("dotenv").config();
+const mongoose = require("mongoose");
+mongoose.Promise = require("bluebird");
+const chatRouter = require("./routes/chatroute");
+
+//require the http module
+const http = require("http").Server(app);
+// require the socket.io module
+const io = require("socket.io");
+
+//bodyparser middleware
+app.use(express.json());
+
 const port = 1337;
 const methodOverride = require("method-override");
 const { v4: uuidv4 } = require("uuid");
@@ -79,7 +91,16 @@ const checkLoggedin = (req, res, next) => {
     next();
   }
 };
+const connect = mongoose.connect(uri, {
+  dbName: 'studsdb', useNewUrlParser: true, useUnifiedTopology: true });
+connect.then(
+  (db) => {
+    console.log("Connected Successfully to Mongodb Server")},
+  (err) => {
+    console.log(err)}
+);
 
+module.exports = connect;
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", checkLogin, async (req, res) => {
@@ -103,20 +124,12 @@ app.get("/registerQuestion", (req, res) => {
 
 //route naar de matchpage
 app.get("/matchpage", checkLogin, async (req, res) => {
-  const user1 = req.session.user.email;
-  const user = await collectionUsers.findOne({ email: user1 });
-  const selectedVakken = user.selectedVakken;
-  const selectedStuds = await collectionStuds
-    .find({
-      vakken: { $in: selectedVakken },
-    })
-    .toArray();
+  const user1 = req.session.user.email; 
+  const user = await collectionUsers.findOne({ email: user1 }); 
+  const selectedVakken = user.selectedVakken; 
+  const selectedStuds = await collectionStuds .find({ vakken: { $in: selectedVakken }, }) .toArray(); 
   console.log(selectedVakken);
-  res.render("MatchPage.ejs", {
-    selectedStuds,
-    user,
-    selectedVakken,
-  });
+  res.render("MatchPage.ejs", { selectedStuds, user, selectedVakken, }); 
 });
 
 app.get("/sidebar", async (req, res) => {
@@ -308,6 +321,7 @@ app.post("/nieuwThema", upload.single("image"), async (req, res) => {
     images: file.filename,
     thumbnailUrl: `/public/uploads/${file.filename}`,
     user: req.session.user.email,
+    active: ""
   };
 
   try {
@@ -318,7 +332,7 @@ app.post("/nieuwThema", upload.single("image"), async (req, res) => {
       const renderData = await collection
         .find({ user: req.session.user.email })
         .toArray();
-      res.render("theme-builder2", {
+      res.render("matchPage-2", {
         col_thema: renderData,
         theme,
         randomQuote,
@@ -332,6 +346,7 @@ app.post("/nieuwThema", upload.single("image"), async (req, res) => {
     res.status(500).send({ error: "Failed to save theme" });
   }
 });
+
 
 app.get("/themaAanpassen", async (req, res) => {
   if (!collection) {
@@ -368,12 +383,7 @@ app.get("/col_thema/:themeID", async (req, res) => {
     const user1 = req.session.user.email;
     const user = await collectionUsers.findOne({ email: user1 });
     const renderData = await collection.find({ user: user1 }).toArray();
-    res.render("theme-builder2", {
-      col_thema: renderData,
-      theme,
-      randomQuote,
-      user,
-    });
+    res.render("theme-builder2", { col_thema: renderData, theme, randomQuote, user });
   } catch (err) {
     console.error(err);
     res.status(500).send("Failed to retrieve theme");
@@ -414,10 +424,52 @@ app.get("/form", (req, res) => {
   res.render("form.ejs");
 });
 
+app.get("/matchpage2", async (req, res) => {
+  const { body, file } = req;
+  const theme = {
+    _id: body.id,
+    name: body.name,
+    backgroundColor: body.color,
+    fontFamily: body.font,
+    textColor: body["font-color"],
+    user: req.session.user.email,
+  };
+  const user1 = req.session.user.email;
+  const user = await collectionUsers.findOne({ email: user1 });
+  const selectedVakken = user.selectedVakken;
+  const selectedStuds = await collectionStuds.find({
+vakken: { $in: selectedVakken }, }).toArray();
+ console.log(selectedVakken);
+  try {
+    await insertTheme(theme);
+    try {
+      const user1 = req.session.user.email;
+      const user = await collectionUsers.findOne({ email: user1 });
+      const renderData = await collection
+        .find({ user: req.session.user.email })
+        .toArray();
+      res.render("matchPage-2.ejs", {
+        col_thema: renderData,
+        theme,
+        randomQuote,
+        user,
+        selectedStuds,
+        selectedVakken,
+      });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Failed to retrieve themes");
+    }
+  } catch (err) {
+    res.status(500).send({ error: "Failed to save theme" });
+  }
+});
+
 app.post("/submit", (req, res) => {
   const name = req.body.test;
   res.send(`Name: ${name}`);
 });
+
 
 app.delete("/col_thema/:themeID", async (req, res) => {
   try {
@@ -571,6 +623,56 @@ app.post("/unlike", async (req, res) => {
   res.redirect("/likedStuds");
 });
 
-app.listen(port, function () {
-  console.log(`Server is running on port: ${port}`);
+
+//routes
+app.use("/chats", chatRouter);
+
+//integrating socketio
+socket = io(http);
+
+//database connection
+const Chat = require("./models/chatSchema");
+
+//setup event listener
+socket.on("connection", socket => {
+    console.log("user connected");
+  
+  
+    socket.on("disconnect", function() {
+      console.log("user disconnected");
+    });
+  
+    //Somebody is typing
+    socket.on("typing", data => {
+      socket.broadcast.emit("notifyTyping", {
+        user: data.user,
+        message: data.message
+      });
+    });
+  
+    //when somebody stops typing
+    socket.on("stopTyping", () => {
+      socket.broadcast.emit("notifyStopTyping");
+    });
+  
+    socket.on("chat message", function(msg) {
+      console.log("message: " + msg);
+  
+  
+      //broadcast message to everyone in port except yourself.
+      socket.broadcast.emit("received", { message: msg });
+  
+      //saves chat to the database
+      connect.then(db => {
+        console.log("saved to database");
+        let chatMessage = new Chat({ message: msg, sender: "Anonymous" });
+  
+        chatMessage.save();
+      });
+    });
+
+
 });
+http.listen(port, () => {
+    console.log("Running on Port: " + port);
+  });
