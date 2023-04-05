@@ -103,17 +103,15 @@ app.get("/registerQuestion", (req, res) => {
 
 //route naar de matchpage
 app.get("/matchpage", checkLogin, async (req, res) => {
-  const studs = await collectionStuds.find().toArray();
   const user1 = req.session.user.email;
   const user = await collectionUsers.findOne({ email: user1 });
   const selectedVakken = user.selectedVakken;
-  const selectedStuds1 = collectionStuds
-    .find({ vakken: selectedVakken })
+  const selectedStuds = await collectionStuds
+    .find({
+      vakken: { $in: selectedVakken },
+    })
     .toArray();
-  const selectedStuds = collectionStuds.find({ vakken: selectedVakken });
-  console.log(selectedStuds1);
   console.log(selectedVakken);
-  console.log(await collectionStuds.find({ studsnaam: "Simon Silva" }));
   res.render("MatchPage.ejs", {
     selectedStuds,
     user,
@@ -352,7 +350,12 @@ app.get("/col_thema/:themeID", async (req, res) => {
     const user1 = req.session.user.email;
     const user = await collectionUsers.findOne({ email: user1 });
     const renderData = await collection.find({ user: user1 }).toArray();
-    res.render("theme-builder2", { col_thema: renderData, theme, randomQuote, user });
+    res.render("theme-builder2", {
+      col_thema: renderData,
+      theme,
+      randomQuote,
+      user,
+    });
   } catch (err) {
     console.error(err);
     res.status(500).send("Failed to retrieve theme");
@@ -397,7 +400,6 @@ app.post("/submit", (req, res) => {
   const name = req.body.test;
   res.send(`Name: ${name}`);
 });
-
 
 app.delete("/col_thema/:themeID", async (req, res) => {
   try {
