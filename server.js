@@ -310,6 +310,7 @@ app.post("/nieuwThema", upload.single("image"), async (req, res) => {
     images: file.filename,
     thumbnailUrl: `/public/uploads/${file.filename}`,
     user: req.session.user.email,
+    active: ""
   };
 
   try {
@@ -320,7 +321,7 @@ app.post("/nieuwThema", upload.single("image"), async (req, res) => {
       const renderData = await collection
         .find({ user: req.session.user.email })
         .toArray();
-      res.render("theme-builder2", {
+      res.render("matchPage-2", {
         col_thema: renderData,
         theme,
         randomQuote,
@@ -334,6 +335,7 @@ app.post("/nieuwThema", upload.single("image"), async (req, res) => {
     res.status(500).send({ error: "Failed to save theme" });
   }
 });
+
 
 app.get("/themaAanpassen", async (req, res) => {
   if (!collection) {
@@ -409,6 +411,47 @@ app.get("/col_thema/:id", async (req, res) => {
 
 app.get("/form", (req, res) => {
   res.render("form.ejs");
+});
+
+app.get("/matchpage2", async (req, res) => {
+  const { body, file } = req;
+  const theme = {
+    _id: body.id,
+    name: body.name,
+    backgroundColor: body.color,
+    fontFamily: body.font,
+    textColor: body["font-color"],
+    user: req.session.user.email,
+  };
+  const user1 = req.session.user.email;
+  const user = await collectionUsers.findOne({ email: user1 });
+  const selectedVakken = user.selectedVakken;
+  const selectedStuds = await collectionStuds.find({
+vakken: { $in: selectedVakken }, }).toArray();
+ console.log(selectedVakken);
+  try {
+    await insertTheme(theme);
+    try {
+      const user1 = req.session.user.email;
+      const user = await collectionUsers.findOne({ email: user1 });
+      const renderData = await collection
+        .find({ user: req.session.user.email })
+        .toArray();
+      res.render("matchPage-2.ejs", {
+        col_thema: renderData,
+        theme,
+        randomQuote,
+        user,
+        selectedStuds,
+        selectedVakken,
+      });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Failed to retrieve themes");
+    }
+  } catch (err) {
+    res.status(500).send({ error: "Failed to save theme" });
+  }
 });
 
 app.post("/submit", (req, res) => {

@@ -8,13 +8,9 @@
     <section>
       <section class="leftmainsection">
         <img src="/uploads/<%= theme.images%>" alt="Profielfoto">
-        <h1>
-          <%= user.name %>
-            <%= user.surname %>
-        </h1>
-        <p>Student | Leejaar <%= user.leerjaar %>
-        </p>
-  <a href="#">Terug naar home</a>
+        <h1><%= user.name %> <%= user.surname %></h1>
+        <p>Student | Leejaar <%= user.leerjaar %></p>
+  <a href="/matchpage2">Terug naar home</a>
       </section>
       <section>
         <a onclick="location.href='/themaAanpassen';">Reset to default</a>
