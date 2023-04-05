@@ -621,3 +621,55 @@ app.post("/unlike", async (req, res) => {
 });
 
 
+//routes
+app.use("/chats", chatRouter);
+
+//integrating socketio
+socket = io(http);
+
+//database connection
+const Chat = require("./models/chatSchema");
+
+//setup event listener
+socket.on("connection", socket => {
+    console.log("user connected");
+  
+  
+    socket.on("disconnect", function() {
+      console.log("user disconnected");
+    });
+  
+    //Somebody is typing
+    socket.on("typing", data => {
+      socket.broadcast.emit("notifyTyping", {
+        user: data.user,
+        message: data.message
+      });
+    });
+  
+    //when somebody stops typing
+    socket.on("stopTyping", () => {
+      socket.broadcast.emit("notifyStopTyping");
+    });
+  
+    socket.on("chat message", function(msg) {
+      console.log("message: " + msg);
+  
+  
+      //broadcast message to everyone in port except yourself.
+      socket.broadcast.emit("received", { message: msg });
+  
+      //saves chat to the database
+      connect.then(db => {
+        console.log("saved to database");
+        let chatMessage = new Chat({ message: msg, sender: "Anonymous" });
+  
+        chatMessage.save();
+      });
+    });
+
+
+});
+http.listen(port, () => {
+    console.log("Running on Port: " + port);
+  });
