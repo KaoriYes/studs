@@ -1,0 +1,30 @@
+<%- include('header.ejs') %>
+<h1>Registreer jou account</h1>
+<h2>
+    <%= subtitle %>
+</h2>
+<form action="/submit-sa" method="POST" id="form">
+    <input type="text" id="name" name="name" placeholder="Voornaam">
+    <input type="text" id="surname" name="surname" placeholder="Achternaam">
+    <input type="email" id="email" name="email" placeholder="Email">
+    <label for="leerjaar">Leerjaar:</label>
+    <select id="leerlaar" name="leerjaar">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+    </select>
+    <label for="richting">Richting:</label>
+    <select id="richting" name="rich">
+        <option value="tech">Tech</option>
+        <option value="visual">Visual</option>
+        <option value="interaction">Interaction</option>
+    </select>
+    <input type="password" id="password" name="password" placeholder="Wachtwoord">
+    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Herhaal Wachtwoord">
+    <input type="submit" value="Register">
+</form>
+<script src="/scripts/register.js"></script>
+
+
+<%- include ('footer.ejs') %>

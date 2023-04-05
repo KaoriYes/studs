@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/style.css" />
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap");
+  </style>
+  <title>Match Page</title>
+</head>
+
+<body class="body-overflow-hidden">
+  <%- include('./header') %>
+  <main>
+    <%- include('./sidebar') %>
+    <section class="agenda">
+      <h2>Opkomende sessies</h2>
+      <ul>
+        <li>
+          <article>
+            <img src="/public/img/placeholderuser.png" />
+            <h3>Quiten Kok</h3>
+            <p>Project Tech</p>
+          </article>
+          <article>
+            <p>Datum:</p>
+            <h3>5 April</h3>
+            <p>18:00 - 20:00</p>
+          </article>
+          <a>Bekijk</a>
+        </li>
+        <li>
+          <article>
+            <img src="/public/img/placeholderuser.png" />
+            <h3>Ufuk Argun</h3>
+            <p>Informatie architectuur</p>
+          </article>
+          <article>
+            <p>Datum:</p>
+            <h3>8 April</h3>
+            <p>15:00 - 16:00</p>
+          </article>
+          <a>Bekijk</a>
+        </li>
+        <li>
+          <article>
+            <img src="/public/img/placeholderuser.png" />
+            <h3>Bart Spons</h3>
+            <p>Inleiding Programmeren</p>
+          </article>
+          <article>
+            <p>Datum:</p>
+            <h3>9 April</h3>
+            <p>12:00 - 13:00</p>
+          </article>
+          <a>Bekijk</a>
+        </li>
+        <li>
+          <article>
+            <img src="/public/img/placeholderuser.png" />
+            <h3>Sven Zoutman</h3>
+            <p>Ubicomp</p>
+          </article>
+          <article>
+            <p>Datum:</p>
+            <h3>11 April</h3>
+            <p>14:00 - 16:00</p>
+          </article>
+          <a>Bekijk</a>
+        </li>
+      </ul>
+    </section>
+    <section class="recStuds">
+      <a href="/likedStuds" id="showLikedStuds">Bekijk geliked assistenten</a>
+      <h2>Hier zijn aantal beschikbare Studs</h2>
+      <p>Op basis van jouw vakken:</p>
+      <a href="/filter" class="addVakken">+</a>
+      <ul>
+        <% for(var i=0; i<selectedVakken.length; i++) { %>
+        <li>
+          <%= selectedVakken[i] %>
+        </li>
+        <% } %>
+      </ul>
+      <ul>
+        <% selectedStuds.forEach(function(stud) { %>
+        <li>
+          <img src="/public/img/<%= stud.studsnaam %>.jpg" />
+          <article>
+            <h3><%= stud.studsnaam %></h3>
+            <h4><%= stud.vakken %></h4>
+            <p>Leerjaar <%= stud.studsleerjaar %></p>
+            <form class="alignBtns" <% if (stud.liked) { %> action="/unlike" <% } else { %> action="/like" <% } %>
+              method="POST">
+              <input type="hidden" name="studId" value="<%= stud._id %>" />
+              <% if (stud.liked) { %>
+              <button id="unlikeBtn" type="submit">Unlike</button>
+              <% } else { %>
+              <button type="submit">Like</button>
+              <% } %>
+              <a>Bericht</a>
+            </form>
+          </article>
+        </li>
+        <% }); %>
+      </ul>
+    </section>
+  </main>
+</body>
+
+</html>
