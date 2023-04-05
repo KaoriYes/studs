@@ -335,24 +335,6 @@ app.post("/nieuwThema", upload.single("image"), async (req, res) => {
   }
 });
 
-app.get("/themaAanpassen", async (req, res) => {
-  if (!collection) {
-    return res.status(500).send("Unable to connect to database");
-  }
-
-  try {
-    const user1 = req.session.user.email;
-    const user = await collectionUsers.findOne({ email: user1 });
-    const renderData = await collection
-      .find({ user: req.session.user.email })
-      .toArray();
-    res.render("theme-builder", { col_thema: renderData, user });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Failed to retrieve themes");
-  }
-});
-
 app.get("/col_thema/:themeID", async (req, res) => {
   try {
     if (!collection) {
@@ -367,14 +349,55 @@ app.get("/col_thema/:themeID", async (req, res) => {
 
     const id = req.params.themeID;
     const theme = await collection.findOne({ _id: new ObjectId(id) });
-
-    const renderData = await collection.find({}).toArray();
-    res.render("theme-builder2", { col_thema: renderData, theme, randomQuote });
+    const user1 = req.session.user.email;
+    const user = await collectionUsers.findOne({ email: user1 });
+    const renderData = await collection.find({ user: user1 }).toArray();
+    res.render("theme-builder2", { col_thema: renderData, theme, randomQuote, user });
   } catch (err) {
     console.error(err);
     res.status(500).send("Failed to retrieve theme");
   }
 });
+
+app.delete("/col_thema/:themeID", async (req, res) => {
+  try {
+    if (!collection) {
+      return res.status(500).send("Unable to connect to database");
+    }
+
+    const id = req.params.themeID;
+    const result = await collection.deleteOne({ _id: new ObjectId(id) });
+    if (result.deletedCount === 0) {
+      return res.status(404).send("Theme not found");
+    }
+
+    res.redirect("/themaAanpassen");
+  } catch (err) {
+    console.error(err);
+
+    res.status(500).send("Failed to delete theme");
+  }
+});
+
+app.get("/col_thema/:id", async (req, res) => {
+  const user1 = req.session.user.email;
+  const user = await collectionUsers.findOne({ email: user1 });
+  const theme = await collection.findOne({
+    _id: ObjectId(req.params.id),
+    user,
+  });
+  res.render("theme-builder2", { theme, col_thema, user });
+});
+
+app.get("/form", (req, res) => {
+  res.render("form.ejs");
+});
+
+app.post("/submit", (req, res) => {
+  const name = req.body.test;
+  res.send(`Name: ${name}`);
+});
+
 
 app.delete("/col_thema/:themeID", async (req, res) => {
   try {
