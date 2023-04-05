@@ -620,8 +620,8 @@ form.vakken ul{
       margin: 1em;
   }
 
-  body main.filter section p,
-  form {
+  body main.filter section p, 
+  body main.filter form {
       display: inline-block;
       margin-right: 3em;
   }
