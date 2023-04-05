@@ -368,6 +368,28 @@ app.get("/themaAanpassen", async (req, res) => {
     res.status(500).send("Failed to retrieve themes");
   }
 });
+app.post('/updateTheme',  async (req, res) => {
+
+  const user1 = req.session.user.email;
+  const user = await collectionUsers.findOne({ email: user1 });
+  const renderData = await collection.find({ user: user1 }).toArray();
+  const selectedVakken = user.selectedVakken;
+  const selectedStuds = await collectionStuds.find({
+  vakken: { $in: selectedVakken }, }).toArray();
+    const themeId = req.body.themeId;
+    const themeID = await collection.findOne({ _id: new ObjectId(themeId) });
+    console.log(themeID);
+    theme = themeID;
+    res.render("matchPage-2.ejs", { 
+    col_thema: renderData,
+    theme,
+    randomQuote,
+    user,
+    selectedStuds,
+    selectedVakken,
+   });
+  });
+  
 
 app.get("/col_thema/:themeID", async (req, res) => {
   try {
@@ -443,8 +465,7 @@ app.get("/matchpage2", async (req, res) => {
   const selectedStuds = await collectionStuds.find({
 vakken: { $in: selectedVakken }, }).toArray();
  console.log(selectedVakken);
-  try {
-    await insertTheme(theme);
+
     try {
       const user1 = req.session.user.email;
       const user = await collectionUsers.findOne({ email: user1 });
@@ -463,15 +484,9 @@ vakken: { $in: selectedVakken }, }).toArray();
       console.error(err);
       res.status(500).send("Failed to retrieve themes");
     }
-  } catch (err) {
-    res.status(500).send({ error: "Failed to save theme" });
-  }
+
 });
 
-app.post("/submit", (req, res) => {
-  const name = req.body.test;
-  res.send(`Name: ${name}`);
-});
 
 
 app.delete("/col_thema/:themeID", async (req, res) => {
@@ -504,14 +519,6 @@ app.get("/col_thema/:id", async (req, res) => {
   res.render("theme-builder2", { theme, col_thema });
 });
 
-app.get("/form", (req, res) => {
-  res.render("form.ejs");
-});
-
-app.post("/submit", (req, res) => {
-  const name = req.body.test;
-  res.send(`Name: ${name}`);
-});
 
 // Start the server
 
