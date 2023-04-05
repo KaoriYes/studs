@@ -83,7 +83,7 @@ const checkLoggedin = (req, res, next) => {
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", checkLogin, async (req, res) => {
-  res.render("index.ejs", { title: "Home" });
+  res.redirect("/matchpage");
 });
 
 app.get("/account", checkLogin, async (req, res) => {
