@@ -1,8 +1,7 @@
-<img width="1405" alt="Scherm­afbeelding 2023-04-05 om 15 06 19" src="https://user-images.githubusercontent.com/118130116/230089480-11ba2560-4a86-41e7-a4b0-e6123791e56b.png">
-
 # Welkom bij de ReadMe van StudS
 
 
+<img width="1405" alt="Scherm­afbeelding 2023-04-05 om 15 06 19" src="https://user-images.githubusercontent.com/118130116/230089480-11ba2560-4a86-41e7-a4b0-e6123791e56b.png">
 
 # 🤔 Ons idee
 
