@@ -8,6 +8,18 @@ const bodyParser = require("body-parser");
 const bcrypt = require("bcryptjs");
 const saltRounds = 12;
 require("dotenv").config();
+const mongoose = require("mongoose");
+mongoose.Promise = require("bluebird");
+const chatRouter = require("./routes/chatroute");
+
+//require the http module
+const http = require("http").Server(app);
+// require the socket.io module
+const io = require("socket.io");
+
+//bodyparser middleware
+app.use(express.json());
+
 const port = 1337;
 const methodOverride = require("method-override");
 const { v4: uuidv4 } = require("uuid");
@@ -79,7 +91,16 @@ const checkLoggedin = (req, res, next) => {
     next();
   }
 };
+const connect = mongoose.connect(uri, {
+  dbName: 'studsdb', useNewUrlParser: true, useUnifiedTopology: true });
+connect.then(
+  (db) => {
+    console.log("Connected Successfully to Mongodb Server")},
+  (err) => {
+    console.log(err)}
+);
 
+module.exports = connect;
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", checkLogin, async (req, res) => {
@@ -599,6 +620,4 @@ app.post("/unlike", async (req, res) => {
   res.redirect("/likedStuds");
 });
 
-app.listen(port, function () {
-  console.log(`Server is running on port: ${port}`);
-});
+
