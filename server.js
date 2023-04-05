@@ -332,15 +332,11 @@ app.post("/nieuwThema", upload.single("image"), async (req, res) => {
     try {
       const user1 = req.session.user.email;
       const user = await collectionUsers.findOne({ email: user1 });
+        const selectedVakken = user.selectedVakken;
       const renderData = await collection
         .find({ user: req.session.user.email })
         .toArray();
-      res.render("matchPage-2", {
-        col_thema: renderData,
-        theme,
-        randomQuote,
-        user,
-      });
+      res.redirect("matchPage2");
     } catch (err) {
       console.error(err);
       res.status(500).send("Failed to retrieve themes");
@@ -359,10 +355,11 @@ app.get("/themaAanpassen", async (req, res) => {
   try {
     const user1 = req.session.user.email;
     const user = await collectionUsers.findOne({ email: user1 });
+      const selectedVakken = user.selectedVakken;
     const renderData = await collection
       .find({ user: req.session.user.email })
       .toArray();
-    res.render("theme-builder", { col_thema: renderData, user });
+    res.render("theme-builder", { col_thema: renderData, user, selectedVakken });
   } catch (err) {
     console.error(err);
     res.status(500).send("Failed to retrieve themes");
