@@ -1,7 +1,5 @@
 var socket = io();
 var messages = document.getElementById("messages");
-
-
 (function() {
   $("form").submit(function(e) {
     let li = document.createElement("li");
@@ -10,7 +8,7 @@ var messages = document.getElementById("messages");
 
     messages.appendChild(li).append($("#message").val());
     let span = document.createElement("span");
-    messages.appendChild(span).append("by " + "Anonymous" + ": " + "just now");
+    messages.appendChild(span).append("by " + "You" + ": " + "just now");
 
     $("#message").val("");
 
@@ -22,7 +20,8 @@ var messages = document.getElementById("messages");
     let span = document.createElement("span");
     var messages = document.getElementById("messages");
     messages.appendChild(li).append(data.message);
-    messages.appendChild(span).append("by " + "anonymous" + ": " + "just now");
+    messages.appendChild(span).append(`by Kaas: just now`);
+
     console.log("Bericht ontvangen");
   });
 })();

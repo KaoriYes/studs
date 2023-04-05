@@ -11,6 +11,7 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 mongoose.Promise = require("bluebird");
 const chatRouter = require("./routes/chatroute");
+const sharedSession = require('express-socket.io-session');
 
 //require the http module
 const http = require("http").Server(app);
@@ -66,15 +67,15 @@ const store = new MongoDBSession({
   databaseName: "studsdb",
 });
 const secret = process.env.SECRET;
-app.use(
-  session({
+const session1 = session({
     secret: secret,
     cookie: { maxAge: 2592000000 },
     resave: false,
     saveUninitialized: false,
     store: store,
   })
-);
+app.use(session1);
+
 // session auth
 const checkLogin = (req, res, next) => {
   if (req.session.user) {
@@ -110,9 +111,11 @@ app.get("/", checkLogin, async (req, res) => {
 app.get("/account", checkLogin, async (req, res) => {
   const user1 = req.session.user.email;
   const user = await collectionUsers.findOne({ email: user1 });
+  const user2 = await collectionUsers.findOne({ email: "Quintenkok@me.com"});
   res.render("account.ejs", {
     title: "Account",
     user,
+    user2
   });
 });
 app.get("/preRegister", checkLoggedin, (req, res) => {
@@ -516,6 +519,7 @@ app.get("/filter", async (req, res) => {
   const user1 = req.session.user.email;
   const user = await collectionUsers.findOne({ email: user1 });
   const selectedVakken = user.selectedVakken;
+  console.log(selectedVakken)
   collectionVakken
     .find({})
     .toArray()
@@ -525,7 +529,7 @@ app.get("/filter", async (req, res) => {
         vakken: vaknamen,
         jaar,
         user,
-        selectedVakken,
+        selectedVakken
       });
     });
 });
@@ -533,13 +537,14 @@ app.get("/filter", async (req, res) => {
 app.post("/filter", async (req, res) => {
   const user1 = req.session.user.email;
   const user = await collectionUsers.findOne({ email: user1 });
+    const selectedVakken = user.selectedVakken;
   const selectedJaar = req.body.jaar;
   collectionVakken
     .find({ jaar: selectedJaar })
     .toArray()
     .then((vakken) => {
       const vaknamen = vakken.map((vak) => vak.naam); // Extract name field
-      res.render("filter.ejs", { vakken: vaknamen, jaar: selectedJaar, user });
+      res.render("filter.ejs", { vakken: vaknamen, jaar: selectedJaar, user, selectedVakken });
     });
 });
 
@@ -622,18 +627,22 @@ app.post("/unlike", async (req, res) => {
 
 
 //routes
+
 app.use("/chats", chatRouter);
 
 //integrating socketio
 socket = io(http);
-
+//session
+socket.use(sharedSession(session1, {
+  autoSave: true
+}));
 //database connection
 const Chat = require("./models/chatSchema");
 
 //setup event listener
-socket.on("connection", socket => {
+socket.on("connection", async  (socket) => {
     console.log("user connected");
-  
+    console.log(socket.handshake.session.user.name);
   
     socket.on("disconnect", function() {
       console.log("user disconnected");
@@ -652,7 +661,7 @@ socket.on("connection", socket => {
       socket.broadcast.emit("notifyStopTyping");
     });
   
-    socket.on("chat message", function(msg) {
+    socket.on("chat message", async function(msg) {
       console.log("message: " + msg);
   
   
@@ -660,11 +669,16 @@ socket.on("connection", socket => {
       socket.broadcast.emit("received", { message: msg });
   
       //saves chat to the database
-      connect.then(db => {
-        console.log("saved to database");
-        let chatMessage = new Chat({ message: msg, sender: "Anonymous" });
-  
-        chatMessage.save();
+      connect.then( async (db)  =>  {
+        const user1 = socket.handshake.session.user.name
+        const user =  await collectionUsers.findOne({ name: user1 });
+        let chatMessage = new Chat({
+          message: msg,
+          sender: user.name,
+        });
+
+        chatMessage.chatID = user.chats;
+      await chatMessage.save();
       });
     });
 

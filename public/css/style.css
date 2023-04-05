@@ -1510,7 +1510,7 @@ body main.chat section.chat_window .top_chat_window .title {
 body main.chat section.chat_window .messages {
   position: relative;
   list-style: none;
-  padding: 20px 10px 0 10px;
+  padding: 20px 10px 5em 10px;
   margin: 0;
   height: 347px;
   overflow: scroll;
