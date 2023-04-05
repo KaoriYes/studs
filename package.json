@@ -1,5 +1,5 @@
 {
-  "name": "StudS",
+  "name": "studs",
   "version": "1.0.0",
   "description": "Matching application for student and tutors",
   "main": "server.js",
