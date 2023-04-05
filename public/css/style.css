@@ -634,7 +634,7 @@ body main.filter section {
 }
 
 body main.filter section p,
-form {
+body main.filter form {
   display: inline-block;
   margin-right: 3em;
 }
