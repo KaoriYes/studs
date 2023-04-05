@@ -451,7 +451,13 @@ body main section.studentReg form section:nth-of-type(3) label:nth-of-type(1) {
   margin-left: 4em;
 }
 
-body main section.studentReg form section:nth-of-type(3) label input[type="radio"] {
+body
+  main
+  section.studentReg
+  form
+  section:nth-of-type(3)
+  label
+  input[type="radio"] {
   border: 0.125em solid var(--font-color-header);
   border-radius: 50%;
   width: 4em;
@@ -459,7 +465,13 @@ body main section.studentReg form section:nth-of-type(3) label input[type="radio
   appearance: none;
 }
 
-body main section.studentReg form section:nth-of-type(3) label input[type="radio"]:checked {
+body
+  main
+  section.studentReg
+  form
+  section:nth-of-type(3)
+  label
+  input[type="radio"]:checked {
   border: 0.25em solid var(--font-color-header);
   background-color: var(--font-color-header);
 }
@@ -473,7 +485,13 @@ body main section.studentReg form section:nth-of-type(3) label span {
   z-index: -1;
 }
 
-body main section.studentReg form section:nth-of-type(3) label:nth-of-type(1) span {
+body
+  main
+  section.studentReg
+  form
+  section:nth-of-type(3)
+  label:nth-of-type(1)
+  span {
   left: 0.7em;
 }
 
@@ -522,7 +540,14 @@ body main section.studentReg form section input[type="password"]:focus {
   outline: none;
 }
 
-body main section.studentReg form section:nth-of-type(3) label input[type="radio"]:checked+span {
+body
+  main
+  section.studentReg
+  form
+  section:nth-of-type(3)
+  label
+  input[type="radio"]:checked
+  + span {
   color: #ffffff;
   z-index: 1;
 }
@@ -1281,7 +1306,7 @@ body main section.agenda ul li {
   margin-top: 2em;
 }
 
-body main section.agenda ul li article>h3 {
+body main section.agenda ul li article > h3 {
   margin-top: 0.5em;
   margin-bottom: 0;
 }
@@ -1301,7 +1326,7 @@ body main section.agenda ul li a {
   right: 2em;
 }
 
-body main section.agenda ul li article>p {
+body main section.agenda ul li article > p {
   text-align: center;
   margin-top: 0.5em;
   margin-bottom: 0;
@@ -1378,6 +1403,18 @@ body main section.recStuds ul:nth-of-type(1) li {
   margin-bottom: 1em;
 }
 
+.likedStudsStyle {
+  display: grid;
+  position: relative;
+  grid-template-columns: 1fr 4fr;
+  border-radius: 2em;
+  background-color: var(--white);
+  margin-bottom: 2em;
+  width: 30em;
+  height: 12em;
+  padding: 1em 1em 1em 1em;
+}
+
 body main section.recStuds ul:nth-of-type(2) li {
   display: grid;
   position: relative;
@@ -1390,20 +1427,20 @@ body main section.recStuds ul:nth-of-type(2) li {
   padding: 1em 1em 1em 1em;
 }
 
-body main section.recStuds li article>h3 {
+body main section.recStuds li article > h3 {
   color: var(--black);
   margin-bottom: 0.4em;
   margin-top: 0;
 }
 
-body main section.recStuds li article>p {
+body main section.recStuds li article > p {
   text-align: left;
   color: var(--black);
   margin-bottom: 0.4em;
   margin-top: 0.3em;
 }
 
-body main section.recStuds li article>h4 {
+body main section.recStuds li article > h4 {
   color: var(--purple-button);
   margin-bottom: 0.4em;
   margin-top: 0;
@@ -1431,7 +1468,7 @@ body main section.recStuds li article a {
   margin-left: 1em;
 }
 
-body main section.recStuds li>img {
+body main section.recStuds li > img {
   max-width: 8em;
   margin-right: 2em;
   border-radius: 2em;
@@ -1466,31 +1503,29 @@ body main section.recStuds li>img {
 }
 
 :root {
-  --font-main: 'Poppins',
-    sans-serif;
+  --font-main: "Poppins", sans-serif;
   --font-size-h1: 2em;
   --font-size-h2: 1.5em;
   --font-header-margin: 0.5em 0;
   --font-weight-header: bold;
-  --font-color-header: #714EB6;
-  --font-size-body: .875em;
+  --font-color-header: #714eb6;
+  --font-size-body: 0.875em;
   --font-color-body: #000000;
   --font-weight-body: 400;
-  --background-color: #FFFFFF;
+  --background-color: #ffffff;
   --font-form-p: #707070;
   --font-form-p-margin: 0.25em 0;
-  --filter-li-bg: #714EB6;
+  --filter-li-bg: #714eb6;
   --purple-button: #7353d1;
   --purple-shade: #f2eeff;
   --white: #fff;
   --black: black;
   --white-tint: #e2e2e2;
   --unlike: #9182c0;
-  --color-bottom-chat: #714EB6;
-  --color-chat-message: #714EB6;
-  --font-color-chat: #714EB6;
+  --color-bottom-chat: #714eb6;
+  --color-chat-message: #714eb6;
+  --font-color-chat: #714eb6;
 }
-
 
 body main.chat section.chat_window {
   position: absolute;
@@ -1586,12 +1621,26 @@ body main.chat section.chat_window .bottom_chat_window .message_input_wrapper {
   padding: 0 20px;
 }
 
-body main.chat section.chat_window .bottom_chat_window .message_input_wrapper:hover,
-body main.chat section.chat_window .bottom_chat_window .message_input_wrapper .message_input:hover {
+body
+  main.chat
+  section.chat_window
+  .bottom_chat_window
+  .message_input_wrapper:hover,
+body
+  main.chat
+  section.chat_window
+  .bottom_chat_window
+  .message_input_wrapper
+  .message_input:hover {
   background-color: var(--white-tint);
 }
 
-body main.chat section.chat_window .bottom_chat_window .message_input_wrapper .message_input {
+body
+  main.chat
+  section.chat_window
+  .bottom_chat_window
+  .message_input_wrapper
+  .message_input {
   border: none;
   height: 100%;
   box-sizing: border-box;
@@ -1616,12 +1665,23 @@ body main.chat section.chat_window .bottom_chat_window .send_message button {
   transition: all 0.2s linear;
 }
 
-body main.chat section.chat_window .bottom_chat_window .send_message button img {
+body
+  main.chat
+  section.chat_window
+  .bottom_chat_window
+  .send_message
+  button
+  img {
   width: 50px;
   height: 50px;
 }
 
-body main.chat section.chat_window .bottom_chat_window .send_message button:hover {
+body
+  main.chat
+  section.chat_window
+  .bottom_chat_window
+  .send_message
+  button:hover {
   color: var(--white-tint);
   border: var(--white) solid 2px;
   background-color: var(--white-tint);
@@ -1638,16 +1698,16 @@ body main.chat section.chat_window .message_template {
   display: none;
 }
 
-body main.chat section.chat_window .messages>li {
+body main.chat section.chat_window .messages > li {
   font-size: 1em;
   color: var(--white);
   background: var(--color-chat-message);
-  padding: .5em;
-  border-radius: .5em;
+  padding: 0.5em;
+  border-radius: 0.5em;
   width: fit-content;
 }
 
-body main.chat section.chat_window .messages>span {
+body main.chat section.chat_window .messages > span {
   font-size: 10px;
   font-style: bold;
 }
