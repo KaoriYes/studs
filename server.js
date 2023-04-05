@@ -83,7 +83,7 @@ const checkLoggedin = (req, res, next) => {
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", checkLogin, async (req, res) => {
-  res.render("index.ejs", { title: "Home" });
+  res.redirect("/matchpage");
 });
 
 app.get("/account", checkLogin, async (req, res) => {
@@ -330,6 +330,24 @@ app.post("/nieuwThema", upload.single("image"), async (req, res) => {
     }
   } catch (err) {
     res.status(500).send({ error: "Failed to save theme" });
+  }
+});
+
+app.get("/themaAanpassen", async (req, res) => {
+  if (!collection) {
+    return res.status(500).send("Unable to connect to database");
+  }
+
+  try {
+    const user1 = req.session.user.email;
+    const user = await collectionUsers.findOne({ email: user1 });
+    const renderData = await collection
+      .find({ user: req.session.user.email })
+      .toArray();
+    res.render("theme-builder", { col_thema: renderData, user });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Failed to retrieve themes");
   }
 });
 
