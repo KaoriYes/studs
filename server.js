@@ -1,4 +1,6 @@
-const express = require('express');
+require("dotenv").config();
+
+const express = require("express");
 const app = express();
 const session = require('express-session');
 const MongoDBSession = require('express-mongodb-session')(session);
@@ -15,7 +17,7 @@ const upload = multer({ dest: 'public/uploads/' });
 app.use(express.static('public'));
 var path = require('path');
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use("*/css", express.static("public/css"));
 app.use('/img', express.static(path.join(__dirname, 'public/img')));
 
 app.set('view engine', 'ejs');
@@ -38,6 +40,9 @@ const collectionVakken = databaseVakken.collection("col_vakken");
 const databaseUsers = client.db("studsdb");
 const collectionUsers = databaseUsers.collection("col_users");
 
+//col voor de studs
+const databaseStuds = client.db("studsdb");
+const collectionStuds = databaseStuds.collection("col_studs");
 //session store
  const store = new MongoDBSession({ 
     uri: uri, 
@@ -93,6 +98,13 @@ app.get('/registerQuestion', (req, res) => {
 });
 
 
+//route naar de matchpage
+app.get("/matchpage", async (req, res) => {
+  const studs = await collectionStuds.find().toArray();
+  res.render("MatchPage.ejs", {
+    studs: studs,
+  });
+});
 
 app.get('/studentRegister', (req, res) => {
     res.render('studentRegistrer.ejs', {title: 'Student Register', subtitle: ''});
@@ -129,7 +141,7 @@ app.post('/studentRegister', async (req, res) => {
       // no need for : value if key and value are the same
     };
     
-    collectionUsers.insertOne(userdata, function (err, collection) {
+    collectionUsers.insertOne(userdata, function (err) {
       if (err) {throw err;}
       else{
         
@@ -405,8 +417,44 @@ const user =  await collectionUsers.findOne({ email: user1})
 //     }
   });
   
-app.listen(port, function() {
-    console.log(`Server is running on port: ${port}`);
+
+
+
+//route naar liked studs
+app.get("/likedstuds", async (req, res) => {
+  const studs = await collectionStuds.find({
+    liked: true
+  }).toArray();
+  res.render("likedStuds.ejs", {
+    studs: studs,
+  });
+});
+
+app.post("/like", async (req, res) => {
+  const studId = req.body.studId;
+  await collectionStuds.updateOne({
+    _id: new ObjectId(studId)
+  }, {
+    $set: {
+      liked: true
+    }
+  });
+  res.redirect("/matchpage");
+});
+
+app.post("/unlike", async (req, res) => {
+  const studId = req.body.studId;
+  await collectionStuds.updateOne({
+    _id: new ObjectId(studId)
+  }, {
+    $set: {
+      liked: false
+    }
+  });
+  res.redirect("/likedStuds");
 });
 
 
+app.listen(port, function() {
+    console.log(`Server is running on port: ${port}`);
+});
