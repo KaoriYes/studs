@@ -83,14 +83,15 @@
             <ul id="likedStuds">
                 <% studs.forEach(function(stud) { %>
                 <li>
-                    <img src="/public/img/placeholderuser.png" />
+                    <img src='/public/img/<%= stud.studsnaam %>.jpg' />
                     <article>
                         <h3><%= stud.studsnaam %></h3>
                         <h4><%= stud.vakken %></h4>
                         <p>Leerjaar <%= stud.studsleerjaar %></p>
                         <form action="/unlike" method="POST">
                             <input type="hidden" name="studId" value="<%= stud._id %>">
-                            <button type="submit">Unlike</button>
+                            <button id="unlikeBtn" type="submit">Unlike</button>
+                            <a>Inplannen</a>
                         </form>
                     </article>
                 </li>
