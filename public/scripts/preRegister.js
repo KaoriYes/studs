@@ -4,7 +4,7 @@ const loginForm = document.querySelector('.loginForm');
 const loginButton = document.querySelector('.loginButton');
 const registerButton = document.querySelector('.registerButton');
 
-function logIn(){
+function logIn() {
     preChoice.classList.toggle('displaynone');
     loginForm.classList.toggle('displaynone');
     console.log("test1");

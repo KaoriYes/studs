@@ -23,9 +23,13 @@ app.use(express.json());
 
 const port = 1337;
 const methodOverride = require("method-override");
-const { v4: uuidv4 } = require("uuid");
+const {
+  v4: uuidv4
+} = require("uuid");
 const multer = require("multer");
-const upload = multer({ dest: "public/uploads/" });
+const upload = multer({
+  dest: "public/uploads/"
+});
 
 app.use(express.static("public"));
 var path = require("path");
@@ -40,8 +44,13 @@ var path = require("path");
 app.use(express.static(path.join(__dirname, "public")));
 
 //database verbinden
-const { MongoClient, ServerApiVersion } = require("mongodb");
-const { addAbortSignal } = require("stream");
+const {
+  MongoClient,
+  ServerApiVersion
+} = require("mongodb");
+const {
+  addAbortSignal
+} = require("stream");
 require("dotenv").config();
 const uri = process.env.MONGODB_URI;
 const client = new MongoClient(uri, {
@@ -68,12 +77,14 @@ const store = new MongoDBSession({
 });
 const secret = process.env.SECRET;
 const session1 = session({
-    secret: secret,
-    cookie: { maxAge: 2592000000 },
-    resave: false,
-    saveUninitialized: false,
-    store: store,
-  })
+  secret: secret,
+  cookie: {
+    maxAge: 2592000000
+  },
+  resave: false,
+  saveUninitialized: false,
+  store: store,
+})
 app.use(session1);
 
 // session auth
@@ -93,16 +104,23 @@ const checkLoggedin = (req, res, next) => {
   }
 };
 const connect = mongoose.connect(uri, {
-  dbName: 'studsdb', useNewUrlParser: true, useUnifiedTopology: true });
+  dbName: 'studsdb',
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 connect.then(
   (db) => {
-    console.log("Connected Successfully to Mongodb Server")},
+    console.log("Connected Successfully to Mongodb Server")
+  },
   (err) => {
-    console.log(err)}
+    console.log(err)
+  }
 );
 
 module.exports = connect;
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 app.get("/", checkLogin, async (req, res) => {
   res.redirect("/matchpage");
@@ -110,8 +128,12 @@ app.get("/", checkLogin, async (req, res) => {
 
 app.get("/account", checkLogin, async (req, res) => {
   const user1 = req.session.user.email;
-  const user = await collectionUsers.findOne({ email: user1 });
-  const user2 = await collectionUsers.findOne({ email: "Quintenkok@me.com"});
+  const user = await collectionUsers.findOne({
+    email: user1
+  });
+  const user2 = await collectionUsers.findOne({
+    email: "Quintenkok@me.com"
+  });
   res.render("account.ejs", {
     title: "Account",
     user,
@@ -119,26 +141,42 @@ app.get("/account", checkLogin, async (req, res) => {
   });
 });
 app.get("/preRegister", checkLoggedin, (req, res) => {
-  res.render("preRegister.ejs", { title: "Register" });
+  res.render("preRegister.ejs", {
+    title: "Register"
+  });
 });
 app.get("/registerQuestion", (req, res) => {
-  res.render("registerQuestion.ejs", { title: "Register" });
+  res.render("registerQuestion.ejs", {
+    title: "Register"
+  });
 });
 
 //route naar de matchpage
 app.get("/matchpage", checkLogin, async (req, res) => {
-  const user1 = req.session.user.email; 
-  const user = await collectionUsers.findOne({ email: user1 }); 
-  const selectedVakken = user.selectedVakken; 
-  const selectedStuds = await collectionStuds .find({ vakken: { $in: selectedVakken }, }) .toArray(); 
+  const user1 = req.session.user.email;
+  const user = await collectionUsers.findOne({
+    email: user1
+  });
+  const selectedVakken = user.selectedVakken;
+  const selectedStuds = await collectionStuds.find({
+    vakken: {
+      $in: selectedVakken
+    },
+  }).toArray();
   console.log(selectedVakken);
-  res.render("MatchPage.ejs", { selectedStuds, user, selectedVakken, }); 
+  res.render("MatchPage.ejs", {
+    selectedStuds,
+    user,
+    selectedVakken,
+  });
 });
 
 app.get("/sidebar", async (req, res) => {
   const studs = await collectionStuds.find().toArray();
   const user1 = req.session.user.email;
-  const user = await collectionUsers.findOne({ email: user1 });
+  const user = await collectionUsers.findOne({
+    email: user1
+  });
   res.render("sidebar.ejs", {
     studs: studs,
     user,
@@ -198,10 +236,11 @@ app.post("/studentRegister", async (req, res) => {
     collectionUsers.insertOne(userdata, function (err) {
       if (err) {
         throw err;
-      } else {
-      }
+      } else {}
     });
-    const requestedUser = await collectionUsers.findOne({ email });
+    const requestedUser = await collectionUsers.findOne({
+      email
+    });
     console.log(requestedUser);
     req.session.authenticated = true;
     req.session.user = {
@@ -243,14 +282,21 @@ app.post("/submit-sa", async (req, res) => {
   }
 });
 app.get("/login", checkLoggedin, (req, res) => {
-  res.render("preRegister.ejs", { title: "Login" });
+  res.render("preRegister.ejs", {
+    title: "Login"
+  });
 });
 
 app.post("/login", async (req, res) => {
   res.locals.title = "Login";
   // get form data and requested email from db
-  const { email, password } = req.body;
-  const requestedUser = await collectionUsers.findOne({ email });
+  const {
+    email,
+    password
+  } = req.body;
+  const requestedUser = await collectionUsers.findOne({
+    email
+  });
   console.log(requestedUser);
 
   // --- check if login is valid ---
@@ -314,7 +360,10 @@ async function insertTheme(theme) {
 
 app.post("/nieuwThema", upload.single("image"), async (req, res) => {
   console.log(req.file);
-  const { body, file } = req;
+  const {
+    body,
+    file
+  } = req;
   const theme = {
     _id: body.id,
     name: body.name,
@@ -331,10 +380,14 @@ app.post("/nieuwThema", upload.single("image"), async (req, res) => {
     await insertTheme(theme);
     try {
       const user1 = req.session.user.email;
-      const user = await collectionUsers.findOne({ email: user1 });
-        const selectedVakken = user.selectedVakken;
+      const user = await collectionUsers.findOne({
+        email: user1
+      });
+      const selectedVakken = user.selectedVakken;
       const renderData = await collection
-        .find({ user: req.session.user.email })
+        .find({
+          user: req.session.user.email
+        })
         .toArray();
       res.redirect("matchPage2");
     } catch (err) {
@@ -342,7 +395,9 @@ app.post("/nieuwThema", upload.single("image"), async (req, res) => {
       res.status(500).send("Failed to retrieve themes");
     }
   } catch (err) {
-    res.status(500).send({ error: "Failed to save theme" });
+    res.status(500).send({
+      error: "Failed to save theme"
+    });
   }
 });
 
@@ -354,39 +409,56 @@ app.get("/themaAanpassen", async (req, res) => {
 
   try {
     const user1 = req.session.user.email;
-    const user = await collectionUsers.findOne({ email: user1 });
-      const selectedVakken = user.selectedVakken;
+    const user = await collectionUsers.findOne({
+      email: user1
+    });
+    const selectedVakken = user.selectedVakken;
     const renderData = await collection
-      .find({ user: req.session.user.email })
+      .find({
+        user: req.session.user.email
+      })
       .toArray();
-    res.render("theme-builder", { col_thema: renderData, user, selectedVakken });
+    res.render("theme-builder", {
+      col_thema: renderData,
+      user,
+      selectedVakken
+    });
   } catch (err) {
     console.error(err);
     res.status(500).send("Failed to retrieve themes");
   }
 });
-app.post('/updateTheme',  async (req, res) => {
+app.post('/updateTheme', async (req, res) => {
 
   const user1 = req.session.user.email;
-  const user = await collectionUsers.findOne({ email: user1 });
-  const renderData = await collection.find({ user: user1 }).toArray();
+  const user = await collectionUsers.findOne({
+    email: user1
+  });
+  const renderData = await collection.find({
+    user: user1
+  }).toArray();
   const selectedVakken = user.selectedVakken;
   const selectedStuds = await collectionStuds.find({
-  vakken: { $in: selectedVakken }, }).toArray();
-    const themeId = req.body.themeId;
-    const themeID = await collection.findOne({ _id: new ObjectId(themeId) });
-    console.log(themeID);
-    theme = themeID;
-    res.render("matchPage-2.ejs", { 
+    vakken: {
+      $in: selectedVakken
+    },
+  }).toArray();
+  const themeId = req.body.themeId;
+  const themeID = await collection.findOne({
+    _id: new ObjectId(themeId)
+  });
+  console.log(themeID);
+  theme = themeID;
+  res.render("matchPage-2.ejs", {
     col_thema: renderData,
     theme,
     randomQuote,
     user,
     selectedStuds,
     selectedVakken,
-   });
   });
-  
+});
+
 
 app.get("/col_thema/:themeID", async (req, res) => {
   try {
@@ -401,11 +473,22 @@ app.get("/col_thema/:themeID", async (req, res) => {
     const randomQuote = quotes[Math.floor(Math.random() * quotes.length)].texts;
 
     const id = req.params.themeID;
-    const theme = await collection.findOne({ _id: new ObjectId(id) });
+    const theme = await collection.findOne({
+      _id: new ObjectId(id)
+    });
     const user1 = req.session.user.email;
-    const user = await collectionUsers.findOne({ email: user1 });
-    const renderData = await collection.find({ user: user1 }).toArray();
-    res.render("theme-builder2", { col_thema: renderData, theme, randomQuote, user });
+    const user = await collectionUsers.findOne({
+      email: user1
+    });
+    const renderData = await collection.find({
+      user: user1
+    }).toArray();
+    res.render("theme-builder2", {
+      col_thema: renderData,
+      theme,
+      randomQuote,
+      user
+    });
   } catch (err) {
     console.error(err);
     res.status(500).send("Failed to retrieve theme");
@@ -419,7 +502,9 @@ app.delete("/col_thema/:themeID", async (req, res) => {
     }
 
     const id = req.params.themeID;
-    const result = await collection.deleteOne({ _id: new ObjectId(id) });
+    const result = await collection.deleteOne({
+      _id: new ObjectId(id)
+    });
     if (result.deletedCount === 0) {
       return res.status(404).send("Theme not found");
     }
@@ -434,12 +519,18 @@ app.delete("/col_thema/:themeID", async (req, res) => {
 
 app.get("/col_thema/:id", async (req, res) => {
   const user1 = req.session.user.email;
-  const user = await collectionUsers.findOne({ email: user1 });
+  const user = await collectionUsers.findOne({
+    email: user1
+  });
   const theme = await collection.findOne({
     _id: ObjectId(req.params.id),
     user,
   });
-  res.render("theme-builder2", { theme, col_thema, user });
+  res.render("theme-builder2", {
+    theme,
+    col_thema,
+    user
+  });
 });
 
 app.get("/form", (req, res) => {
@@ -447,7 +538,10 @@ app.get("/form", (req, res) => {
 });
 
 app.get("/matchpage2", async (req, res) => {
-  const { body, file } = req;
+  const {
+    body,
+    file
+  } = req;
   const theme = {
     _id: body.id,
     name: body.name,
@@ -457,30 +551,39 @@ app.get("/matchpage2", async (req, res) => {
     user: req.session.user.email,
   };
   const user1 = req.session.user.email;
-  const user = await collectionUsers.findOne({ email: user1 });
+  const user = await collectionUsers.findOne({
+    email: user1
+  });
   const selectedVakken = user.selectedVakken;
   const selectedStuds = await collectionStuds.find({
-vakken: { $in: selectedVakken }, }).toArray();
- console.log(selectedVakken);
+    vakken: {
+      $in: selectedVakken
+    },
+  }).toArray();
+  console.log(selectedVakken);
 
-    try {
-      const user1 = req.session.user.email;
-      const user = await collectionUsers.findOne({ email: user1 });
-      const renderData = await collection
-        .find({ user: req.session.user.email })
-        .toArray();
-      res.render("matchPage-2.ejs", {
-        col_thema: renderData,
-        theme,
-        randomQuote,
-        user,
-        selectedStuds,
-        selectedVakken,
-      });
-    } catch (err) {
-      console.error(err);
-      res.status(500).send("Failed to retrieve themes");
-    }
+  try {
+    const user1 = req.session.user.email;
+    const user = await collectionUsers.findOne({
+      email: user1
+    });
+    const renderData = await collection
+      .find({
+        user: req.session.user.email
+      })
+      .toArray();
+    res.render("matchPage-2.ejs", {
+      col_thema: renderData,
+      theme,
+      randomQuote,
+      user,
+      selectedStuds,
+      selectedVakken,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Failed to retrieve themes");
+  }
 
 });
 
@@ -493,7 +596,9 @@ app.delete("/col_thema/:themeID", async (req, res) => {
     }
 
     const id = req.params.themeID;
-    const result = await collection.deleteOne({ _id: new ObjectId(id) });
+    const result = await collection.deleteOne({
+      _id: new ObjectId(id)
+    });
     if (result.deletedCount === 0) {
       return res.status(404).send("Theme not found");
     }
@@ -508,12 +613,17 @@ app.delete("/col_thema/:themeID", async (req, res) => {
 
 app.get("/col_thema/:id", async (req, res) => {
   const user1 = req.session.user.email;
-  const user = await collectionUsers.findOne({ email: user1 });
+  const user = await collectionUsers.findOne({
+    email: user1
+  });
   const theme = await collection.findOne({
     _id: ObjectId(req.params.id),
     user,
   });
-  res.render("theme-builder2", { theme, col_thema });
+  res.render("theme-builder2", {
+    theme,
+    col_thema
+  });
 });
 
 
@@ -521,7 +631,9 @@ app.get("/col_thema/:id", async (req, res) => {
 
 app.get("/filter", async (req, res) => {
   const user1 = req.session.user.email;
-  const user = await collectionUsers.findOne({ email: user1 });
+  const user = await collectionUsers.findOne({
+    email: user1
+  });
   const selectedVakken = user.selectedVakken;
   console.log(selectedVakken)
   collectionVakken
@@ -540,25 +652,37 @@ app.get("/filter", async (req, res) => {
 
 app.post("/filter", async (req, res) => {
   const user1 = req.session.user.email;
-  const user = await collectionUsers.findOne({ email: user1 });
-    const selectedVakken = user.selectedVakken;
+  const user = await collectionUsers.findOne({
+    email: user1
+  });
+  const selectedVakken = user.selectedVakken;
   const selectedJaar = req.body.jaar;
   collectionVakken
-    .find({ jaar: selectedJaar })
+    .find({
+      jaar: selectedJaar
+    })
     .toArray()
     .then((vakken) => {
       const vaknamen = vakken.map((vak) => vak.naam); // Extract name field
-      res.render("filter.ejs", { vakken: vaknamen, jaar: selectedJaar, user, selectedVakken });
+      res.render("filter.ejs", {
+        vakken: vaknamen,
+        jaar: selectedJaar,
+        user,
+        selectedVakken
+      });
     });
 });
 
 app.post("/nextPage", async (req, res) => {
   const selectedVakken = req.body.selectedVakken;
 
-  collectionUsers.updateOne(
-    { email: req.session.user.email },
-    { $set: { selectedVakken } }
-  );
+  collectionUsers.updateOne({
+    email: req.session.user.email
+  }, {
+    $set: {
+      selectedVakken
+    }
+  });
 
   // Check if at least two checkboxes are selected
   //     if (!selectedVakken || selectedVakken.length < ) {
@@ -587,7 +711,9 @@ app.post("/nextPage", async (req, res) => {
 //route naar liked studs
 app.get("/likedstuds", async (req, res) => {
   const user1 = req.session.user.email;
-  const user = await collectionUsers.findOne({ email: user1 });
+  const user = await collectionUsers.findOne({
+    email: user1
+  });
   const studs = await collectionStuds
     .find({
       liked: true,
@@ -599,36 +725,34 @@ app.get("/likedstuds", async (req, res) => {
   });
 });
 
-const { ObjectId } = require("mongodb");
-const { log } = require("console");
+const {
+  ObjectId
+} = require("mongodb");
+const {
+  log
+} = require("console");
 
 app.post("/like", async (req, res) => {
   const studId = req.body.studId;
-  await collectionStuds.updateOne(
-    {
-      _id: new ObjectId(studId),
+  await collectionStuds.updateOne({
+    _id: new ObjectId(studId),
+  }, {
+    $set: {
+      liked: true,
     },
-    {
-      $set: {
-        liked: true,
-      },
-    }
-  );
+  });
   res.redirect("/matchpage");
 });
 
 app.post("/unlike", async (req, res) => {
   const studId = req.body.studId;
-  await collectionStuds.updateOne(
-    {
-      _id: new ObjectId(studId),
+  await collectionStuds.updateOne({
+    _id: new ObjectId(studId),
+  }, {
+    $set: {
+      liked: false,
     },
-    {
-      $set: {
-        liked: false,
-      },
-    }
-  );
+  });
   res.redirect("/likedStuds");
 });
 
@@ -647,50 +771,54 @@ socket.use(sharedSession(session1, {
 const Chat = require("./models/chatSchema");
 
 //setup event listener
-socket.on("connection", async  (socket) => {
-    console.log("user connected");
-    console.log(socket.handshake.session.user.name);
-  
-    socket.on("disconnect", function() {
-      console.log("user disconnected");
-    });
-  
-    //Somebody is typing
-    socket.on("typing", data => {
-      socket.broadcast.emit("notifyTyping", {
-        user: data.user,
-        message: data.message
-      });
-    });
-  
-    //when somebody stops typing
-    socket.on("stopTyping", () => {
-      socket.broadcast.emit("notifyStopTyping");
-    });
-  
-    socket.on("chat message", async function(msg) {
-      console.log("message: " + msg);
-  
-  
-      //broadcast message to everyone in port except yourself.
-      socket.broadcast.emit("received", { message: msg });
-  
-      //saves chat to the database
-      connect.then( async (db)  =>  {
-        const user1 = socket.handshake.session.user.name
-        const user =  await collectionUsers.findOne({ name: user1 });
-        let chatMessage = new Chat({
-          message: msg,
-          sender: user.name,
-        });
+socket.on("connection", async (socket) => {
+  console.log("user connected");
+  console.log(socket.handshake.session.user.name);
 
-        chatMessage.chatID = user.chats;
-      await chatMessage.save();
-      });
+  socket.on("disconnect", function () {
+    console.log("user disconnected");
+  });
+
+  //Somebody is typing
+  socket.on("typing", data => {
+    socket.broadcast.emit("notifyTyping", {
+      user: data.user,
+      message: data.message
     });
+  });
+
+  //when somebody stops typing
+  socket.on("stopTyping", () => {
+    socket.broadcast.emit("notifyStopTyping");
+  });
+
+  socket.on("chat message", async function (msg) {
+    console.log("message: " + msg);
+
+
+    //broadcast message to everyone in port except yourself.
+    socket.broadcast.emit("received", {
+      message: msg
+    });
+
+    //saves chat to the database
+    connect.then(async (db) => {
+      const user1 = socket.handshake.session.user.name
+      const user = await collectionUsers.findOne({
+        name: user1
+      });
+      let chatMessage = new Chat({
+        message: msg,
+        sender: user.name,
+      });
+
+      chatMessage.chatID = user.chats;
+      await chatMessage.save();
+    });
+  });
 
 
 });
 http.listen(port, () => {
-    console.log("Running on Port: " + port);
-  });
+  console.log("Running on Port: " + port);
+});

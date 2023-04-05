@@ -25,8 +25,6 @@
       //     console.log("block");
       //   }
       // }
-    })});
+    })
+  });
   // button.style.display = 'none';
-
-
-

@@ -2,25 +2,24 @@
 <main class="accountPage">
     <h1>Account page</h1>
     <div>
-    <a href="/account">Account</a>
-    <a href="/logout">Logout</a>
+        <a href="/account">Account</a>
+        <a href="/logout">Logout</a>
     </div>
 
     <section>
         <h2>Account informatie</h2>
-       <ul>
-              <li>Naam: <%= user.name %></li>
-              <li>Achternaam: <%= user.surname %></li>
-              <li>E-mail: <%= user.email %></li>
-              <li>Leerjaar: <%= user.leerjaar %></li>
-              <li>Vakken: <%= user.selectedVakken %></li>
-       </ul>       
-       <a href="/themaAanpassen">Voorkeuren aanpassen</a>
+        <ul>
+            <li>Naam: <%= user.name %></li>
+            <li>Achternaam: <%= user.surname %></li>
+            <li>E-mail: <%= user.email %></li>
+            <li>Leerjaar: <%= user.leerjaar %></li>
+            <li>Vakken: <%= user.selectedVakken %></li>
+        </ul>
+        <a href="/themaAanpassen">Voorkeuren aanpassen</a>
     </section>
     <section>
-    <h2>Chat met je beste vriend!</h2>
-    <a href="/chats/<%= user2.chats %>">Quinten</a>
+        <h2>Chat met je beste vriend!</h2>
+        <a href="/chats/<%= user2.chats %>">Quinten</a>
     </section>
 </main>
-    <%- include ('footer.ejs') %>
-    
+<%- include ('footer.ejs') %>

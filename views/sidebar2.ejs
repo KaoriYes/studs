@@ -17,7 +17,8 @@
                 <form id="theme-form" method="POST" action="/updateTheme">
                     <select id="theme-selector" name="themeId">
                         <% col_thema.forEach(function(theme){ %>
-                            <option value="<%= theme._id %>" id="<%= theme._id %>" name="<%= theme._id %>"><%= theme.name %></option>
+                        <option value="<%= theme._id %>" id="<%= theme._id %>" name="<%= theme._id %>"><%= theme.name %>
+                        </option>
                         <% }); %>
                     </select>
                     <button type="submit">Opslaan</button>

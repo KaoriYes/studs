@@ -3,6 +3,7 @@
 
 <%- include ('head.ejs') %>
 <%- include('header.ejs') %>
+
 <body class="body-overflow-hidden">
   <main class="themeBuilder">
     <section>
@@ -10,7 +11,7 @@
         <img src="../public/img/profilepic-02.svg" alt="Profielfoto">
         <h1><%= user.name %> <%= user.surname %></h1>
         <p>Student | Leejaar <%= user.leerjaar %></p>
-  <a href="/matchpage">Terug naar home</a>
+        <a href="/matchpage">Terug naar home</a>
       </section>
       <section>
         <a onclick="location.href='/themaAanpassen';">Reset to Default</a>
@@ -18,7 +19,8 @@
         <% col_thema.forEach(function(theme){ %>
         <a href="/col_thema/<%= theme._id %>"
           style=" font-size: 13px; text-decoration:none; text-align: center; display:flex; background-color: <%= theme.backgroundColor %>">
-          <span style="margin: 10px auto 10px auto; text-align: center; color: <%= theme.textColor %>;"><%= theme.name %></span>
+          <span
+            style="margin: 10px auto 10px auto; text-align: center; color: <%= theme.textColor %>;"><%= theme.name %></span>
         </a>
         <% }); %>
       </section>
@@ -43,31 +45,34 @@
             </article>
             <article class="fb-post-content">
               <p>Welkom bij StudS!
-                Wij verbinden studenten en student-assistenten op een platform waar ze elkaar kunnen vinden en helpen. Tijdens
-                je registratie geef je als student aan welke vakken je volgt, en als student-assistent welke vakken je wilt
+                Wij verbinden studenten en student-assistenten op een platform waar ze elkaar kunnen vinden en helpen.
+                Tijdens
+                je registratie geef je als student aan welke vakken je volgt, en als student-assistent welke vakken je
+                wilt
                 ondersteunen.
-        
-                Uiteindelijk voor een tijdlijn gegenereerd waar beide partijen elkaar kunnen bereiken doormiddel van posts, chat
+
+                Uiteindelijk voor een tijdlijn gegenereerd waar beide partijen elkaar kunnen bereiken doormiddel van
+                posts, chat
                 berichten en andere vormen van contacten! </p>
-            <a href="#">
-              <img src="../public/img/thumbsup.svg" alt="Thumbs up">
-              Vind ik leuk
-            </a>
-          </article>
-          <article class="fb-post-footer">
-            <a href="#">
-              <img src="../public/img/thumbsup.svg" alt="Thumbs up">
-              Vind ik leuk
-            </a>
-            <a href="#">
-              <img src="../public/img/bericht.svg" alt="opmerking">
-              Opmerkingen
-            </a>
-            <a href="#">
-              <img src="../public/img/repost.svg" alt="delen">
-              Delen
-            </a>
-          </article>
+              <a href="#">
+                <img src="../public/img/thumbsup.svg" alt="Thumbs up">
+                Vind ik leuk
+              </a>
+            </article>
+            <article class="fb-post-footer">
+              <a href="#">
+                <img src="../public/img/thumbsup.svg" alt="Thumbs up">
+                Vind ik leuk
+              </a>
+              <a href="#">
+                <img src="../public/img/bericht.svg" alt="opmerking">
+                Opmerkingen
+              </a>
+              <a href="#">
+                <img src="../public/img/repost.svg" alt="delen">
+                Delen
+              </a>
+            </article>
         </section>
       </section>
     </section>

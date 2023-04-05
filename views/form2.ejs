@@ -1,11 +1,10 @@
 <form class="done themeBuilder" action="/col_thema/<%= theme._id %>?_method=DELETE" method="POST">
-    <li><strong>Theme ID:</strong> <%= theme._id %></li>
-    <li><strong>Name:</strong> <%= theme.name %></li>
-    <li><strong>Background Color:</strong> <%= theme.backgroundColor %></li>
-    <li><strong>Font Family:</strong> <%= theme.fontFamily %></li>
-    <li><strong>Text Color:</strong> <%= theme.textColor %></li>
-    <li><strong>Image:</strong> <%= theme.images %></li>
-    <input type="hidden" name="themeID" value="<%= theme._id %>">
-    <button type="submit">Delete Theme</button>
-  </form>
-  
+  <li><strong>Theme ID:</strong> <%= theme._id %></li>
+  <li><strong>Name:</strong> <%= theme.name %></li>
+  <li><strong>Background Color:</strong> <%= theme.backgroundColor %></li>
+  <li><strong>Font Family:</strong> <%= theme.fontFamily %></li>
+  <li><strong>Text Color:</strong> <%= theme.textColor %></li>
+  <li><strong>Image:</strong> <%= theme.images %></li>
+  <input type="hidden" name="themeID" value="<%= theme._id %>">
+  <button type="submit">Delete Theme</button>
+</form>

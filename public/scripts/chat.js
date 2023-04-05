@@ -1,7 +1,7 @@
 var socket = io();
 var messages = document.getElementById("messages");
-(function() {
-  $("form").submit(function(e) {
+(function () {
+  $("form").submit(function (e) {
     let li = document.createElement("li");
     e.preventDefault(); // prevents page reloading
     socket.emit("chat message", $("#message").val());
@@ -34,7 +34,10 @@ let typing = document.getElementById("typing");
 
 //isTyping event
 messageInput.addEventListener("keypress", () => {
-  socket.emit("typing", { user: "Someone", message: "is typing..." });
+  socket.emit("typing", {
+    user: "Someone",
+    message: "is typing..."
+  });
 });
 
 socket.on("notifyTyping", data => {

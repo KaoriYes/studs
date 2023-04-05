@@ -130,6 +130,7 @@ body main section.preRegister img {
   order: -1;
   width: 75%;
 }
+
 body main section.preRegister p {
   max-width: 75%;
   min-width: 60%;
@@ -147,6 +148,7 @@ body main section.preRegister section {
   align-items: center;
   margin-top: 1em;
 }
+
 body main section.preRegister section button {
   width: 100%;
   height: 3em;
@@ -154,6 +156,7 @@ body main section.preRegister section button {
   font-size: 1.25;
   font-weight: 200;
 }
+
 body main section.preRegister section button:nth-of-type(1) {
   width: 100%;
   height: 3em;
@@ -168,11 +171,13 @@ body main section.preRegister section button:nth-of-type(1) {
   text-decoration: none;
   color: #707070;
 }
+
 body main section.preRegister section button:nth-of-type(2) {
   background-color: #4a58c4;
   border: none;
   color: #ffffff;
 }
+
 body main section.preRegister section span {
   font-size: 0.875rem;
   color: var(--font-form-p);
@@ -181,6 +186,7 @@ body main section.preRegister section span {
   text-align: center;
   position: relative;
 }
+
 body main section.preRegister section span::before {
   content: "";
   width: 5.75em;
@@ -190,6 +196,7 @@ body main section.preRegister section span::before {
   top: 6px;
   left: -6.25em;
 }
+
 body main section.preRegister section span::after {
   content: "";
   width: 5.75em;
@@ -199,6 +206,7 @@ body main section.preRegister section span::after {
   top: 6px;
   right: -6.25em;
 }
+
 body main section.preRegister section a:last-of-type {
   font-size: 0.875rem;
   color: var(--font-form-p);
@@ -206,6 +214,7 @@ body main section.preRegister section a:last-of-type {
   margin: var(--font-form-p-margin);
   text-align: center;
 }
+
 body main section.preRegister form {
   display: flex;
   flex-direction: column;
@@ -213,6 +222,7 @@ body main section.preRegister form {
   align-items: center;
   margin-top: 1em;
 }
+
 body main section.preRegister form input[type="email"],
 body main section.preRegister form input[type="password"] {
   width: 100%;
@@ -228,6 +238,7 @@ body main section.preRegister form input[type="password"] {
   text-decoration: none;
   color: #707070;
 }
+
 body main section.preRegister form input[type="submit"] {
   background-color: #4a58c4;
   border: none;
@@ -238,16 +249,19 @@ body main section.preRegister form input[type="submit"] {
   font-size: 1.25;
   font-weight: 200;
 }
+
 body main section.preRegister form input[type="submit"]:hover {
   font-weight: 400;
   border: 1px solid white;
   cursor: pointer;
 }
+
 body main section.preRegister div {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
 body main section.preRegister div button {
   background-color: #707070;
   border: none;
@@ -259,14 +273,17 @@ body main section.preRegister div button {
   font-weight: 200;
   margin-top: 0.5em;
 }
+
 body main section.preRegister div button:hover {
   font-weight: 400;
   border: 1px solid white;
   cursor: pointer;
 }
+
 body main div.preRegisterside {
   position: relative;
 }
+
 body main div.preRegisterSide img {
   width: 40dvw;
   position: absolute;
@@ -283,6 +300,7 @@ body main section.questionStarterTop {
   justify-content: center;
   margin-top: 1em;
 }
+
 body main section.questionStarterTop p {
   max-width: 50%;
   font-size: 1.25rem;
@@ -300,6 +318,7 @@ body main section.registerStart {
   justify-content: center;
   margin-top: 1em;
 }
+
 body main section.registerStart div {
   display: flex;
   gap: 4em;
@@ -333,6 +352,7 @@ body main section.registerStart a span {
   bottom: -2em;
   font-weight: bold;
 }
+
 body main section.registerStart a img {
   width: 75%;
 }
@@ -346,6 +366,7 @@ body main section.studentReg {
   margin-top: 1em;
   transform: scale(0.9);
 }
+
 body main section.studentReg p {
   max-width: 50%;
   font-size: 1.25rem;
@@ -362,9 +383,11 @@ body main section.studentReg form {
   align-items: center;
   justify-content: center;
 }
+
 body main section.studentReg form section {
   position: relative;
 }
+
 body main section.studentReg form section h2 {
   font-size: var(--font-size-h2);
   color: var(--font-color-header);
@@ -372,6 +395,7 @@ body main section.studentReg form section h2 {
   margin: var(--font-form-p-margin);
   text-align: center;
 }
+
 body main section.studentReg form section input[type="text"] {
   width: 40em;
   height: 3em;
@@ -391,6 +415,7 @@ body main section.studentReg form section input[type="text"]:focus {
   border: 0.25em solid var(--font-color-header);
   outline: none;
 }
+
 body main section.studentReg form section button {
   position: absolute;
   background-color: #714eb6;
@@ -401,15 +426,18 @@ body main section.studentReg form section button {
   border-radius: 2.5em;
   opacity: 0.75;
 }
+
 body main section.studentReg form section button:hover {
   opacity: 1;
 }
+
 body main section.studentReg form section:nth-of-type(1) button,
 body main section.studentReg form section:nth-of-type(2) button,
 body main section.studentReg form section:nth-of-type(4) button {
   top: 4.3em;
   right: 1em;
 }
+
 body main section.studentReg form section:nth-of-type(5) button {
   top: 9.2em;
   right: 1em;
@@ -418,32 +446,24 @@ body main section.studentReg form section:nth-of-type(5) button {
 body main section.studentReg form section:nth-of-type(3) label {
   position: relative;
 }
+
 body main section.studentReg form section:nth-of-type(3) label:nth-of-type(1) {
   margin-left: 4em;
 }
-body
-  main
-  section.studentReg
-  form
-  section:nth-of-type(3)
-  label
-  input[type="radio"] {
+
+body main section.studentReg form section:nth-of-type(3) label input[type="radio"] {
   border: 0.125em solid var(--font-color-header);
   border-radius: 50%;
   width: 4em;
   height: 4em;
   appearance: none;
 }
-body
-  main
-  section.studentReg
-  form
-  section:nth-of-type(3)
-  label
-  input[type="radio"]:checked {
+
+body main section.studentReg form section:nth-of-type(3) label input[type="radio"]:checked {
   border: 0.25em solid var(--font-color-header);
   background-color: var(--font-color-header);
 }
+
 body main section.studentReg form section:nth-of-type(3) label span {
   position: absolute;
   top: -1.1em;
@@ -452,13 +472,8 @@ body main section.studentReg form section:nth-of-type(3) label span {
   color: var(--font-color-header);
   z-index: -1;
 }
-body
-  main
-  section.studentReg
-  form
-  section:nth-of-type(3)
-  label:nth-of-type(1)
-  span {
+
+body main section.studentReg form section:nth-of-type(3) label:nth-of-type(1) span {
   left: 0.7em;
 }
 
@@ -507,17 +522,11 @@ body main section.studentReg form section input[type="password"]:focus {
   outline: none;
 }
 
-body
-  main
-  section.studentReg
-  form
-  section:nth-of-type(3)
-  label
-  input[type="radio"]:checked
-  + span {
+body main section.studentReg form section:nth-of-type(3) label input[type="radio"]:checked+span {
   color: #ffffff;
   z-index: 1;
 }
+
 body main section.studentReg form section:nth-of-type(3) button {
   top: 7em;
   left: calc(50% - 3em);
@@ -535,6 +544,7 @@ body main section.studentReg form input[type="submit"] {
   margin-bottom: 1em;
   transition: 150ms ease-in-out;
 }
+
 body main section.studentReg form input[type="submit"]:hover {
   opacity: 1;
   transform: scale(1.1);
@@ -543,6 +553,7 @@ body main section.studentReg form input[type="submit"]:hover {
 .displaynone {
   display: none !important;
 }
+
 /* css van Bart */
 
 form.vakken {
@@ -604,6 +615,7 @@ form.vakken ul li.selected {
 .vakken li:first-of-type {
   opacity: 0.45;
 }
+
 body main.filter button {
   background-color: #7353d1;
   color: #ffffff;
@@ -1269,7 +1281,7 @@ body main section.agenda ul li {
   margin-top: 2em;
 }
 
-body main section.agenda ul li article > h3 {
+body main section.agenda ul li article>h3 {
   margin-top: 0.5em;
   margin-bottom: 0;
 }
@@ -1289,7 +1301,7 @@ body main section.agenda ul li a {
   right: 2em;
 }
 
-body main section.agenda ul li article > p {
+body main section.agenda ul li article>p {
   text-align: center;
   margin-top: 0.5em;
   margin-bottom: 0;
@@ -1351,11 +1363,13 @@ body main section.recStuds ul {
 body main section a {
   text-decoration: none;
 }
+
 body main section.recStuds ul:nth-of-type(1) {
   display: flex;
   list-style-type: none;
   gap: 0.5em;
 }
+
 body main section.recStuds ul:nth-of-type(1) li {
   border: 0.2em solid var(--white);
   border-radius: 2.5em;
@@ -1376,20 +1390,20 @@ body main section.recStuds ul:nth-of-type(2) li {
   padding: 1em 1em 1em 1em;
 }
 
-body main section.recStuds li article > h3 {
+body main section.recStuds li article>h3 {
   color: var(--black);
   margin-bottom: 0.4em;
   margin-top: 0;
 }
 
-body main section.recStuds li article > p {
+body main section.recStuds li article>p {
   text-align: left;
   color: var(--black);
   margin-bottom: 0.4em;
   margin-top: 0.3em;
 }
 
-body main section.recStuds li article > h4 {
+body main section.recStuds li article>h4 {
   color: var(--purple-button);
   margin-bottom: 0.4em;
   margin-top: 0;
@@ -1417,7 +1431,7 @@ body main section.recStuds li article a {
   margin-left: 1em;
 }
 
-body main section.recStuds li > img {
+body main section.recStuds li>img {
   max-width: 8em;
   margin-right: 2em;
   border-radius: 2em;
@@ -1453,7 +1467,7 @@ body main section.recStuds li > img {
 
 :root {
   --font-main: 'Poppins',
-  sans-serif;
+    sans-serif;
   --font-size-h1: 2em;
   --font-size-h2: 1.5em;
   --font-header-margin: 0.5em 0;
@@ -1624,7 +1638,7 @@ body main.chat section.chat_window .message_template {
   display: none;
 }
 
-body main.chat section.chat_window .messages > li {
+body main.chat section.chat_window .messages>li {
   font-size: 1em;
   color: var(--white);
   background: var(--color-chat-message);
@@ -1633,7 +1647,7 @@ body main.chat section.chat_window .messages > li {
   width: fit-content;
 }
 
-body main.chat section.chat_window .messages > span {
+body main.chat section.chat_window .messages>span {
   font-size: 10px;
   font-style: bold;
 }
