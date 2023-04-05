@@ -1,8 +1,7 @@
 # BloktechTeam
 
-Welkom bij de ReadMe van onze teamopdracht van BlokTech
+Welkom bij de ReadMe van onze teamopdracht van BlokTech!
 
-![logo](https://user-images.githubusercontent.com/62010539/225015949-e18c0002-4816-4f25-91b5-1c5142f42faf.png)
 
 
 # 🤔 Ons idee
