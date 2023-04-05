@@ -102,10 +102,26 @@ app.get("/registerQuestion", (req, res) => {
 });
 
 //route naar de matchpage
-app.get("/matchpage", async (req, res) => {
+app.get("/matchpage", checkLogin, async (req, res) => {
   const studs = await collectionStuds.find().toArray();
+  const user1 = req.session.user.email;
+  const user = await collectionUsers.findOne({ email: user1 });
+  const selectedVakken = user.selectedVakken;
+  console.log(selectedVakken);
   res.render("MatchPage.ejs", {
+    studs: selectedVakken,
+    user,
+    selectedVakken,
+  });
+});
+
+app.get("/sidebar", async (req, res) => {
+  const studs = await collectionStuds.find().toArray();
+  const user1 = req.session.user.email;
+  const user = await collectionUsers.findOne({ email: user1 });
+  res.render("sidebar.ejs", {
     studs: studs,
+    user,
   });
 });
 
@@ -398,12 +414,18 @@ app.post("/submit", (req, res) => {
 app.get("/filter", async (req, res) => {
   const user1 = req.session.user.email;
   const user = await collectionUsers.findOne({ email: user1 });
+  const selectedVakken = user.selectedVakken;
   collectionVakken
     .find({})
     .toArray()
     .then((vakken, jaar) => {
       const vaknamen = vakken.map((vak) => vak.naam);
-      res.render("filter.ejs", { vakken: vaknamen, jaar, user });
+      res.render("filter.ejs", {
+        vakken: vaknamen,
+        jaar,
+        user,
+        selectedVakken,
+      });
     });
 });
 
@@ -448,7 +470,7 @@ app.post("/nextPage", async (req, res) => {
   //       console.log(errorMessage)
 
   //     } else {
-  res.render("nextPage.ejs", { selectedVakken });
+  res.redirect("/matchpage");
   //     }
 });
 
@@ -465,6 +487,7 @@ app.get("/likedstuds", async (req, res) => {
 });
 
 const { ObjectId } = require("mongodb");
+const { log } = require("console");
 
 app.post("/like", async (req, res) => {
   const studId = req.body.studId;

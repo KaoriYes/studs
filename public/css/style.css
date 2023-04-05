@@ -1351,8 +1351,18 @@ body main section.recStuds ul {
 body main section a {
   text-decoration: none;
 }
-
-body main section.recStuds li {
+body main section.recStuds ul:nth-of-type(1) {
+  display: flex;
+  list-style-type: none;
+  gap: 0.5em;
+}
+body main section.recStuds ul:nth-of-type(1) li {
+  border: 1px solid white;
+  border-radius: 2.5em;
+  color: white;
+  padding: 0.5em;
+}
+body main section.recStuds ul:nth-of-type(2) li {
   display: grid;
   position: relative;
   grid-template-columns: 1fr 4fr;

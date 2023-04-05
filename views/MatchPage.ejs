@@ -12,7 +12,7 @@
     <title>Match Page</title>
   </head>
 
-  <body>
+  <body class="body-overflow-hidden">
     <%- include('./header') %>
     <main>
       <%- include('./sidebar') %>
@@ -77,8 +77,14 @@
         <a href="/likedStuds" id="showLikedStuds">Bekijk geliked assistenten</a>
         <h2>Hier zijn aantal beschikbare Studs</h2>
         <p>Op basis van jouw vakken:</p>
-        <a href="#" class="addVakken">+</a>
-        <!-- gezochte vakken -->
+        <a href="/filter" class="addVakken">+</a>
+        <ul>
+          <% for(var i=0; i<selectedVakken.length; i++) { %>
+            <li>
+                <%= selectedVakken[i] %>
+            </li>
+            <% } %>
+        </ul>
         <ul>
           <% studs.forEach(function(stud) { %>
           <li>

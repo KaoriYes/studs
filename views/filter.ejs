@@ -1,61 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>filter</title>
-    <link href="/css/style.css">
-</head>
+    <link href="/css/style.css" />
+  </head>
 
-<body>
+  <body>
     <%- include('header.ejs') %>
-        <!-- Deze hele pagina is gemaakt door Bart -->
-        <main class="filter">
-            <section>
-                <!-- Filter toevoegen -->
-                <p><%= user.name %> <%= user.surname %>,<span>Leerjaar <%= user.leerjaar %></span></p>
-                <form action="/filter" method="post">
-                    <!-- Button veranderd van kleur bij een klik en de vakken veranderen mee-->
-                    <button class="<%= (jaar == 1) ? 'active' : '' %>" type="submit" name="jaar" value="1">Leerjaar
-                        1</button>
-                    <button class="<%= (jaar == 2) ? 'active' : '' %>" type="submit" name="jaar" value="2">Leerjaar
-                        2</button>
-                    <button class="<%= (jaar == 3) ? 'active' : '' %>" type="submit" name="jaar" value="3">Leerjaar
-                        3</button>
-                </form>
-                <p>Kies de vakken waar je graag hulp bij wilt:</p>
-            </section>
-            <!-- Als er geen vakken zijn geselecteerd dan komt er een errorMessage in beeld -->
-            <% if (locals.errorMessage) { %>
-                <p class="error">
-                    <%= locals.errorMessage %>
-                </p>
-                <% } %>
-                    <!-- Dit is de form waar alle vakken in staan de geselecteerd moeten worden om naar de volgende pagina te gaan -->
-                    <form action="/nextPage" method="post" class="vakken">
-                        <!-- 5 vakken te zien per rij -->
-                        <ul class="vakken">
-                            <!-- Inladen via ejs -->
-                            <% for (var i=0; i < vakken.length; i++) { %>
-                                <!-- Styling voor de kleur -->
-                                <li style="--n: <%= vakken.length %>; --i:
-                                        <%= i %>;">
-                                    <label>
-                                        <!-- Checkbox moet geselecteerd worden voor de vakken aan te vinken -->
-                                        <input type="checkbox" name="selectedVakken" value="<%= vakken[i] %>" hidden>
-                                        <%= vakken[i] %>
-                                    </label>
-                                </li>
-                                <% } %>
-                        </ul>
-                        <!-- Button voor naar de overzichtpagina te gaan -->
-                        <button type="submit" class="next">--></button>
-                    </form>
+    <!-- Deze hele pagina is gemaakt door Bart -->
+    <main class="filter">
+      <section>
+        <!-- Filter toevoegen -->
+        <p>
+          <%= user.name %> <%= user.surname %>,<span
+            >Leerjaar <%= user.leerjaar %></span
+          >
+          Voorheen geselecteerde filters<%= selectedVakken %>
+        </p>
+        <form action="/filter" method="post">
+          <!-- Button veranderd van kleur bij een klik en de vakken veranderen mee-->
+          <button
+            class="<%= (jaar == 1) ? 'active' : '' %>"
+            type="submit"
+            name="jaar"
+            value="1"
+          >
+            Leerjaar 1
+          </button>
+          <button
+            class="<%= (jaar == 2) ? 'active' : '' %>"
+            type="submit"
+            name="jaar"
+            value="2"
+          >
+            Leerjaar 2
+          </button>
+          <button
+            class="<%= (jaar == 3) ? 'active' : '' %>"
+            type="submit"
+            name="jaar"
+            value="3"
+          >
+            Leerjaar 3
+          </button>
+        </form>
+        <p>Kies de vakken waar je graag hulp bij wilt:</p>
+      </section>
+      <!-- Als er geen vakken zijn geselecteerd dan komt er een errorMessage in beeld -->
+      <% if (locals.errorMessage) { %>
+      <p class="error"><%= locals.errorMessage %></p>
+      <% } %>
+      <!-- Dit is de form waar alle vakken in staan de geselecteerd moeten worden om naar de volgende pagina te gaan -->
+      <form action="/nextPage" method="post" class="vakken">
+        <!-- 5 vakken te zien per rij -->
+        <ul class="vakken">
+          <!-- Inladen via ejs -->
+          <% for (var i=0; i < vakken.length; i++) { %>
+          <!-- Styling voor de kleur -->
+          <li style="--n: <%= vakken.length %>; --i: <%= i %>">
+            <label>
+              <!-- Checkbox moet geselecteerd worden voor de vakken aan te vinken -->
+              <input
+                type="checkbox"
+                name="selectedVakken"
+                value="<%= vakken[i] %>"
+              />
+              <%= vakken[i] %>
+            </label>
+          </li>
+          <% } %>
+        </ul>
+        <!-- Button voor naar de overzichtpagina te gaan -->
+        <button type="submit" class="next">--></button>
+      </form>
 
-                    <script src="/scripts/filterScript.js"></script>
-        </main>
-</body>
-
+      <script src="/scripts/filterScript.js"></script>
+    </main>
+  </body>
 </html>
