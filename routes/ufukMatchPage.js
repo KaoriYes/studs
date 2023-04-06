@@ -105,4 +105,16 @@ router.get("/likedstuds", async (req, res) => {
   });
 });
 
+router.get("/sidebar", async (req, res) => {
+  const studs = await collectionStuds.find().toArray();
+  const user1 = req.session.user.email;
+  const user = await collectionUsers.findOne({
+    email: user1,
+  });
+  res.render("sidebar.ejs", {
+    studs: studs,
+    user,
+  });
+});
+
 module.exports = router;

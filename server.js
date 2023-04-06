@@ -126,119 +126,20 @@ app.get("/", checkLogin, async (req, res) => {
 app.use(compression());
 app.use("/", require("./routes/ufukMatchPage"));
 app.use("/matchpage", require("./routes/ufukMatchPage"));
-// app.use("/login", require("./routes/qtLoginRegister"));
+app.use("/studentRegister", require("./routes/qtLoginRegister"));
+app.use("/preRegister", require("./routes/qtLoginRegister"));
+app.use("/login", require("./routes/qtLoginRegister"));
+app.use("/registerQuestion", require("./routes/qtLoginRegister"));
+app.use("/logout", require("./routes/qtLoginRegister"));
+app.use("/studentRegister", require("./routes/qtLoginRegister"));
+app.use("/account", require("./routes/qtLoginRegister"));
+
 app.use("/filter", require("./routes/bartFilter"));
+app.use("/nextPage", require("./routes/bartFilter"));
 app.use("/theme", require("./routes/aliTheme"));
+app.use("/themaAanpassen", require("./routes/aliTheme"));
+
 // app.use("/chat", require("./routes/svenChat"));
-
-app.get("/account", checkLogin, async (req, res) => {
-  const user1 = req.session.user.email;
-  const user = await collectionUsers.findOne({
-    email: user1,
-  });
-  const user2 = await collectionUsers.findOne({
-    email: "Quintenkok@me.com",
-  });
-  res.render("account.ejs", {
-    title: "Account",
-    user,
-    user2,
-  });
-});
-app.get("/preRegister", checkLoggedin, (req, res) => {
-  res.render("preRegister.ejs", {
-    title: "Register",
-  });
-});
-app.get("/registerQuestion", (req, res) => {
-  res.render("registerQuestion.ejs", {
-    title: "Register",
-  });
-});
-
-app.get("/sidebar", async (req, res) => {
-  const studs = await collectionStuds.find().toArray();
-  const user1 = req.session.user.email;
-  const user = await collectionUsers.findOne({
-    email: user1,
-  });
-  res.render("sidebar.ejs", {
-    studs: studs,
-    user,
-  });
-});
-
-app.get("/studentRegister", (req, res) => {
-  res.render("studentRegistrer.ejs", {
-    title: "Student Register",
-    subtitle: "",
-  });
-});
-app.get("/saRegister", (req, res) => {
-  res.render("saRegister", {
-    title: "Student Assistent Register",
-    subtitle: "",
-  });
-});
-
-app.post("/studentRegister", async (req, res) => {
-  const name = req.body.name;
-  const surname = req.body.surname;
-  const email = req.body.email;
-  const password = req.body.password;
-  const secondpassword = req.body.confirm_password;
-  const leerjaar = req.body.leerjaar;
-
-  if (password !== secondpassword) {
-    res.render("studentRegister.ejs", {
-      title: "Student Register",
-      subtitle: "Password does NOT match!",
-    });
-  } else if (
-    !name ||
-    !surname ||
-    !email ||
-    !password ||
-    !secondpassword ||
-    !leerjaar
-  ) {
-    res.render("studentRegistrer.ejs", {
-      title: "Student Register",
-      subtitle: "Please fill in all fields!",
-    });
-  } else {
-    const hashedpw = await bcrypt.hash(password, saltRounds);
-    var userdata = {
-      name,
-      surname,
-      hashedpw,
-      email,
-      leerjaar,
-      selectedVakken: "",
-      // no need for : value if key and value are the same
-    };
-
-    collectionUsers.insertOne(userdata, function (err) {
-      if (err) {
-        throw err;
-      } else {
-      }
-    });
-    const requestedUser = await collectionUsers.findOne({
-      email,
-    });
-    console.log(requestedUser);
-    req.session.authenticated = true;
-    req.session.user = {
-      email,
-      id: requestedUser._id,
-      name: requestedUser.name,
-    };
-    req.session.save();
-
-    res.redirect("/filter");
-  }
-});
 
 app.post("/submit-sa", async (req, res) => {
   const name = req.body.name;
@@ -267,53 +168,7 @@ app.post("/submit-sa", async (req, res) => {
     });
   }
 });
-app.get("/login", checkLoggedin, (req, res) => {
-  res.render("preRegister.ejs", {
-    title: "Login",
-  });
-});
 
-app.post("/login", async (req, res) => {
-  res.locals.title = "Login";
-  // get form data and requested email from db
-  const { email, password } = req.body;
-  const requestedUser = await collectionUsers.findOne({
-    email,
-  });
-  console.log(requestedUser);
-
-  // --- check if login is valid ---
-  if (requestedUser) {
-    // check db for input email and compare passwords > if match log in user
-    const isMatch = await bcrypt.compare(password, requestedUser.hashedpw);
-    if (isMatch) {
-      req.session.authenticated = true;
-      req.session.user = {
-        email,
-        id: requestedUser._id,
-        name: requestedUser.name,
-      };
-      req.session.save();
-      res.redirect("/filter");
-      // console.log(session);
-    } else {
-      // if password incorrect
-      res.render("preRegister", {
-        email: req.body.email,
-        error: "Incorrect email or password",
-      });
-      console.log("Incorrect  password");
-    }
-  }
-});
-
-app.get("/logout", (req, res) => {
-  req.session.destroy((err) => {
-    if (err) console.log(err);
-    res.clearCookie("connect.sid");
-    res.redirect("/preRegister");
-  });
-});
 // Set up middleware
 
 app.use(bodyParser.json());
