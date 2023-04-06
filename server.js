@@ -11,7 +11,8 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 mongoose.Promise = require("bluebird");
 const chatRouter = require("./routes/chatroute");
-const sharedSession = require('express-socket.io-session');
+const sharedSession = require("express-socket.io-session");
+const compression = require("compression");
 
 //require the http module
 const http = require("http").Server(app);
@@ -23,12 +24,10 @@ app.use(express.json());
 
 const port = 1337;
 const methodOverride = require("method-override");
-const {
-  v4: uuidv4
-} = require("uuid");
+const { v4: uuidv4 } = require("uuid");
 const multer = require("multer");
 const upload = multer({
-  dest: "public/uploads/"
+  dest: "public/uploads/",
 });
 
 app.use(express.static("public"));
@@ -44,13 +43,8 @@ var path = require("path");
 app.use(express.static(path.join(__dirname, "public")));
 
 //database verbinden
-const {
-  MongoClient,
-  ServerApiVersion
-} = require("mongodb");
-const {
-  addAbortSignal
-} = require("stream");
+const { MongoClient, ServerApiVersion } = require("mongodb");
+const { addAbortSignal } = require("stream");
 require("dotenv").config();
 const uri = process.env.MONGODB_URI;
 const client = new MongoClient(uri, {
@@ -69,6 +63,7 @@ const collectionUsers = databaseUsers.collection("col_users");
 //col voor de studs
 const databaseStuds = client.db("studsdb");
 const collectionStuds = databaseStuds.collection("col_studs");
+
 //session store
 const store = new MongoDBSession({
   uri: uri,
@@ -79,12 +74,12 @@ const secret = process.env.SECRET;
 const session1 = session({
   secret: secret,
   cookie: {
-    maxAge: 2592000000
+    maxAge: 2592000000,
   },
   resave: false,
   saveUninitialized: false,
   store: store,
-})
+});
 app.use(session1);
 
 // session auth
@@ -104,70 +99,60 @@ const checkLoggedin = (req, res, next) => {
   }
 };
 const connect = mongoose.connect(uri, {
-  dbName: 'studsdb',
+  dbName: "studsdb",
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
 });
 connect.then(
   (db) => {
-    console.log("Connected Successfully to Mongodb Server")
+    console.log("Connected Successfully to Mongodb Server");
   },
   (err) => {
-    console.log(err)
+    console.log(err);
   }
 );
 
 module.exports = connect;
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  })
+);
 
 app.get("/", checkLogin, async (req, res) => {
   res.redirect("/matchpage");
 });
 
+app.use(compression());
+app.use("/", require("./routes/ufukMatchPage"));
+app.use("/matchpage", require("./routes/ufukMatchPage"));
+// app.use("/login", require("./routes/qtLoginRegister"));
+app.use("/filter", require("./routes/bartFilter"));
+app.use("/theme", require("./routes/aliTheme"));
+// app.use("/chat", require("./routes/svenChat"));
+
 app.get("/account", checkLogin, async (req, res) => {
   const user1 = req.session.user.email;
   const user = await collectionUsers.findOne({
-    email: user1
+    email: user1,
   });
   const user2 = await collectionUsers.findOne({
-    email: "Quintenkok@me.com"
+    email: "Quintenkok@me.com",
   });
   res.render("account.ejs", {
     title: "Account",
     user,
-    user2
+    user2,
   });
 });
 app.get("/preRegister", checkLoggedin, (req, res) => {
   res.render("preRegister.ejs", {
-    title: "Register"
+    title: "Register",
   });
 });
 app.get("/registerQuestion", (req, res) => {
   res.render("registerQuestion.ejs", {
-    title: "Register"
-  });
-});
-
-//route naar de matchpage
-app.get("/matchpage", checkLogin, async (req, res) => {
-  const user1 = req.session.user.email;
-  const user = await collectionUsers.findOne({
-    email: user1
-  });
-  const selectedVakken = user.selectedVakken;
-  const selectedStuds = await collectionStuds.find({
-    vakken: {
-      $in: selectedVakken
-    },
-  }).toArray();
-  console.log(selectedVakken);
-  res.render("MatchPage.ejs", {
-    selectedStuds,
-    user,
-    selectedVakken,
+    title: "Register",
   });
 });
 
@@ -175,7 +160,7 @@ app.get("/sidebar", async (req, res) => {
   const studs = await collectionStuds.find().toArray();
   const user1 = req.session.user.email;
   const user = await collectionUsers.findOne({
-    email: user1
+    email: user1,
   });
   res.render("sidebar.ejs", {
     studs: studs,
@@ -236,10 +221,11 @@ app.post("/studentRegister", async (req, res) => {
     collectionUsers.insertOne(userdata, function (err) {
       if (err) {
         throw err;
-      } else {}
+      } else {
+      }
     });
     const requestedUser = await collectionUsers.findOne({
-      email
+      email,
     });
     console.log(requestedUser);
     req.session.authenticated = true;
@@ -283,19 +269,16 @@ app.post("/submit-sa", async (req, res) => {
 });
 app.get("/login", checkLoggedin, (req, res) => {
   res.render("preRegister.ejs", {
-    title: "Login"
+    title: "Login",
   });
 });
 
 app.post("/login", async (req, res) => {
   res.locals.title = "Login";
   // get form data and requested email from db
-  const {
-    email,
-    password
-  } = req.body;
+  const { email, password } = req.body;
   const requestedUser = await collectionUsers.findOne({
-    email
+    email,
   });
   console.log(requestedUser);
 
@@ -345,428 +328,21 @@ col_thema.forEach((theme) => {
 
 const collection = client.db("studsdb").collection("col_thema");
 
-// Insert a new theme into the database
-async function insertTheme(theme) {
-  try {
-    const result = await collection.insertOne(theme);
-    console.log("Theme saved to database:", theme);
-    col_thema.push(theme);
-    return result;
-  } catch (err) {
-    console.log(err);
-    throw err;
-  }
-}
-
-app.post("/nieuwThema", upload.single("image"), async (req, res) => {
-  console.log(req.file);
-  const {
-    body,
-    file
-  } = req;
-  const theme = {
-    _id: body.id,
-    name: body.name,
-    backgroundColor: body.color,
-    fontFamily: body.font,
-    textColor: body["font-color"],
-    images: file.filename,
-    thumbnailUrl: `/public/uploads/${file.filename}`,
-    user: req.session.user.email,
-    active: ""
-  };
-
-  try {
-    await insertTheme(theme);
-    try {
-      const user1 = req.session.user.email;
-      const user = await collectionUsers.findOne({
-        email: user1
-      });
-      const selectedVakken = user.selectedVakken;
-      const renderData = await collection
-        .find({
-          user: req.session.user.email
-        })
-        .toArray();
-      res.redirect("matchPage2");
-    } catch (err) {
-      console.error(err);
-      res.status(500).send("Failed to retrieve themes");
-    }
-  } catch (err) {
-    res.status(500).send({
-      error: "Failed to save theme"
-    });
-  }
-});
-
-
-app.get("/themaAanpassen", async (req, res) => {
-  if (!collection) {
-    return res.status(500).send("Unable to connect to database");
-  }
-
-  try {
-    const user1 = req.session.user.email;
-    const user = await collectionUsers.findOne({
-      email: user1
-    });
-    const selectedVakken = user.selectedVakken;
-    const renderData = await collection
-      .find({
-        user: req.session.user.email
-      })
-      .toArray();
-    res.render("theme-builder", {
-      col_thema: renderData,
-      user,
-      selectedVakken
-    });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Failed to retrieve themes");
-  }
-});
-app.post('/updateTheme', async (req, res) => {
-
-  const user1 = req.session.user.email;
-  const user = await collectionUsers.findOne({
-    email: user1
-  });
-  const renderData = await collection.find({
-    user: user1
-  }).toArray();
-  const selectedVakken = user.selectedVakken;
-  const selectedStuds = await collectionStuds.find({
-    vakken: {
-      $in: selectedVakken
-    },
-  }).toArray();
-  const themeId = req.body.themeId;
-  const themeID = await collection.findOne({
-    _id: new ObjectId(themeId)
-  });
-  console.log(themeID);
-  theme = themeID;
-  res.render("matchPage-2.ejs", {
-    col_thema: renderData,
-    theme,
-    randomQuote,
-    user,
-    selectedStuds,
-    selectedVakken,
-  });
-});
-
-
-app.get("/col_thema/:themeID", async (req, res) => {
-  try {
-    if (!collection) {
-      return res.status(500).send("Unable to connect to database");
-    }
-
-    const response = await fetch(
-      "https://opensheet.elk.sh/1er1dtNi_p5eKmqi70bGZLywuDzyce32JqzrywE57gU8/Blad1"
-    );
-    const quotes = await response.json();
-    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)].texts;
-
-    const id = req.params.themeID;
-    const theme = await collection.findOne({
-      _id: new ObjectId(id)
-    });
-    const user1 = req.session.user.email;
-    const user = await collectionUsers.findOne({
-      email: user1
-    });
-    const renderData = await collection.find({
-      user: user1
-    }).toArray();
-    res.render("theme-builder2", {
-      col_thema: renderData,
-      theme,
-      randomQuote,
-      user
-    });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Failed to retrieve theme");
-  }
-});
-
-app.delete("/col_thema/:themeID", async (req, res) => {
-  try {
-    if (!collection) {
-      return res.status(500).send("Unable to connect to database");
-    }
-
-    const id = req.params.themeID;
-    const result = await collection.deleteOne({
-      _id: new ObjectId(id)
-    });
-    if (result.deletedCount === 0) {
-      return res.status(404).send("Theme not found");
-    }
-
-    res.redirect("/themaAanpassen");
-  } catch (err) {
-    console.error(err);
-
-    res.status(500).send("Failed to delete theme");
-  }
-});
-
-app.get("/col_thema/:id", async (req, res) => {
-  const user1 = req.session.user.email;
-  const user = await collectionUsers.findOne({
-    email: user1
-  });
-  const theme = await collection.findOne({
-    _id: ObjectId(req.params.id),
-    user,
-  });
-  res.render("theme-builder2", {
-    theme,
-    col_thema,
-    user
-  });
-});
-
-app.get("/form", (req, res) => {
-  res.render("form.ejs");
-});
-
-app.get("/matchpage2", async (req, res) => {
-  const {
-    body,
-    file
-  } = req;
-  const theme = {
-    _id: body.id,
-    name: body.name,
-    backgroundColor: body.color,
-    fontFamily: body.font,
-    textColor: body["font-color"],
-    user: req.session.user.email,
-  };
-  const user1 = req.session.user.email;
-  const user = await collectionUsers.findOne({
-    email: user1
-  });
-  const selectedVakken = user.selectedVakken;
-  const selectedStuds = await collectionStuds.find({
-    vakken: {
-      $in: selectedVakken
-    },
-  }).toArray();
-  console.log(selectedVakken);
-
-  try {
-    const user1 = req.session.user.email;
-    const user = await collectionUsers.findOne({
-      email: user1
-    });
-    const renderData = await collection
-      .find({
-        user: req.session.user.email
-      })
-      .toArray();
-    res.render("matchPage-2.ejs", {
-      col_thema: renderData,
-      theme,
-      randomQuote,
-      user,
-      selectedStuds,
-      selectedVakken,
-    });
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Failed to retrieve themes");
-  }
-
-});
-
-
-
-app.delete("/col_thema/:themeID", async (req, res) => {
-  try {
-    if (!collection) {
-      return res.status(500).send("Unable to connect to database");
-    }
-
-    const id = req.params.themeID;
-    const result = await collection.deleteOne({
-      _id: new ObjectId(id)
-    });
-    if (result.deletedCount === 0) {
-      return res.status(404).send("Theme not found");
-    }
-
-    res.redirect("/themaAanpassen");
-  } catch (err) {
-    console.error(err);
-
-    res.status(500).send("Failed to delete theme");
-  }
-});
-
-app.get("/col_thema/:id", async (req, res) => {
-  const user1 = req.session.user.email;
-  const user = await collectionUsers.findOne({
-    email: user1
-  });
-  const theme = await collection.findOne({
-    _id: ObjectId(req.params.id),
-    user,
-  });
-  res.render("theme-builder2", {
-    theme,
-    col_thema
-  });
-});
-
-
 // Start the server
 
-app.get("/filter", async (req, res) => {
-  const user1 = req.session.user.email;
-  const user = await collectionUsers.findOne({
-    email: user1
-  });
-  const selectedVakken = user.selectedVakken;
-  console.log(selectedVakken)
-  collectionVakken
-    .find({})
-    .toArray()
-    .then((vakken, jaar) => {
-      const vaknamen = vakken.map((vak) => vak.naam);
-      res.render("filter.ejs", {
-        vakken: vaknamen,
-        jaar,
-        user,
-        selectedVakken
-      });
-    });
-});
-
-app.post("/filter", async (req, res) => {
-  const user1 = req.session.user.email;
-  const user = await collectionUsers.findOne({
-    email: user1
-  });
-  const selectedVakken = user.selectedVakken;
-  const selectedJaar = req.body.jaar;
-  collectionVakken
-    .find({
-      jaar: selectedJaar
-    })
-    .toArray()
-    .then((vakken) => {
-      const vaknamen = vakken.map((vak) => vak.naam); // Extract name field
-      res.render("filter.ejs", {
-        vakken: vaknamen,
-        jaar: selectedJaar,
-        user,
-        selectedVakken
-      });
-    });
-});
-
-app.post("/nextPage", async (req, res) => {
-  const selectedVakken = req.body.selectedVakken;
-
-  collectionUsers.updateOne({
-    email: req.session.user.email
-  }, {
-    $set: {
-      selectedVakken
-    }
-  });
-
-  // Check if at least two checkboxes are selected
-  //     if (!selectedVakken || selectedVakken.length < ) {
-  //       const user1 = req.session.user.email;
-  // const user =  await collectionUsers.findOne({ email: user1})
-  //       collectionVakken.find({}).toArray().then((vakken, jaar) => {
-  //         const vaknamen = vakken.map((vak) => vak.naam);
-  //       errorMessage = "Selecteer minstens 2 vakken.";
-  //       res.render("filter.ejs", { vakken: vaknamen, errorMessage: errorMessage, user });
-  //       console.log(errorMessage)
-  //       });
-  //     }
-  //     // Render the next page or the same page with an error message
-  //      else if (errorMessage) {
-  //       const user1 = req.session.user.email;
-  // const user =  await collectionUsers.findOne({ email: user1})
-  //       const errorMessage = "Selecteer minstens 2 vakken.";
-  //       res.render("filter.ejs", { vakken: vaknamen, erroMessage: errorMessage, user });
-  //       console.log(errorMessage)
-
-  //     } else {
-  res.redirect("/matchpage");
-  //     }
-});
-
-//route naar liked studs
-app.get("/likedstuds", async (req, res) => {
-  const user1 = req.session.user.email;
-  const user = await collectionUsers.findOne({
-    email: user1
-  });
-  const studs = await collectionStuds
-    .find({
-      liked: true,
-    })
-    .toArray();
-  res.render("likedStuds.ejs", {
-    studs: studs,
-    user,
-  });
-});
-
-const {
-  ObjectId
-} = require("mongodb");
-const {
-  log
-} = require("console");
-
-app.post("/like", async (req, res) => {
-  const studId = req.body.studId;
-  await collectionStuds.updateOne({
-    _id: new ObjectId(studId),
-  }, {
-    $set: {
-      liked: true,
-    },
-  });
-  res.redirect("/matchpage");
-});
-
-app.post("/unlike", async (req, res) => {
-  const studId = req.body.studId;
-  await collectionStuds.updateOne({
-    _id: new ObjectId(studId),
-  }, {
-    $set: {
-      liked: false,
-    },
-  });
-  res.redirect("/likedStuds");
-});
-
-
-//routes
+const { ObjectId } = require("mongodb");
+const { log } = require("console");
 
 app.use("/chats", chatRouter);
 
 //integrating socketio
 socket = io(http);
 //session
-socket.use(sharedSession(session1, {
-  autoSave: true
-}));
+socket.use(
+  sharedSession(session1, {
+    autoSave: true,
+  })
+);
 //database connection
 const Chat = require("./models/chatSchema");
 
@@ -780,10 +356,10 @@ socket.on("connection", async (socket) => {
   });
 
   //Somebody is typing
-  socket.on("typing", data => {
+  socket.on("typing", (data) => {
     socket.broadcast.emit("notifyTyping", {
       user: data.user,
-      message: data.message
+      message: data.message,
     });
   });
 
@@ -795,17 +371,16 @@ socket.on("connection", async (socket) => {
   socket.on("chat message", async function (msg) {
     console.log("message: " + msg);
 
-
     //broadcast message to everyone in port except yourself.
     socket.broadcast.emit("received", {
-      message: msg
+      message: msg,
     });
 
     //saves chat to the database
     connect.then(async (db) => {
-      const user1 = socket.handshake.session.user.name
+      const user1 = socket.handshake.session.user.name;
       const user = await collectionUsers.findOne({
-        name: user1
+        name: user1,
       });
       let chatMessage = new Chat({
         message: msg,
@@ -816,8 +391,6 @@ socket.on("connection", async (socket) => {
       await chatMessage.save();
     });
   });
-
-
 });
 http.listen(port, () => {
   console.log("Running on Port: " + port);
