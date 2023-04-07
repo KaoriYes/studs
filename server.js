@@ -10,7 +10,7 @@ const saltRounds = 12;
 require("dotenv").config();
 const mongoose = require("mongoose");
 mongoose.Promise = require("bluebird");
-const chatRouter = require("./routes/chatroute");
+
 const sharedSession = require("express-socket.io-session");
 const compression = require("compression");
 
@@ -34,7 +34,8 @@ app.use(express.static("public"));
 var path = require("path");
 app.use(express.static(path.join(__dirname, "public")));
 app.use("*/css", express.static("public/css"));
-app.use("/img", express.static(path.join(__dirname, "public/img")));
+app.use("*/img", express.static(path.join(__dirname, "public/img")));
+app.use("*/scripts", express.static(path.join(__dirname, "public/scripts")));
 
 app.set("view engine", "ejs");
 app.use("/public/", express.static("./public"));
@@ -126,69 +127,14 @@ app.get("/", checkLogin, async (req, res) => {
 app.use(compression());
 app.use("/", require("./routes/ufukMatchPage"));
 app.use("/matchpage", require("./routes/ufukMatchPage"));
-app.use("/studentRegister", require("./routes/qtLoginRegister"));
-app.use("/preRegister", require("./routes/qtLoginRegister"));
-app.use("/login", require("./routes/qtLoginRegister"));
-app.use("/registerQuestion", require("./routes/qtLoginRegister"));
-app.use("/logout", require("./routes/qtLoginRegister"));
-app.use("/studentRegister", require("./routes/qtLoginRegister"));
+
 app.use("/account", require("./routes/qtLoginRegister"));
 
 app.use("/filter", require("./routes/bartFilter"));
 app.use("/nextPage", require("./routes/bartFilter"));
 app.use("/theme", require("./routes/aliTheme"));
-app.use("/themaAanpassen", require("./routes/aliTheme"));
+app.use("/chats",  require("./routes/chatroute"));
 
-// app.use("/chat", require("./routes/svenChat"));
-
-app.post("/submit-sa", async (req, res) => {
-  const name = req.body.name;
-  const email = req.body.email;
-  const password = req.body.password;
-  const secondpassword = req.body.confirm_password;
-  const leerjaar = req.body.leerjaar;
-  const richting = req.body.richting;
-  if (password !== secondpassword) {
-    res.locals.subtitle = "Password does NOT match";
-    res.render("studentRegister.ejs");
-  } else {
-    res.redirect("/");
-    const hashedpw = await bcrypt.hash(password, saltRounds);
-    var userdata = {
-      name,
-      hashedpw,
-      email,
-      leerjaar,
-      richting,
-      // no need for : value if key and value are the same
-    };
-    collectionUsers.insertOne(userdata, function (err, collection) {
-      if (err) throw err;
-      console.log("Record inserted Successfully");
-    });
-  }
-});
-
-// Set up middleware
-
-app.use(bodyParser.json());
-
-// In-memory store for themes
-let col_thema = [];
-let randomQuote;
-
-col_thema.forEach((theme) => {
-  console.log(theme);
-});
-
-const collection = client.db("studsdb").collection("col_thema");
-
-// Start the server
-
-const { ObjectId } = require("mongodb");
-const { log } = require("console");
-
-app.use("/chats", chatRouter);
 
 //integrating socketio
 socket = io(http);

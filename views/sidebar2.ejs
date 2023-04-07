@@ -14,7 +14,7 @@
             <li><a href="#" class="settingsButton">Instellingen</a></li>
             <li>
                 <h3>Selecteer een thema:</h3>
-                <form id="theme-form" method="POST" action="/updateTheme">
+                <form id="theme-form" method="POST" action="/theme/updateTheme">
                     <select id="theme-selector" name="themeId">
                         <% col_thema.forEach(function(theme){ %>
                         <option value="<%= theme._id %>" id="<%= theme._id %>" name="<%= theme._id %>"><%= theme.name %>

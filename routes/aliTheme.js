@@ -17,6 +17,13 @@ const multer = require("multer");
 const upload = multer({
   dest: "public/uploads/",
 });
+// In-memory store for themes
+let col_thema = [];
+let randomQuote;
+
+col_thema.forEach((theme) => {
+  console.log(theme);
+});
 
 //vakken datsase
 const databaseVakken = client.db("studsdb");
@@ -28,6 +35,8 @@ const collectionUsers = databaseUsers.collection("col_users");
 //col voor de studs
 const databaseStuds = client.db("studsdb");
 const collectionStuds = databaseStuds.collection("col_studs");
+//col voor de thema's
+const collection = client.db("studsdb").collection("col_thema");
 
 router.get("/themaAanpassen", async (req, res) => {
   if (!collection) {
@@ -179,7 +188,7 @@ router.delete("/col_thema/:themeID", async (req, res) => {
       return res.status(404).send("Theme not found");
     }
 
-    res.redirect("/themaAanpassen");
+    res.redirect("/theme/themaAanpassen");
   } catch (err) {
     console.error(err);
 
@@ -335,6 +344,7 @@ router.get("/col_thema/:id", async (req, res) => {
 // Insert a new theme into the database
 async function insertTheme(theme) {
   try {
+    
     const result = await collection.insertOne(theme);
     console.log("Theme saved to database:", theme);
     col_thema.push(theme);

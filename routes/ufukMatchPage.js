@@ -40,7 +40,9 @@ router.get("/matchpage", checkLogin, async (req, res) => {
   const user = await collectionUsers.findOne({
     email: user1,
   });
+  console.log(user)
   const selectedVakken = user.selectedVakken;
+  console.log(selectedVakken)
   const selectedStuds = await collectionStuds
     .find({
       vakken: {

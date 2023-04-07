@@ -44,7 +44,7 @@ router.get("/", async (req, res) => {
 });
 
 // filters posten
-router.post("/filter", async (req, res) => {
+router.post("/", async (req, res) => {
   const user1 = req.session.user.email;
   const user = await collectionUsers.findOne({
     email: user1,

@@ -1,19 +1,45 @@
 require("dotenv").config();
 
 const express = require("express");
+const app = express();
 const router = express.Router();
+const bcrypt = require("bcryptjs");
+const saltRounds = 12;
+const session = require("express-session");
+const MongoDBSession = require("express-mongodb-session")(session);
 
 //database verbinden
 const { MongoClient, ServerApiVersion } = require("mongodb");
-const { addAbortSignal } = require("stream");
 const uri = process.env.MONGODB_URI;
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   serverApi: ServerApiVersion.v1,
 });
-const { ObjectId } = require("mongodb");
 
+const databaseUsers = client.db("studsdb");
+const collectionUsers = databaseUsers.collection("col_users");
+
+
+//session store
+const store = new MongoDBSession({
+  uri: uri,
+  collection: "col_sessions",
+  databaseName: "studsdb",
+});
+const secret = process.env.SECRET;
+const session1 = session({
+  secret: secret,
+  cookie: {
+    maxAge: 2592000000,
+  },
+  resave: false,
+  saveUninitialized: false,
+  store: store,
+});
+app.use(session1);
+
+// session auth
 const checkLogin = (req, res, next) => {
   if (req.session.user) {
     next();
@@ -30,7 +56,9 @@ const checkLoggedin = (req, res, next) => {
   }
 };
 
-router.get("/studentRegister", (req, res) => {
+
+// --- routes ---
+router.get("/studentRegister", checkLoggedin, (req, res) => {
   res.render("studentRegistrer.ejs", {
     title: "Student Register",
     subtitle: "",
@@ -93,7 +121,7 @@ router.get("/logout", (req, res) => {
   req.session.destroy((err) => {
     if (err) console.log(err);
     res.clearCookie("connect.sid");
-    res.redirect("/preRegister");
+    res.redirect("/account/preRegister");
   });
 });
 
@@ -156,7 +184,7 @@ router.post("/studentRegister", async (req, res) => {
   }
 });
 
-router.get("/account", checkLogin, async (req, res) => {
+router.get("/", checkLogin, async (req, res) => {
   const user1 = req.session.user.email;
   const user = await collectionUsers.findOne({
     email: user1,
